@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour {
     {
 
 	}
-    public void changePanel(string panel)
+    public void ChangePanel(string panel)
     {
         GameObject tempPanel = null;
         RectTransform rectTransform = null;
@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour {
                 openPanel.transform.parent = gameObject.transform;
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
-                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener( () => { this.changePanel("mainPanel"); } );
+                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener( () => { this.ChangePanel("mainPanel"); } );
                 break;
             case "pitScoutPanel":
                 tempPanel = Instantiate(pitScoutPanel);
@@ -40,7 +40,7 @@ public class UIManager : MonoBehaviour {
                 openPanel.transform.parent = gameObject.transform;
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
-                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { this.changePanel("mainPanel"); });
+                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { this.ChangePanel("mainPanel"); });
                 break;
             case "analyticsPanel":
                 tempPanel = Instantiate(analyticsPanel);
@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour {
                 openPanel.transform.parent = gameObject.transform;
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
-                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { this.changePanel("mainPanel"); });
+                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { this.ChangePanel("mainPanel"); });
                 break;
             case "mainPanel":
                 tempPanel = Instantiate(mainPanel);
@@ -60,9 +60,9 @@ public class UIManager : MonoBehaviour {
                 openPanel.transform.parent = gameObject.transform;
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
-                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { this.changePanel("pitScoutPanel"); });
-                openPanel.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => { this.changePanel("matchScoutPanel"); });
-                openPanel.GetComponentsInChildren<Button>()[2].onClick.AddListener(() => { this.changePanel("analyticsPanel"); });
+                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { this.ChangePanel("pitScoutPanel"); });
+                openPanel.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => { this.ChangePanel("matchScoutPanel"); });
+                openPanel.GetComponentsInChildren<Button>()[2].onClick.AddListener(() => { this.ChangePanel("analyticsPanel"); });
                 break;
         }
     }

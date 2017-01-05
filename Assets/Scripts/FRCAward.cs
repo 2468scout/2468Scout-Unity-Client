@@ -5,10 +5,9 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-    class Team
+    class FRCAward
     {
-        string sTeamName;
-        int iTeamNumber;
-        List<FRCAward> awardsList;
+        string sAwardName, sEventCode;
+        int iYear, iAwardType;
     }
 }

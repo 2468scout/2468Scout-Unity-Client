@@ -16,7 +16,7 @@ public class MatchScoutPanel_ContentManager : MonoBehaviour {
 	void Update () {
 		
 	}
-    public void saveTeamMatch()
+    public void SaveTeamMatch()
     {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + currentlyScoutingTeamMatch.sFileName + ".dat");

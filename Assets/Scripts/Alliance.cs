@@ -5,10 +5,8 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-    class Team
+    class Alliance
     {
-        string sTeamName;
-        int iTeamNumber;
-        List<FRCAward> awardsList;
+        Team allianceCaptain, firstPickTeam, secondPickTeam, backupTeam;
     }
 }

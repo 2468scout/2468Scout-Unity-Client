@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-    class Team
+    class FRCEvent
     {
-        string sTeamName;
-        int iTeamNumber;
-        List<FRCAward> awardsList;
+        string sEventName, sEventCode;
+        List<Team> teamList;
+        List<Alliance> allianceList;
     }
 }
