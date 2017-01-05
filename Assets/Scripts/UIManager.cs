@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour {
 
     public GameObject mainPanel, matchScoutPanel, pitScoutPanel, analyticsPanel, openPanel;
+    public string sUserName;
 	// Use this for initialization
 	void Start () {
 	    
