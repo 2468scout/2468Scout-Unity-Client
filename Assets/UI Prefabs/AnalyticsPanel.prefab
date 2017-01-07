@@ -121,7 +121,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224008130528530652}
-  - component: {fileID: 114761743817404632}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -545,6 +544,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 261364fd15a00b2418dfe803927a6ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectableTeamPanel: {fileID: 1134809828251130, guid: ab491390ac4c6a04b95427304f99f206,
+    type: 2}
+  selectableMatchPanel: {fileID: 0}
+  content: {fileID: 1570975357941540}
 --- !u!114 &114609977891739860
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -744,17 +747,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114761743817404632
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1570975357941540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54e5e8e547b5d76499168523de4955e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114770226854629152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -941,7 +933,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 300.00003}
+  m_AnchoredPosition: {x: 0, y: -0.000011712313}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224152335184190428

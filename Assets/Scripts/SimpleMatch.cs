@@ -5,11 +5,9 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-    class Match
+    public class SimpleMatch
     {
-        int iMatchNumber, iRedScore, iBlueScore, iRedRankingPoints, iBlueRankingPoints;
+        int iMatchNumber, iRedScore, iBlueScore;
         string sCompetitionLevel, sEventPlayedAtCode;
-        List<TeamMatch> teamMatchList;
-
     }
 }

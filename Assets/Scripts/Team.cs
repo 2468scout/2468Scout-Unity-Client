@@ -10,5 +10,9 @@ namespace Assets.Scripts
         string sTeamName;
         int iTeamNumber;
         List<FRCAward> awardsList;
+
+        //ADD GAME SPECIFIC STATS
+        float avgGearsPerMatch, avgHighFuelPerMatch, avgLowFuelPerMatch, avgRankingPoints;
+        
     }
 }

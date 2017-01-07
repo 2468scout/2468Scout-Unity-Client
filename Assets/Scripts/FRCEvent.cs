@@ -10,5 +10,8 @@ namespace Assets.Scripts
         string sEventName, sEventCode;
         List<Team> teamList;
         List<Alliance> allianceList;
+        List<TeamMatch> teamMatchList;
+        List<Match> matchList;
+        List<string> listNamesByTeamMatch;
     }
 }
