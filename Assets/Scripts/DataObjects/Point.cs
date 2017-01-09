@@ -7,6 +7,6 @@ namespace Assets.Scripts
 {
     public class Point
     {
-        int x, y;
+        float x, y;
     }
 }

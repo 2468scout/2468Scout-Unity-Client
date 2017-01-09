@@ -7,7 +7,7 @@ namespace Assets.Scripts
 {
     public class MatchEvent
     {
-        int iTimeStamp, iPointValue;
+        int iTimeStamp, iPointValue, iCount;
         bool bInAutonomous;
         string sEventName;
         Point loc;
