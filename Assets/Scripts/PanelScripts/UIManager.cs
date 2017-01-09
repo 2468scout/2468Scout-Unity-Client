@@ -9,13 +9,14 @@ namespace Assets.Scripts
     {
 
         public GameObject mainPanel, matchScoutPanel, pitScoutPanel, analyticsPanel, openPanel;
-        public string sUserName, sEventCode, sPrevEventCode;
+        public string sUserName, sEventCode, sPrevEventCode, sPrevUserName;
+        public List<TeamMatch> teamMatchListToScout;
         string sGetEventURL = "http://frc2468.org/events/";
         FRCEvent currentEvent;
         // Use this for initialization
         void Start()
         {
-
+            currentEvent = new FRCEvent();
         }
 
         // Update is called once per frame
@@ -25,6 +26,22 @@ namespace Assets.Scripts
             {
                 DownloadEvent();
                 sPrevEventCode = sEventCode;
+            }
+            if(sPrevEventCode != sEventCode || sPrevUserName != sUserName)
+            {
+                List<int> teamMatchPositions = new List<int>();
+                for (int i = 0; i < currentEvent.listNamesByTeamMatch.Count; i++)
+                {
+                    string s = currentEvent.listNamesByTeamMatch[i];
+                    if (s == sUserName)
+                    {
+                        teamMatchPositions.Add(i);
+                    }
+                }
+                for(int i = 0; i < teamMatchPositions.Count; i++)
+                {
+                    teamMatchListToScout.Add(currentEvent.teamMatchList[teamMatchPositions[i]]);
+                }
             }
         }
         public IEnumerator DownloadEvent ()

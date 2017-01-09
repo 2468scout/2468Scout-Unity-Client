@@ -9,5 +9,6 @@ namespace Assets.Scripts
     {
         int iMatchNumber, iRedScore, iBlueScore;
         string sCompetitionLevel, sEventPlayedAtCode;
+        List<string> listTeamsBlueAlliance, listTeamsRedAlliance;
     }
 }

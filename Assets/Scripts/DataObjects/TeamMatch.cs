@@ -9,7 +9,7 @@ namespace Assets.Scripts
     [System.Serializable]
     public class TeamMatch
     {
-        public int iTeamNumber, iMatchNumber, iAllianceNumber;
+        public int iTeamNumber, iMatchNumber, iNumberInAlliance, iAllianceNumber;
         public string sNotes, sFileName, sEventCode;
         public bool bColor; // False is blue, true is red
         

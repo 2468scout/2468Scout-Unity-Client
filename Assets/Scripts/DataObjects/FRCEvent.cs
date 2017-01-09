@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-    class FRCEvent
+    public class FRCEvent
     {
         string sEventName, sEventCode;
-        List<Team> teamList;
-        List<Alliance> allianceList;
-        List<TeamMatch> teamMatchList;
-        List<Match> matchList;
-        List<string> listNamesByTeamMatch;
+        List<string> teamNameList;
+        //List<Alliance> allianceList;
+        public List<TeamMatch> teamMatchList;
+        List<SimpleMatch> matchList;
+        public List<string> listNamesByTeamMatch;
     }
 }
