@@ -7,17 +7,40 @@ namespace Assets.Scripts{
     public class MatchScoutPanel_ContentManager : MonoBehaviour
     {
         string teamMatchURL = "http://frc2468.org/matchUpload";
+        GameObject fieldPanel;
+        RectTransform fieldPanelRectTransform;
+        float aspectRatio;
         TeamMatch currentlyScoutingTeamMatch;
         // Use this for initialization
         void Start()
         {
-
+            fieldPanel = GameObject.Find("FieldPanel");
+            fieldPanelRectTransform = fieldPanel.GetComponent<RectTransform>();
+            aspectRatio = (fieldPanelRectTransform.rect.height) / fieldPanelRectTransform.rect.width;
         }
 
         // Update is called once per frame
         void Update()
         {
-
+            if(aspectRatio != 784 / 2048)
+            {
+                if (aspectRatio > 784 / 2048) //Taller than it should be
+                {
+                    int rightHeight = (int)((fieldPanelRectTransform.rect.width / 2048) * (784));
+                    int heightMod = (int)(rightHeight - fieldPanelRectTransform.rect.height);
+                    fieldPanelRectTransform.offsetMax = new Vector2(0, heightMod / 2);
+                    fieldPanelRectTransform.offsetMin = new Vector2(0, - (heightMod / 2));
+                    aspectRatio = (fieldPanelRectTransform.rect.height) / fieldPanelRectTransform.rect.width;
+                }
+                else                         //Wider than it should be
+                {
+                    int rightWidth = (int)((fieldPanelRectTransform.rect.height / 784) * (2048));
+                    int widthMod = (int)(rightWidth - fieldPanelRectTransform.rect.width);
+                    fieldPanelRectTransform.offsetMax = new Vector2(widthMod/2, 0);
+                    fieldPanelRectTransform.offsetMin = new Vector2(- (widthMod/2), 0);
+                    aspectRatio = (fieldPanelRectTransform.rect.height) / fieldPanelRectTransform.rect.width;
+                }
+            }
         }
         public void SaveTeamMatch()
         {

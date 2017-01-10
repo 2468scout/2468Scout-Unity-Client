@@ -28,6 +28,7 @@ namespace Assets.Scripts
         {
             manager.sEventCode = eventCodeText.text;
             manager.sUserName = userNameText.text;
+            manager.ChangePanel("mainPanel");
         }
     }
 }

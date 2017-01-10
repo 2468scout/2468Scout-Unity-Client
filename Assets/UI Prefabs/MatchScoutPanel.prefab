@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 224821607764902678}
   - component: {fileID: 222511168982956084}
   - component: {fileID: 114330406675156184}
+  - component: {fileID: 114323316304123886}
   m_Layer: 5
   m_Name: MatchScoutPanel
   m_TagString: Untagged
@@ -159,6 +160,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114323316304123886
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1648408234723098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54e5e8e547b5d76499168523de4955e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114330406675156184
 MonoBehaviour:
   m_ObjectHideFlags: 1

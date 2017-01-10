@@ -8,10 +8,10 @@ namespace Assets.Scripts
     public class UIManager : MonoBehaviour
     {
 
-        public GameObject mainPanel, matchScoutPanel, pitScoutPanel, analyticsPanel, openPanel;
+        public GameObject mainPanel, matchScoutPanel, pitScoutPanel, analyticsPanel, loginPanel, openPanel;
         public string sUserName, sEventCode, sPrevEventCode, sPrevUserName;
         public List<TeamMatch> teamMatchListToScout;
-        string sGetEventURL = "http://frc2468.org/events/";
+        string sGetEventURL = "196.168.56.1:8080/events/";
         FRCEvent currentEvent;
         // Use this for initialization
         void Start()
@@ -89,6 +89,19 @@ namespace Assets.Scripts
                     break;
                 case "mainPanel":
                     tempPanel = Instantiate(mainPanel);
+                    rectTransform = tempPanel.GetComponent<RectTransform>();
+                    Destroy(openPanel);
+                    openPanel = tempPanel;
+                    openPanel.transform.parent = gameObject.transform;
+                    rectTransform.offsetMin = new Vector2(0, 0);
+                    rectTransform.offsetMax = new Vector2(0, 0);
+                    openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { this.ChangePanel("pitScoutPanel"); });
+                    openPanel.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => { this.ChangePanel("matchScoutPanel"); });
+                    openPanel.GetComponentsInChildren<Button>()[2].onClick.AddListener(() => { this.ChangePanel("analyticsPanel"); });
+                    openPanel.GetComponentsInChildren<Button>()[3].onClick.AddListener(() => { this.ChangePanel("loginPanel"); });
+                    break;
+                case "loginPanel":
+                    tempPanel = Instantiate(loginPanel);
                     rectTransform = tempPanel.GetComponent<RectTransform>();
                     Destroy(openPanel);
                     openPanel = tempPanel;
