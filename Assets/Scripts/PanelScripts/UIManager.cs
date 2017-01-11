@@ -108,9 +108,6 @@ namespace Assets.Scripts
                     openPanel.transform.parent = gameObject.transform;
                     rectTransform.offsetMin = new Vector2(0, 0);
                     rectTransform.offsetMax = new Vector2(0, 0);
-                    openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { this.ChangePanel("pitScoutPanel"); });
-                    openPanel.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => { this.ChangePanel("matchScoutPanel"); });
-                    openPanel.GetComponentsInChildren<Button>()[2].onClick.AddListener(() => { this.ChangePanel("analyticsPanel"); });
                     break;
             }
         }
