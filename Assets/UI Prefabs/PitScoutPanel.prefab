@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224440539232581618}
-  - component: {fileID: 114392310673788662}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -105,6 +104,7 @@ GameObject:
   - component: {fileID: 224425590636763994}
   - component: {fileID: 222319812893562948}
   - component: {fileID: 114102346213608484}
+  - component: {fileID: 114384473531226952}
   m_Layer: 5
   m_Name: PitScoutPanel
   m_TagString: Untagged
@@ -584,15 +584,15 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Button
---- !u!114 &114392310673788662
+--- !u!114 &114384473531226952
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1141397932802624}
+  m_GameObject: {fileID: 1297808088053184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54e5e8e547b5d76499168523de4955e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fc7d67f6cf866045ad51c212c97032a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114573315997039500
@@ -701,8 +701,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114044531602320214}
   m_HandleRect: {fileID: 224352898164845146}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.81875
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1099,8 +1099,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0000016763806}
-  m_SizeDelta: {x: 0, y: 300}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 600}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224447809385955286
 RectTransform:
