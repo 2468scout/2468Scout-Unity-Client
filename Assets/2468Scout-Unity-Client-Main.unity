@@ -193,6 +193,12 @@ Prefab:
       propertyPath: openPanel
       value: 
       objectReference: {fileID: 1959794535}
+    - target: {fileID: 114688188530383694, guid: 0c12b5fbda81664438119bec586207c3,
+        type: 2}
+      propertyPath: loginPanel
+      value: 
+      objectReference: {fileID: 1220046461198874, guid: 707c8eca485a6234b8745c6f4787c27c,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c12b5fbda81664438119bec586207c3, type: 2}
   m_IsPrefabParent: 0
@@ -400,6 +406,7 @@ MonoBehaviour:
     type: 2}
   analyticsPanel: {fileID: 1175494049306230, guid: d8fcae399c8a141439ff132b46a79aca,
     type: 2}
+  loginPanel: {fileID: 1220046461198874, guid: 707c8eca485a6234b8745c6f4787c27c, type: 2}
   openPanel: {fileID: 1959794535}
   sUserName: 
   sEventCode: 
@@ -480,6 +487,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1433366231}
     m_Modifications:
+    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224613768047745892, guid: 869a32609b1b4c34b9f70aa237b3ea83,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -599,6 +611,46 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChangePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1433366232}
+    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: '"loginPanel"'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114073029327543470, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+        type: 2}
+      propertyPath: m_FontData.m_BestFit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114073029327543470, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+        type: 2}
+      propertyPath: m_FontData.m_MaxSize
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 869a32609b1b4c34b9f70aa237b3ea83, type: 2}
