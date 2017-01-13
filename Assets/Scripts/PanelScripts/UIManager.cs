@@ -8,7 +8,7 @@ namespace Assets.Scripts
     public class UIManager : MonoBehaviour
     {
 
-        public GameObject mainPanel, matchScoutPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel;
+        public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel;
         public string sUserName, sEventCode, sPrevEventCode, sPrevUserName;
         public List<TeamMatch> teamMatchListToScout;
         string sGetEventURL = "196.168.56.1:8080/events/";
@@ -108,9 +108,6 @@ namespace Assets.Scripts
                     openPanel.transform.parent = gameObject.transform;
                     rectTransform.offsetMin = new Vector2(0, 0);
                     rectTransform.offsetMax = new Vector2(0, 0);
-                    openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { this.ChangePanel("pitScoutPanel"); });
-                    openPanel.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => { this.ChangePanel("matchScoutPanel"); });
-                    openPanel.GetComponentsInChildren<Button>()[2].onClick.AddListener(() => { this.ChangePanel("analyticsPanel"); });
                     break;
             }
         }
