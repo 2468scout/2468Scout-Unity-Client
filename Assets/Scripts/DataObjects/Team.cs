@@ -12,7 +12,7 @@ namespace Assets.Scripts
         List<FRCAward> awardsList;
 
         //ADD GAME SPECIFIC STATS
-        float avgGearsPerMatch, avgHighFuelPerMatch, avgLowFuelPerMatch, avgRankingPoints;
+        float fAvgGearsPerMatch, fAvgHighFuelPerMatch, fAvgLowFuelPerMatch, fAvgRankingPoints;
         
     }
 }
