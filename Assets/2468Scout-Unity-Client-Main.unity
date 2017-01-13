@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -198,6 +198,12 @@ Prefab:
       propertyPath: loginPanel
       value: 
       objectReference: {fileID: 1220046461198874, guid: 707c8eca485a6234b8745c6f4787c27c,
+        type: 2}
+    - target: {fileID: 114688188530383694, guid: 0c12b5fbda81664438119bec586207c3,
+        type: 2}
+      propertyPath: teamPanel
+      value: 
+      objectReference: {fileID: 1599247158091348, guid: 61e13c8f724a51c4b9571b51abec99a6,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c12b5fbda81664438119bec586207c3, type: 2}
@@ -407,6 +413,7 @@ MonoBehaviour:
   analyticsPanel: {fileID: 1175494049306230, guid: d8fcae399c8a141439ff132b46a79aca,
     type: 2}
   loginPanel: {fileID: 1220046461198874, guid: 707c8eca485a6234b8745c6f4787c27c, type: 2}
+  teamPanel: {fileID: 1599247158091348, guid: 61e13c8f724a51c4b9571b51abec99a6, type: 2}
   openPanel: {fileID: 1959794535}
   sUserName: 
   sEventCode: 
