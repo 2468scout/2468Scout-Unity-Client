@@ -1,0 +1,60 @@
+Initialize engine version: 5.5.0f3 (38b4efef76f0)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: Intel(R) HD Graphics 5500 (ID=0x1616)
+    Vendor:   Intel
+    VRAM:     2111 MB
+    Driver:   20.19.15.4474
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Ian\Documents\GitHub\2468Scout-Unity-Client\2468Scout_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Ian\Documents\GitHub\2468Scout-Unity-Client\2468Scout_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Ian\Documents\GitHub\2468Scout-Unity-Client\2468Scout_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Ian\Documents\GitHub\2468Scout-Unity-Client\2468Scout_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Ian\Documents\GitHub\2468Scout-Unity-Client\2468Scout_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Ian\Documents\GitHub\2468Scout-Unity-Client\2468Scout_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Ian\Documents\GitHub\2468Scout-Unity-Client\2468Scout_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Ian\Documents\GitHub\2468Scout-Unity-Client\2468Scout_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Ian\Documents\GitHub\2468Scout-Unity-Client\2468Scout_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\Ian\Documents\GitHub\2468Scout-Unity-Client\2468Scout_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: C:\Users\Ian\Documents\GitHub\2468Scout-Unity-Client\2468Scout_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading C:\Users\Ian\Documents\GitHub\2468Scout-Unity-Client\2468Scout_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+- Completed reload, in  0.214 seconds
+Platform assembly: C:\Users\Ian\Documents\GitHub\2468Scout-Unity-Client\2468Scout_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Ian\Documents\GitHub\2468Scout-Unity-Client\2468Scout_Data\Managed\System.dll (this message is harmless)
+desktop: 3840x2160 60Hz; virtual: 3840x2160 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 3.168062 ms
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 2aac -> priority: 1 
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at Assets.Scripts.MatchScoutPanel_ContentManager.Start () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+

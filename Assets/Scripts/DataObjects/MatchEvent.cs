@@ -7,9 +7,15 @@ namespace Assets.Scripts
 {
     public class MatchEvent
     {
-        int iTimeStamp, iPointValue, iCount;
+        Time timeStamp; 
+        int iPointValue, iCount;
         bool bInAutonomous;
-        string sEventName;
         Point loc;
+        public MatchEvent(Time timeStamp, bool bInAutonomous, Point loc)
+        {
+            this.timeStamp = timeStamp;
+            this.bInAutonomous = bInAutonomous;
+            this.loc = loc;
+        }
     }
 }
