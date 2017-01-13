@@ -8,7 +8,7 @@ namespace Assets.Scripts
     public class UIManager : MonoBehaviour
     {
 
-        public GameObject mainPanel, matchScoutPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel;
+        public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel;
         public string sUserName, sEventCode, sPrevEventCode, sPrevUserName;
         public List<TeamMatch> teamMatchListToScout;
         string sGetEventURL = "196.168.56.1:8080/events/";

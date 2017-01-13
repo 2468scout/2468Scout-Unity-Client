@@ -12,8 +12,10 @@ namespace Assets.Scripts{
         GameObject fieldImage;
         RectTransform fieldImageRectTransform;
         float aspectRatio;
+        Time matchStartTime;
         TeamMatch currentlyScoutingTeamMatch;
         Button backButton, matchStartButton, menuButton, fieldImageButton;
+        UIManager manager;
         // Use this for initialization
         void Start()
         {
@@ -27,6 +29,9 @@ namespace Assets.Scripts{
             menuButton = buttonArray[1];
             matchStartButton = buttonArray[2];
             fieldImageButton = buttonArray[3];
+            manager = GetComponentInParent<UIManager>();
+            matchStartButton.onClick.AddListener(() => { this.StartMatch(); });
+            fieldImageButton.onClick.AddListener(() => { this.CreatePointMatch(UnityEngine.Input.mousePosition); });
         }
 
         // Update is called once per frame
@@ -62,9 +67,19 @@ namespace Assets.Scripts{
             }            
         }
 
-        public void CreatePointMatch()
+        public void CreatePointMatch(Vector2 mousePosition)
         {
-
+            Time timeInMatch = new Time(System.DateTime.Now.Millisecond - matchStartTime.millisecond, System.DateTime.Now.Second - matchStartTime.second, System.DateTime.Now.Minute - matchStartTime.minute);
+            GameObject createdPointMatchPanel = Instantiate(manager.pointEventButtonPanel);
+            MatchEvent newEvent = new MatchEvent(timeInMatch, timeInMatch.minute == 0 && timeInMatch.second <= 15, new Point(mousePosition.x / fieldImageRectTransform.rect.width, mousePosition.y / fieldImageRectTransform.rect.height));
+            createdPointMatchPanel.GetComponent<RectTransform>().localPosition = mousePosition;
+            createdPointMatchPanel.transform.SetParent(this.transform);
+        }
+        
+        public void StartMatch()
+        {
+            matchStartTime = new Time (System.DateTime.Now.Millisecond, System.DateTime.Now.Second, System.DateTime.Now.Minute);
+            Debug.Log(JsonUtility.ToJson(matchStartTime));
         }
     }
 }
