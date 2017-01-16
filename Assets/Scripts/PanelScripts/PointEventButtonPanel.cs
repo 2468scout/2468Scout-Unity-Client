@@ -48,10 +48,27 @@ namespace Assets.Scripts
 
         void SetMatchEventCode(string s)
         {
-            if (s == "cancel")
+            switch (s)
             {
-                GetComponentInParent<MatchScoutPanel_ContentManager>().currentlyScoutingTeamMatch.matchEventList.Remove(this.currentEvent);
-                Destroy(this.gameObject);
+
+                case "cancel":
+                    GetComponentInParent<MatchScoutPanel_ContentManager>().currentlyScoutingTeamMatch.matchEventList.Remove(this.currentEvent);
+                    Destroy(this.gameObject);
+                    break;
+
+                case "HIGH_GOAL_START":
+                    GetComponentInParent<MatchScoutPanel_ContentManager>().MatchEventStart(currentEvent, "HIGH_GOAL_STOP");
+                    break;
+
+                case "LOW_GOAL_START":
+                    GetComponentInParent<MatchScoutPanel_ContentManager>().MatchEventStart(currentEvent, "LOW_GOAL_STOP");
+                    break;
+
+                case "HIGH_GOAL_MISS":
+                    break;
+
+                case "LOW_GOAL_MISS":
+                    break;
             }
             currentEvent.sEventName = s;
             Debug.Log(JsonUtility.ToJson(currentEvent));

@@ -9,13 +9,15 @@ namespace Assets.Scripts{
     public class MatchScoutPanel_ContentManager : MonoBehaviour
     {
         string teamMatchURL = "http://frc2468.org/matchUpload";
+        bool bInAutonomous;
         GameObject fieldImage;
         RectTransform fieldImageRectTransform;
         float aspectRatio;
         Time matchStartTime;
         public TeamMatch currentlyScoutingTeamMatch;
-        Button backButton, matchStartButton, menuButton, fieldImageButton;
+        Button backButton, matchStartButton, menuButton, fieldImageButton, stopEventButton;
         UIManager manager;
+        Text timeRemainingText, stopEventButtonText;
         // Use this for initialization
         void Start()
         {
@@ -30,15 +32,24 @@ namespace Assets.Scripts{
             menuButton = buttonArray[1];
             matchStartButton = buttonArray[2];
             fieldImageButton = buttonArray[3];
+            stopEventButton = buttonArray[4];
             manager = GetComponentInParent<UIManager>();
             matchStartButton.onClick.AddListener(() => { this.StartMatch(); });
-            fieldImageButton.onClick.AddListener(() => { this.CreatePointMatch(UnityEngine.Input.mousePosition); });
+            fieldImageButton.onClick.AddListener(() => { this.CreatePointEvent(UnityEngine.Input.mousePosition); });
+
+            Text[] textArray = GetComponentsInChildren<Text>();
+            timeRemainingText = textArray[2];
+            stopEventButtonText = textArray[4];
+
+            stopEventButton.gameObject.SetActive(false);
         }
 
         // Update is called once per frame
         void Update()
         {
-            
+            Time t = GetCurrentTime();
+            t.TimeSince(matchStartTime);
+            timeRemainingText.text = t.TimeSince(matchStartTime).ToString();
         }
         public void SaveTeamMatch()
         {
@@ -68,10 +79,10 @@ namespace Assets.Scripts{
             }            
         }
 
-        public void CreatePointMatch(Vector2 mousePosition)
+        public void CreatePointEvent(Vector2 mousePosition)
         {
             Time timeInMatch = GetCurrentTime();
-            timeInMatch.subtract(matchStartTime);
+            timeInMatch = timeInMatch.TimeSince(matchStartTime);
             GameObject createdPointMatchPanel = Instantiate(manager.pointEventButtonPanel);
             MatchEvent newEvent = new MatchEvent(timeInMatch, timeInMatch.minute == 0 && timeInMatch.second <= 15, new Point(mousePosition.x / fieldImageRectTransform.rect.width, mousePosition.y / fieldImageRectTransform.rect.height));
             createdPointMatchPanel.GetComponent<RectTransform>().localPosition = mousePosition;
@@ -84,12 +95,43 @@ namespace Assets.Scripts{
         public void StartMatch()
         {
             matchStartTime = GetCurrentTime();
+            matchStartButton.gameObject.SetActive(false);
             Debug.Log(JsonUtility.ToJson(matchStartTime));
         }
 
         Time GetCurrentTime()
         {
-            return new Time(System.DateTime.Now.Millisecond, System.DateTime.Now.Second, System.DateTime.Now.Minute);
+            return new Time(System.DateTime.Now);
+        }
+
+        public void EnterCount()
+        {
+
+        }
+
+        public void MatchEventStart(MatchEvent matchEvent, string s)
+        {
+            stopEventButton.gameObject.SetActive(true);
+            switch (s)
+            {
+                case "HIGH_GOAL_STOP":
+                    stopEventButtonText.text = "High goal stopped";
+                    break;
+                case "LOW_GOAL_STOP":
+                    stopEventButtonText.text = "Low goal stopped";
+                    break;
+            }
+            stopEventButtonText.text = s;
+            stopEventButton.onClick.AddListener( () => { this.GenerateStopMatchEvent(s); });
+        }
+
+        public void GenerateStopMatchEvent(string s)
+        {
+            Time timeInMatch = GetCurrentTime();
+            timeInMatch = timeInMatch.TimeSince(matchStartTime);
+            MatchEvent matchEvent = new MatchEvent(timeInMatch, bInAutonomous, null);
+            matchEvent.sEventName = s;
+            stopEventButton.gameObject.SetActive(false);
         }
     }
 }
