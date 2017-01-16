@@ -14,5 +14,11 @@ namespace Assets.Scripts
             this.second = second;
             this.minute = minute;
         }
+        public void subtract(Time subtractTime)
+        {
+            this.millisecond = this.millisecond - subtractTime.millisecond;
+            this.second = this.second - subtractTime.second;
+            this.minute = this.minute - subtractTime.minute;
+        }
     }
 }

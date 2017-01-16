@@ -13,12 +13,13 @@ namespace Assets.Scripts{
         RectTransform fieldImageRectTransform;
         float aspectRatio;
         Time matchStartTime;
-        TeamMatch currentlyScoutingTeamMatch;
+        public TeamMatch currentlyScoutingTeamMatch;
         Button backButton, matchStartButton, menuButton, fieldImageButton;
         UIManager manager;
         // Use this for initialization
         void Start()
         {
+            currentlyScoutingTeamMatch = new TeamMatch(2468, 1, false);
             fieldImage = GameObject.Find("FieldImage");
             fieldImageRectTransform = fieldImage.GetComponent<RectTransform>();
             fieldImageRectTransform.offsetMin = new Vector2(0, -(GameObject.Find("FieldPanel").GetComponent<RectTransform>().rect.width /2048) * 784 / 2);
@@ -69,17 +70,26 @@ namespace Assets.Scripts{
 
         public void CreatePointMatch(Vector2 mousePosition)
         {
-            Time timeInMatch = new Time(System.DateTime.Now.Millisecond - matchStartTime.millisecond, System.DateTime.Now.Second - matchStartTime.second, System.DateTime.Now.Minute - matchStartTime.minute);
+            Time timeInMatch = GetCurrentTime();
+            timeInMatch.subtract(matchStartTime);
             GameObject createdPointMatchPanel = Instantiate(manager.pointEventButtonPanel);
             MatchEvent newEvent = new MatchEvent(timeInMatch, timeInMatch.minute == 0 && timeInMatch.second <= 15, new Point(mousePosition.x / fieldImageRectTransform.rect.width, mousePosition.y / fieldImageRectTransform.rect.height));
             createdPointMatchPanel.GetComponent<RectTransform>().localPosition = mousePosition;
             createdPointMatchPanel.transform.SetParent(this.transform);
+            Debug.Log(JsonUtility.ToJson(newEvent));
+            createdPointMatchPanel.GetComponent<PointEventButtonPanel>().currentEvent = newEvent;
+            currentlyScoutingTeamMatch.matchEventList.Add(newEvent);
         }
         
         public void StartMatch()
         {
-            matchStartTime = new Time (System.DateTime.Now.Millisecond, System.DateTime.Now.Second, System.DateTime.Now.Minute);
+            matchStartTime = GetCurrentTime();
             Debug.Log(JsonUtility.ToJson(matchStartTime));
+        }
+
+        Time GetCurrentTime()
+        {
+            return new Time(System.DateTime.Now.Millisecond, System.DateTime.Now.Second, System.DateTime.Now.Minute);
         }
     }
 }
