@@ -9,7 +9,6 @@ namespace Assets.Scripts{
     public class MatchScoutPanel_ContentManager : MonoBehaviour
     {
         string teamMatchURL = "http://frc2468.org/matchUpload";
-        bool bInAutonomous;
         GameObject fieldImage;
         RectTransform fieldImageRectTransform;
         float aspectRatio;
@@ -18,6 +17,7 @@ namespace Assets.Scripts{
         Button backButton, matchStartButton, menuButton, fieldImageButton, stopEventButton;
         UIManager manager;
         Text timeRemainingText, stopEventButtonText;
+        Toggle autonomousToggle;
         // Use this for initialization
         void Start()
         {
@@ -42,14 +42,22 @@ namespace Assets.Scripts{
             stopEventButtonText = textArray[4];
 
             stopEventButton.gameObject.SetActive(false);
+            autonomousToggle = GetComponentInChildren<Toggle>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            Time t = GetCurrentTime();
-            t.TimeSince(matchStartTime);
-            timeRemainingText.text = t.TimeSince(matchStartTime).ToString();
+            if(matchStartTime != null)
+            {
+                Time t = GetCurrentTime();
+                t.TimeSince(matchStartTime);
+                timeRemainingText.text = t.TimeSince(matchStartTime).ToString();
+                if(t.TimeSince(matchStartTime).ToString() == "0:16")
+                {
+                    autonomousToggle.isOn = false;
+                }
+            }
         }
         public void SaveTeamMatch()
         {
@@ -84,7 +92,7 @@ namespace Assets.Scripts{
             Time timeInMatch = GetCurrentTime();
             timeInMatch = timeInMatch.TimeSince(matchStartTime);
             GameObject createdPointMatchPanel = Instantiate(manager.pointEventButtonPanel);
-            MatchEvent newEvent = new MatchEvent(timeInMatch, timeInMatch.minute == 0 && timeInMatch.second <= 15, new Point(mousePosition.x / fieldImageRectTransform.rect.width, mousePosition.y / fieldImageRectTransform.rect.height));
+            MatchEvent newEvent = new MatchEvent(timeInMatch, autonomousToggle.isOn, new Point(mousePosition.x / fieldImageRectTransform.rect.width, mousePosition.y / fieldImageRectTransform.rect.height));
             createdPointMatchPanel.GetComponent<RectTransform>().localPosition = mousePosition;
             createdPointMatchPanel.transform.SetParent(this.transform);
             Debug.Log(JsonUtility.ToJson(newEvent));
@@ -129,7 +137,7 @@ namespace Assets.Scripts{
         {
             Time timeInMatch = GetCurrentTime();
             timeInMatch = timeInMatch.TimeSince(matchStartTime);
-            MatchEvent matchEvent = new MatchEvent(timeInMatch, bInAutonomous, null);
+            MatchEvent matchEvent = new MatchEvent(timeInMatch, autonomousToggle.isOn, null);
             matchEvent.sEventName = s;
             stopEventButton.gameObject.SetActive(false);
         }
