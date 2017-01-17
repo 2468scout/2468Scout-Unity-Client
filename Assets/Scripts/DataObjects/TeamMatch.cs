@@ -20,7 +20,7 @@ namespace Assets.Scripts
             this.iTeamNumber = iTeamNumber;
             this.iMatchNumber = iMatchNumber;
             this.bColor = bColor;
-
+            matchEventList = new List<MatchEvent>();
         }
     }
 }
