@@ -23,8 +23,6 @@ namespace Assets.Scripts
             backButton = GetComponentInChildren<Button>();
             /*
             //back button functionality
-            backButtonText = textArray[0]; //textArray.Length - 1
-            backButtonText.text = "Back";
             backButton.onClick.AddListener(() => { manager.ChangePanel("analyticsPanel"); });
             */
 
@@ -48,7 +46,45 @@ namespace Assets.Scripts
             //winPercentage = team.winPercentage;
             winPercentage = 76;
             winPercentageText.text = "Win Percentage: " + winPercentage + "%";
+
+
+            /*
+            ---general has 6 elements
+            High goals per game
+            Low goals per game
+            Gears per game
+            Ranking Points per game
+            Point contribution per game
+            Point contribution per time
             
+            ---robot has 6 elements
+            Speed
+            Weight
+            Defense capability
+            Anti-defense capability
+            Best suited role
+            Cake skill
+
+            ---autonomous has 2 elements
+            Autonomous capabilities
+            Specific starting position
+
+            ---end game has 2
+            Climb %
+            Touchpad %
+
+
+            ---likelihood has 3
+            Penalty likelihood
+            Breakdown likelihood
+            “Stuck” likelihood
+            
+            Text highGoalsPerGameText, lowGoalsPerGameText, gearsPerGameText, pointContribution, rpPerGame, speed, weight,
+                bestSuitedRole, defenseCapability, pointContPerTime, cakeSkill, auto, startingPos, climbPerc, touchpadPerc, penaltyLike, breakdownLike, stuckLike;
+            Text[] text = new Text[19];
+            text = [teamNameNumberText, gamesScoutedText, winPercentageText, highGoalsPerGameText, lowGoalsPerGameText, gearsPerGameText, pointContribution, rpPerGame, speed, weight,
+                bestSuitedRole, defenseCapability, pointContPerTime, cakeSkill, auto, startingPos, climbPerc, touchpadPerc, penaltyLike, breakdownLike, stuckLike]
+            */
         }
 
         // Update is called once per frame
