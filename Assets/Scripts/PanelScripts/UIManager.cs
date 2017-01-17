@@ -13,6 +13,7 @@ namespace Assets.Scripts
         public List<TeamMatch> teamMatchListToScout;
         const string sGetEventURL = "blah/events/";
         const string sGetTeamURL = "blah/teams/";
+        bool hasStarted = false;
         FRCEvent currentEvent;
         // Use this for initialization
         void Start()
@@ -23,6 +24,11 @@ namespace Assets.Scripts
         // Update is called once per frame
         void Update()
         {
+            if(!hasStarted)
+            {
+                StartCoroutine(ChangePanel("MainPanel"));
+                hasStarted = true;
+            }
             if(sPrevEventCode != sEventCode)
             {
                 DownloadEvent();
@@ -50,6 +56,11 @@ namespace Assets.Scripts
             WWW download = new WWW(sGetEventURL + sEventCode + ".json");
             yield return download;
             currentEvent = JsonUtility.FromJson<FRCEvent>(download.text);
+        }
+
+        public void CreatePanelWrapper(string panel)
+        {
+            StartCoroutine(ChangePanel(panel));
         }
 
         public IEnumerator ChangePanel(string panel)
