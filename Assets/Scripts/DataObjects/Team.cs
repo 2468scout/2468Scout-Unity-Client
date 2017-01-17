@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-    class Team
+    public class Team
     {
         string sTeamName;
         int iTeamNumber;

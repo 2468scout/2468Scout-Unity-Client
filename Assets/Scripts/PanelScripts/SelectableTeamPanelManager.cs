@@ -10,6 +10,8 @@ namespace Assets.Scripts
         public SimpleTeam containedTeam;
         RectTransform transform;
         public int iNumInList;
+        Button openTeamPanelButton;
+        UIManager manager;
         // Use this for initialization
         void Start()
         {
@@ -17,7 +19,10 @@ namespace Assets.Scripts
             transform.offsetMin = new Vector2(0, -150 - (150 * iNumInList));
             transform.offsetMax = new Vector2(0, -150 * iNumInList);
             displayText = GetComponentInChildren<Text>();
+            manager = GetComponentInParent<UIManager>();
             displayText.text = "Team #" + containedTeam.iTeamNumber.ToString() + " - " + containedTeam.sTeamName;
+            openTeamPanelButton = GetComponent<Button>();
+            openTeamPanelButton.onClick.AddListener(() => { manager.ChangePanel("teamPanel:" + containedTeam.iTeamNumber);});
         }
 
         // Update is called once per frame

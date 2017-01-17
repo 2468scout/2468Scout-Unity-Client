@@ -15,7 +15,13 @@ namespace Assets.Scripts
         // Use this for initialization
         void Start()
         {
-            
+            simpleTeamList.Add(new SimpleTeam("Team Appreciate", 2468));
+            simpleTeamList.Add(new SimpleTeam("Team Appreciate", 2468));
+            simpleTeamList.Add(new SimpleTeam("Team Appreciate", 2468));
+            simpleTeamList.Add(new SimpleTeam("Team Appreciate", 2468));
+            simpleTeamList.Add(new SimpleTeam("Team Appreciate", 2468));
+            simpleTeamList.Add(new SimpleTeam("Team Appreciate", 2468));
+            simpleTeamList.Add(new SimpleTeam("Team Appreciate", 2468));
             content = GameObject.Find("Content");
             foreach (SimpleTeam s in simpleTeamList)
             {

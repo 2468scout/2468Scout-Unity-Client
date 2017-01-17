@@ -8,7 +8,7 @@ namespace Assets.Scripts
     public class TeamDataPanelManager : MonoBehaviour
     {
         UIManager manager;
-        Team team;              //use this when pulling statistics
+        public Team team;              //use this when pulling statistics
         Button backButton;
         Text teamNameNumberText, gamesScoutedText, winPercentageText, backButtonText;
         int gamesScouted, winPercentage;

@@ -11,7 +11,8 @@ namespace Assets.Scripts
         public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel;
         public string sUserName, sEventCode, sPrevEventCode, sPrevUserName;
         public List<TeamMatch> teamMatchListToScout;
-        string sGetEventURL = "196.168.56.1:8080/events/";
+        const string sGetEventURL = "blah/events/";
+        const string sGetTeamURL = "blah/teams/";
         FRCEvent currentEvent;
         // Use this for initialization
         void Start()
@@ -51,65 +52,87 @@ namespace Assets.Scripts
             currentEvent = JsonUtility.FromJson<FRCEvent>(download.text);
         }
 
-        public void ChangePanel(string panel)
+        public IEnumerator ChangePanel(string panel)
         {
             GameObject tempPanel = null;
             RectTransform rectTransform = null;
-            switch (panel)
+            if (panel == "matchScoutPanel")
             {
-                case "matchScoutPanel":
-                    tempPanel = Instantiate(matchScoutPanel);
-                    rectTransform = tempPanel.GetComponent<RectTransform>();
-                    Destroy(openPanel);
-                    openPanel = tempPanel;
-                    openPanel.transform.parent = gameObject.transform;
-                    rectTransform.offsetMin = new Vector2(0, 0);
-                    rectTransform.offsetMax = new Vector2(0, 0);
-                    openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { this.ChangePanel("mainPanel"); });
-                    break;
-                case "pitScoutPanel":
-                    tempPanel = Instantiate(pitScoutPanel);
-                    rectTransform = tempPanel.GetComponent<RectTransform>();
-                    Destroy(openPanel);
-                    openPanel = tempPanel;
-                    openPanel.transform.parent = gameObject.transform;
-                    rectTransform.offsetMin = new Vector2(0, 0);
-                    rectTransform.offsetMax = new Vector2(0, 0);
-                    openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { this.ChangePanel("mainPanel"); });
-                    break;
-                case "analyticsPanel":
-                    tempPanel = Instantiate(analyticsPanel);
-                    rectTransform = tempPanel.GetComponent<RectTransform>();
-                    Destroy(openPanel);
-                    openPanel = tempPanel;
-                    openPanel.transform.parent = gameObject.transform;
-                    rectTransform.offsetMin = new Vector2(0, 0);
-                    rectTransform.offsetMax = new Vector2(0, 0);
-                    openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { this.ChangePanel("mainPanel"); });
-                    break;
-                case "mainPanel":
-                    tempPanel = Instantiate(mainPanel);
-                    rectTransform = tempPanel.GetComponent<RectTransform>();
-                    Destroy(openPanel);
-                    openPanel = tempPanel;
-                    openPanel.transform.parent = gameObject.transform;
-                    rectTransform.offsetMin = new Vector2(0, 0);
-                    rectTransform.offsetMax = new Vector2(0, 0);
-                    openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { this.ChangePanel("pitScoutPanel"); });
-                    openPanel.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => { this.ChangePanel("matchScoutPanel"); });
-                    openPanel.GetComponentsInChildren<Button>()[2].onClick.AddListener(() => { this.ChangePanel("analyticsPanel"); });
-                    openPanel.GetComponentsInChildren<Button>()[3].onClick.AddListener(() => { this.ChangePanel("loginPanel"); });
-                    break;
-                case "loginPanel":
-                    tempPanel = Instantiate(loginPanel);
-                    rectTransform = tempPanel.GetComponent<RectTransform>();
-                    Destroy(openPanel);
-                    openPanel = tempPanel;
-                    openPanel.transform.parent = gameObject.transform;
-                    rectTransform.offsetMin = new Vector2(0, 0);
-                    rectTransform.offsetMax = new Vector2(0, 0);
-                    break;
+                tempPanel = Instantiate(matchScoutPanel);
+                rectTransform = tempPanel.GetComponent<RectTransform>();
+                Destroy(openPanel);
+                openPanel = tempPanel;
+                openPanel.transform.SetParent(gameObject.transform);
+                rectTransform.offsetMin = new Vector2(0, 0);
+                rectTransform.offsetMax = new Vector2(0, 0);
+                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel("mainPanel")); });
             }
+            else if (panel == "pitScoutPanel")
+            {
+                tempPanel = Instantiate(pitScoutPanel);
+                rectTransform = tempPanel.GetComponent<RectTransform>();
+                Destroy(openPanel);
+                openPanel = tempPanel;
+                openPanel.transform.SetParent(gameObject.transform);
+                rectTransform.offsetMin = new Vector2(0, 0);
+                rectTransform.offsetMax = new Vector2(0, 0);
+                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel("mainPanel")); });
+            }
+            else if (panel == "analyticsPanel")
+            {
+                tempPanel = Instantiate(analyticsPanel);
+                rectTransform = tempPanel.GetComponent<RectTransform>();
+                Destroy(openPanel);
+                openPanel = tempPanel;
+                openPanel.transform.SetParent(gameObject.transform);
+                rectTransform.offsetMin = new Vector2(0, 0);
+                rectTransform.offsetMax = new Vector2(0, 0);
+                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel("mainPanel")); });
+            }
+            else if (panel == "mainPanel")
+            {
+                tempPanel = Instantiate(mainPanel);
+                rectTransform = tempPanel.GetComponent<RectTransform>();
+                Destroy(openPanel);
+                openPanel = tempPanel;
+                openPanel.transform.SetParent(gameObject.transform);
+                rectTransform.offsetMin = new Vector2(0, 0);
+                rectTransform.offsetMax = new Vector2(0, 0);
+                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel("pitScoutPanel")); });
+                openPanel.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => { StartCoroutine(ChangePanel("matchScoutPanel")); });
+                openPanel.GetComponentsInChildren<Button>()[2].onClick.AddListener(() => { StartCoroutine(ChangePanel("analyticsPanel")); });
+                openPanel.GetComponentsInChildren<Button>()[3].onClick.AddListener(() => { StartCoroutine(ChangePanel("loginPanel")); });
+            }
+            else if (panel == "loginPanel")
+            {
+                tempPanel = Instantiate(loginPanel);
+                rectTransform = tempPanel.GetComponent<RectTransform>();
+                Destroy(openPanel);
+                openPanel = tempPanel;
+                openPanel.transform.SetParent(gameObject.transform);
+                rectTransform.offsetMin = new Vector2(0, 0);
+                rectTransform.offsetMax = new Vector2(0, 0);
+            }
+            else if (panel.Contains("teamPanel:"))
+            {
+                tempPanel = Instantiate(teamPanel);
+                rectTransform = tempPanel.GetComponent<RectTransform>();
+                Destroy(openPanel);
+                openPanel = tempPanel;
+                openPanel.transform.SetParent(gameObject.transform);
+                rectTransform.offsetMin = new Vector2(0, 0);
+                rectTransform.offsetMax = new Vector2(0, 0);
+                WWW getTeamData = new WWW(sGetTeamURL);
+                yield return new WaitUntil(() => getTeamData.isDone);
+                openPanel.GetComponent<TeamDataPanelManager>().team = JsonUtility.FromJson<Team>(getTeamData.text);
+            }
+            /*
+            else if (panel == )
+            {
+
+            }
+            */
+            yield break;
         }
     }
 }
