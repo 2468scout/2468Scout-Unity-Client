@@ -10,7 +10,7 @@ namespace Assets.Scripts
     public class TeamMatch
     {
         public int iTeamNumber, iMatchNumber, iNumberInAlliance, iAllianceNumber;
-        public string sNotes, sFileName, sEventCode;
+        public string sNotes, sFileName, sEventCode, sPersonScouting;
         public bool bColor; // False is blue, true is red
         
         // GAME SPECIFIC ELEMENTS

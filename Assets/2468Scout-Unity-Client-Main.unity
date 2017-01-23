@@ -192,7 +192,7 @@ Prefab:
         type: 2}
       propertyPath: openPanel
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1959794535}
     - target: {fileID: 114688188530383694, guid: 0c12b5fbda81664438119bec586207c3,
         type: 2}
       propertyPath: loginPanel
@@ -422,7 +422,7 @@ MonoBehaviour:
     type: 2}
   loginPanel: {fileID: 1220046461198874, guid: 707c8eca485a6234b8745c6f4787c27c, type: 2}
   teamPanel: {fileID: 1599247158091348, guid: 61e13c8f724a51c4b9571b51abec99a6, type: 2}
-  openPanel: {fileID: 0}
+  openPanel: {fileID: 1959794535}
   sUserName: 
   sEventCode: 
   sPrevEventCode: 
@@ -490,6 +490,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1959794535 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1288324044579824, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+    type: 2}
+  m_PrefabInternal: {fileID: 1986328305}
 --- !u!1001 &1986328305
 Prefab:
   m_ObjectHideFlags: 0
