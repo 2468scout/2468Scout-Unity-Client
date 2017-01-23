@@ -10,87 +10,118 @@ namespace Assets.Scripts
         UIManager manager;
         public Team team;              //use this when pulling statistics
         Button backButton;
+
         Text teamNameNumberText, gamesScoutedText, winPercentageText, backButtonText;
-        int gamesScouted, winPercentage;
-        Image robotImage;
+        
+        
+            //General Texts
+            Text generalText, highGoalsPerGameText, lowGoalsPerGameText, gearsPerGameText, pointContText, rpPerGameText;
+
+            //Robot Texts
+            Text robotText, highGoalAccuracyText, speedText, weightText, bestSuitedRoleText, defenseCapText, antidefenseCapText, cakeSkillText;
+
+            //Autonomous Texts 
+            Text autonomousText, autoCapText, startPosText;
+
+            //End game Texts 
+            Text endGameText, climbPercText, touchpadPercText;
+
+            //Likelihoods Texts
+            Text likelihoodText, penaltyLikeText, breakdownLikeText, stuckLikeText;
+       
+        
 
         // Use this for initialization
         void Start()
         {
             manager = GetComponentInParent<UIManager>();
             Text[] textArray = GetComponentsInChildren<Text>();
-            Debug.Log(textArray);
-            backButton = GetComponentInChildren<Button>();
-            /*
+
             //back button functionality
-            backButton.onClick.AddListener(() => { manager.ChangePanel("analyticsPanel"); });
-            */
-
-            //team name and number at the top of the page
-            teamNameNumberText = textArray[0];
-            teamNameNumberText.text = "2468 Team Appreciate";   //team.teamNameNumberText
-
-            //team's robot image
-            robotImage = GetComponentInChildren<Image>();
-            //robotImage = team.robotImage;
+            //backButton = GetComponentInChildren<Button>();
+            //backButton.onClick.AddListener(() => { manager.CreatePanelWrapper("analyticsPanel"); });
+            int spot = 0;
+            teamNameNumberText      =       textArray[spot];       spot++;
+            gamesScoutedText        =       textArray[spot];       spot++;
+            winPercentageText       =       textArray[spot];       spot++;
 
             
-            //# of matches scouted regarding the certain team
-            gamesScoutedText = textArray[1];
-            //gamesScouted = team.gamesScouted;
-            gamesScouted = 5;
-            gamesScoutedText.text = "Games Scouted: " + gamesScouted;
+            //general
+            generalText             =       textArray[spot];       spot++;
+            highGoalsPerGameText    =       textArray[spot];       spot++;
+            lowGoalsPerGameText     =       textArray[spot];       spot++;
+            gearsPerGameText        =       textArray[spot];       spot++;
+            pointContText           =       textArray[spot];       spot++;
+            rpPerGameText           =       textArray[spot];       spot++;
+            /*
+            //robot
+            robotText               =       textArray[spot];       spot++;
+            highGoalAccuracyText    =       textArray[spot];       spot++;
+            speedText               =       textArray[spot];       spot++;
+            weightText              =       textArray[spot];       spot++;
+            bestSuitedRoleText      =       textArray[spot];       spot++;
+            defenseCapText          =       textArray[spot];       spot++;
+            antidefenseCapText      =       textArray[spot];       spot++;
+            cakeSkillText           =       textArray[spot];       spot++;
 
-            //% of matches won
-            winPercentageText = textArray[2];
-            //winPercentage = team.winPercentage;
-            winPercentage = 76;
+            //Autonomous
+            autonomousText          =       textArray[spot];       spot++;
+            autoCapText             =       textArray[spot];       spot++;
+            startPosText            =       textArray[spot];       spot++;
+
+            //End game
+            endGameText             =       textArray[spot];       spot++;
+            climbPercText           =       textArray[spot];       spot++;
+            touchpadPercText        =       textArray[spot];       spot++;
+
+            //Likelihood
+            likelihoodText          =       textArray[spot];       spot++;
+            penaltyLikeText         =       textArray[spot];       spot++;
+            breakdownLikeText       =       textArray[spot];       spot++;
+            stuckLikeText           =       textArray[spot];       spot++;
+            */
+            
+
+            //personalizing data to specific team
+
+            teamNameNumberText.text = "2468 Team Appreciate";  //team.teamNameNumberText
+            
+            Image robotImage = GetComponentInChildren<Image>();
+            //robotImage = team.robotImage;
+            robotImage.preserveAspect = true;
+           
+            int gamesScouted = 10; //team.gamesScouted;
+            gamesScoutedText.text = "Games Scouted: " + gamesScouted;
+            
+            double winPercentage = 95; //team.winPercentage;
             winPercentageText.text = "Win Percentage: " + winPercentage + "%";
 
-
-            /*
-            ---general has 6 elements
-            High goals per game
-            Low goals per game
-            Gears per game
-            Ranking Points per game
-            Point contribution per game
-            Point contribution per time
             
-            ---robot has 6 elements
-            Speed
-            Weight
-            Defense capability
-            Anti-defense capability
-            Best suited role
-            Cake skill
+            //GENERAL==========================================================================
+            generalText.text = "GENERAL (Per Match Averages)";
 
-            ---autonomous has 2 elements
-            Autonomous capabilities
-            Specific starting position
+            double highGoals = 30; //team.highGoalsPerGame
+            highGoalsPerGameText.text = "High Goals: " + highGoals;
 
-            ---end game has 2
-            Climb %
-            Touchpad %
+            double lowGoals = 10; //team.lowGoalsPerGame
+            lowGoalsPerGameText.text = "Low Goals: " + lowGoals;
 
-
-            ---likelihood has 3
-            Penalty likelihood
-            Breakdown likelihood
-            “Stuck” likelihood
             
-            Text highGoalsPerGameText, lowGoalsPerGameText, gearsPerGameText, pointContribution, rpPerGame, speed, weight,
-                bestSuitedRole, defenseCapability, pointContPerTime, cakeSkill, auto, startingPos, climbPerc, touchpadPerc, penaltyLike, breakdownLike, stuckLike;
-            Text[] text = new Text[19];
-            text = [teamNameNumberText, gamesScoutedText, winPercentageText, highGoalsPerGameText, lowGoalsPerGameText, gearsPerGameText, pointContribution, rpPerGame, speed, weight,
-                bestSuitedRole, defenseCapability, pointContPerTime, cakeSkill, auto, startingPos, climbPerc, touchpadPerc, penaltyLike, breakdownLike, stuckLike]
-            */
+            double gears = 12; //team.gearsPerGame
+            gearsPerGameText.text = "Gears: " + gears;
+            
+            double pointCont = 50;
+            pointContText.text = "Point Contribution: " + pointCont;
+
+            double rpPerGame = 1.5;
+            rpPerGameText.text = "Ranking Points: " + rpPerGame;
+            
+            
         }
 
         // Update is called once per frame
         void Update()
         {
-
         }
     }
 }
