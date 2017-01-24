@@ -5,12 +5,13 @@ using System.Text;
 
 namespace Assets.Scripts
 {
+    [System.Serializable]
     public class MatchEvent
     {
         Time timeStamp; 
         public int iPointValue, iCount;
         bool bInAutonomous;
-        Point loc;
+        public Point loc;
         public string sEventName;
         public MatchEvent(Time timeStamp, bool bInAutonomous, Point loc)
         {

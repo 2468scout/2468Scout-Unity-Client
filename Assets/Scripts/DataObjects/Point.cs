@@ -5,9 +5,10 @@ using System.Text;
 
 namespace Assets.Scripts
 {
+    [System.Serializable]
     public class Point
     {
-        float x, y;
+        public float x, y;
         public Point(float x, float y)
         {
             this.x = x;
