@@ -9,6 +9,7 @@ namespace Assets.Scripts
     {
         UIManager manager;
         public Team team;              //use this when pulling statistics
+        SimpleTeam simpleTeam;
         Button backButton;
 
         Text teamNameNumberText, gamesScoutedText, winPercentageText, backButtonText;
@@ -36,6 +37,8 @@ namespace Assets.Scripts
         {
             manager = GetComponentInParent<UIManager>();
             Text[] textArray = GetComponentsInChildren<Text>();
+
+
 
             //back button functionality
             //backButton = GetComponentInChildren<Button>();
@@ -145,6 +148,14 @@ namespace Assets.Scripts
         // Update is called once per frame
         void Update()
         {
+        }
+
+        IEnumerator pullTeamFromServer()
+        {
+            WWW pullFromServer = new WWW(manager.sGetTeamURL + simpleTeam.iTeamNumber);
+            yield return new WaitUntil(() => pullFromServer.isDone);
+            team = JsonUtility.FromJson<Team>(pullFromServer.text);
+            yield break;
         }
     }
 }
