@@ -53,17 +53,17 @@ namespace Assets.Scripts
             gearsPerGameText        =       textArray[spot];       spot++;
             pointContText           =       textArray[spot];       spot++;
             rpPerGameText           =       textArray[spot];       spot++;
-            /*
+            
             //robot
             robotText               =       textArray[spot];       spot++;
             highGoalAccuracyText    =       textArray[spot];       spot++;
             speedText               =       textArray[spot];       spot++;
             weightText              =       textArray[spot];       spot++;
             bestSuitedRoleText      =       textArray[spot];       spot++;
-            defenseCapText          =       textArray[spot];       spot++;
+            defenseCapText          =       textArray[spot];       spot++;/*
             antidefenseCapText      =       textArray[spot];       spot++;
             cakeSkillText           =       textArray[spot];       spot++;
-
+            
             //Autonomous
             autonomousText          =       textArray[spot];       spot++;
             autoCapText             =       textArray[spot];       spot++;
@@ -115,8 +115,31 @@ namespace Assets.Scripts
 
             double rpPerGame = 1.5;
             rpPerGameText.text = "Ranking Points: " + rpPerGame;
+
+            //ROBOT==========================================================================
+            robotText.text = "ROBOT";
+
+            double highGoalAccuracy = 100; //team.highGoalAccuracy
+            highGoalAccuracyText.text = "High Goal Accuracy: " + highGoalAccuracy + "%";
+
+            int speed = 4; //team.speed
+            speedText.text = "Speed: " + speed;
+
+            int weight = 3; //team.weight
+            weightText.text = "Weight: " + weight;
+
+            string bestSuitedRole = "all of the above"; //team.bestSuitedRole
+            bestSuitedRoleText.text = "Best Role: " + bestSuitedRole;
             
-            
+            int defenseCap = 2; //team.defenseCap
+            defenseCapText.text = "Defense Capability: " + defenseCap;
+            /*
+            int antidefenseCap = 3; //team.antidefenseCap
+            antidefenseCapText.text = "Antidefense Capability: " + antidefenseCap;
+
+            int cakeSkill = 0;
+            cakeSkillText.text = "Cake ability: " + cakeSkill;
+            */
         }
 
         // Update is called once per frame
