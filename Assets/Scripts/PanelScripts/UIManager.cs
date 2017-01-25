@@ -11,7 +11,7 @@ namespace Assets.Scripts
         public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel;
         public string sUserName, sEventCode, sPrevEventCode, sPrevUserName;
         public List<TeamMatch> teamMatchListToScout;
-        public readonly string sGetEventURL = "blah/events/";
+        public readonly string sGetEventURL = "10.107.10.14:8080/getEvents/";
         public readonly string sGetTeamURL = "blah/teams/";
         bool hasStarted = false;
         FRCEvent currentEvent;
@@ -37,17 +37,20 @@ namespace Assets.Scripts
             if(sPrevEventCode != sEventCode || sPrevUserName != sUserName)
             {
                 List<int> teamMatchPositions = new List<int>();
-                for (int i = 0; i < currentEvent.listNamesByTeamMatch.Count; i++)
+                if(currentEvent != null)
                 {
-                    string s = currentEvent.listNamesByTeamMatch[i];
-                    if (s == sUserName)
+                    for (int i = 0; i < currentEvent.listNamesByTeamMatch.Count; i++)
                     {
-                        teamMatchPositions.Add(i);
+                        string s = currentEvent.listNamesByTeamMatch[i];
+                        if (s == sUserName)
+                        {
+                            teamMatchPositions.Add(i);
+                        }
                     }
-                }
-                for(int i = 0; i < teamMatchPositions.Count; i++)
-                {
-                    teamMatchListToScout.Add(currentEvent.teamMatchList[teamMatchPositions[i]]);
+                    for(int i = 0; i < teamMatchPositions.Count; i++)
+                    {
+                        teamMatchListToScout.Add(currentEvent.teamMatchList[teamMatchPositions[i]]);
+                    }
                 }
             }
         }
@@ -123,6 +126,7 @@ namespace Assets.Scripts
                 openPanel.transform.SetParent(gameObject.transform);
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
+                //openPanel.GetComponentInChildren<Button>().onClick.AddListener(() => { StartCoroutine()})
             }
             else if (panel.Contains("teamPanel:"))
             {

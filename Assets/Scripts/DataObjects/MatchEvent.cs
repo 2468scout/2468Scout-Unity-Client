@@ -19,6 +19,17 @@ namespace Assets.Scripts
             this.bInAutonomous = bInAutonomous;
             this.loc = loc;
         }
+        public MatchEvent(Time timeStamp, bool bInAutonomous)
+        {
+            this.timeStamp = timeStamp;
+            this.bInAutonomous = bInAutonomous;
+        }
+        public MatchEvent(Time timeStamp, bool bInAutonomous, int iCount, string sEventName)
+        {
+            this.bInAutonomous = bInAutonomous;
+            this.iCount = iCount;
+            this.sEventName = sEventName;
+        }
         public MatchEvent()
         {
 

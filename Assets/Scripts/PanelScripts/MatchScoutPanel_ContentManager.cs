@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace Assets.Scripts{
     public class MatchScoutPanel_ContentManager : MonoBehaviour
     {
-        string teamMatchURL = "http://frc2468.org/matchUpload";
+        string teamMatchURL = "URL/matchUpload";
         GameObject fieldImage;
         RectTransform fieldImageRectTransform;
         float aspectRatio;
@@ -99,11 +99,11 @@ namespace Assets.Scripts{
 
         public void CreatePointEvent(Vector2 mousePosition)
         {
-            mousePosition.Set(mousePosition.x, mousePosition.y - (((gameObject.GetComponent<RectTransform>().rect.height - GameObject.Find("ToolbarPanel").GetComponent<RectTransform>().rect.height) - fieldImageRectTransform.rect.height)/2));
+            Vector2 adjustedMousePosition = new Vector2(mousePosition.x, mousePosition.y - (((gameObject.GetComponent<RectTransform>().rect.height - GameObject.Find("ToolbarPanel").GetComponent<RectTransform>().rect.height) - fieldImageRectTransform.rect.height) / 2));
             Time timeInMatch = GetCurrentTime();
             timeInMatch = timeInMatch.TimeSince(matchStartTime);
             GameObject createdPointMatchPanel = Instantiate(manager.pointEventButtonPanel);
-            MatchEvent newEvent = new MatchEvent(timeInMatch, autonomousToggle.isOn, new Point(mousePosition.x / fieldImageRectTransform.rect.width, mousePosition.y / fieldImageRectTransform.rect.height));
+            MatchEvent newEvent = new MatchEvent(timeInMatch, autonomousToggle.isOn, new Point(adjustedMousePosition.x / fieldImageRectTransform.rect.width, adjustedMousePosition.y / fieldImageRectTransform.rect.height));
             createdPointMatchPanel.GetComponent<RectTransform>().localPosition = mousePosition;
             createdPointMatchPanel.transform.SetParent(this.transform);
             Debug.Log(JsonUtility.ToJson(newEvent));
@@ -155,9 +155,25 @@ namespace Assets.Scripts{
         {
             Time timeInMatch = GetCurrentTime();
             timeInMatch = timeInMatch.TimeSince(matchStartTime);
-            MatchEvent matchEvent = new MatchEvent(timeInMatch, autonomousToggle.isOn, null);
+            MatchEvent matchEvent = new MatchEvent(timeInMatch, autonomousToggle.isOn);
             matchEvent.sEventName = s;
             stopEventButton.gameObject.SetActive(false);
+            currentlyScoutingTeamMatch.matchEventList.Add(matchEvent);
+            if (s == "HIGH_GOAL_STOP")
+            {
+                if(sLeftCountCode == "HIGH_GOAL_MISS")
+                {
+                    leftCountIncreaseButton.gameObject.SetActive(false);
+                    matchEvent = new MatchEvent(timeInMatch, autonomousToggle.isOn, iLeftCount, sLeftCountCode);
+                    currentlyScoutingTeamMatch.matchEventList.Add(matchEvent);
+                }
+                else if(sRightCountCode == "HIGH_GOAL_MISS")
+                {
+                    rightCountIncreaseButton.gameObject.SetActive(false);
+                    matchEvent = new MatchEvent(timeInMatch, autonomousToggle.isOn, iRightCount, sRightCountCode);
+                    currentlyScoutingTeamMatch.matchEventList.Add(matchEvent);
+                }
+            }
         }
         
         public void AddToLeftCount(int val)
