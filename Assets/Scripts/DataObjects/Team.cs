@@ -8,7 +8,7 @@ namespace Assets.Scripts
     public class Team
     {
         string sTeamName;
-        int iTeamNumber;
+        int iTeamNumber, iNumPictures;
         List<FRCAward> awardsList;
 
         //ADD GAME SPECIFIC STATS
