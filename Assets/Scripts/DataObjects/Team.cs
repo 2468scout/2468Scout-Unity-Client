@@ -12,7 +12,8 @@ namespace Assets.Scripts
         List<FRCAward> awardsList;
 
         //ADD GAME SPECIFIC STATS
-        float fAvgGearsPerMatch, fAvgHighFuelPerMatch, fAvgLowFuelPerMatch, fAvgRankingPoints;
-        
+        float fAvgGearsPerMatch, fAvgHighFuelPerMatch, fAvgLowFuelPerMatch, fAvgRankingPoints, fAvgRankingPointsPerGame;
+        string sBestRole;
+        int iGamesScouted;
     }
 }

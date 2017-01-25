@@ -137,9 +137,7 @@ namespace Assets.Scripts
                 openPanel.transform.SetParent(gameObject.transform);
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
-                WWW getTeamData = new WWW(sGetTeamURL);
-                yield return new WaitUntil(() => getTeamData.isDone);
-                openPanel.GetComponent<TeamDataPanelManager>().team = JsonUtility.FromJson<Team>(getTeamData.text);
+                openPanel.GetComponent<TeamDataPanelManager>().simpleTeam = JsonUtility.FromJson<SimpleTeam>(panel.Substring(10));
             }
             /*
             else if (panel == )

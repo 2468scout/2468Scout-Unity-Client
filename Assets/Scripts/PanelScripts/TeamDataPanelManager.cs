@@ -9,7 +9,7 @@ namespace Assets.Scripts
     {
         UIManager manager;
         public Team team;              //use this when pulling statistics
-        SimpleTeam simpleTeam;
+        public SimpleTeam simpleTeam;
         Button backButton;
 
         Text teamNameNumberText, gamesScoutedText, winPercentageText, backButtonText;
@@ -148,6 +148,10 @@ namespace Assets.Scripts
         // Update is called once per frame
         void Update()
         {
+            if(team == null && simpleTeam != null)
+            {
+                this.pullTeamFromServer();
+            }
         }
 
         IEnumerator pullTeamFromServer()
