@@ -12,6 +12,5 @@ namespace Assets.Scripts
         //List<Alliance> allianceList;
         public List<TeamMatch> teamMatchList;
         List<SimpleMatch> matchList;
-        public List<string> listNamesByTeamMatch;
     }
 }

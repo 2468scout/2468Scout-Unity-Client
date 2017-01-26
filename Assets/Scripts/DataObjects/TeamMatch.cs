@@ -11,7 +11,7 @@ namespace Assets.Scripts
     {
         public int iTeamNumber, iMatchNumber, iNumberInAlliance, iAllianceNumber;
         public string sNotes, sFileName, sEventCode, sPersonScouting;
-        public bool bColor; // False is blue, true is red
+        public bool bColor; // Blue is true
         
         // GAME SPECIFIC ELEMENTS
         public List<MatchEvent> matchEventList;

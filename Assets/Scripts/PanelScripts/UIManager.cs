@@ -11,8 +11,9 @@ namespace Assets.Scripts
         public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel;
         public string sUserName, sEventCode, sPrevEventCode, sPrevUserName;
         public List<TeamMatch> teamMatchListToScout;
-        public readonly string sGetEventURL = "10.107.10.14:8080/getEvents/";
-        public readonly string sGetTeamURL = "blah/teams/";
+        public static readonly string sMainURL = "localhost";
+        public static readonly string sGetEventURL = sMainURL + ":8080/Events/";
+        public static readonly string sGetTeamURL = sMainURL + ":8080/Teams/";
         bool hasStarted = false;
         FRCEvent currentEvent;
         // Use this for initialization
