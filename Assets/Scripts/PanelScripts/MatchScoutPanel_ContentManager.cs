@@ -19,7 +19,7 @@ namespace Assets.Scripts{
         Toggle autonomousToggle;
         int iLeftCount, iRightCount;
         string sLeftCountCode, sRightCountCode;
-        string sTeamMatchURL = UIManager.sMainURL + "/matchUpload";
+        string sTeamMatchURL = UIManager.sMainURL + "/postTeamMatch";
         // Use this for initialization
         void Start()
         {
