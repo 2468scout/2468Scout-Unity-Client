@@ -8,7 +8,6 @@ using UnityEngine.UI;
 namespace Assets.Scripts{
     public class MatchScoutPanel_ContentManager : MonoBehaviour
     {
-        string teamMatchURL = "URL/matchUpload";
         GameObject fieldImage;
         RectTransform fieldImageRectTransform;
         float aspectRatio;
@@ -20,6 +19,7 @@ namespace Assets.Scripts{
         Toggle autonomousToggle;
         int iLeftCount, iRightCount;
         string sLeftCountCode, sRightCountCode;
+        string sTeamMatchURL = UIManager.sMainURL + "/matchUpload";
         // Use this for initialization
         void Start()
         {
