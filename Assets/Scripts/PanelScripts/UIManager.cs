@@ -19,6 +19,7 @@ namespace Assets.Scripts
         // Use this for initialization
         void Start()
         {
+            Screen.fullScreen = false;
             currentEvent = new FRCEvent();
         }
 
@@ -39,8 +40,8 @@ namespace Assets.Scripts
             }
             if(!hasStarted)
             {
-                StartCoroutine(ChangePanel("MainPanel"));
-                sCurrentPanel = "MainPanel";
+                StartCoroutine(ChangePanel("mainPanel"));
+                sCurrentPanel = "mainPanel";
                 hasStarted = true;
             }
             if(sPrevEventCode != sEventCode)
@@ -88,6 +89,7 @@ namespace Assets.Scripts
             {
                 sPrevPanel = sCurrentPanel;
                 sCurrentPanel = panel;
+                Debug.Log(sPrevPanel + "," + sCurrentPanel);
                 tempPanel = Instantiate(matchScoutPanel);
                 rectTransform = tempPanel.GetComponent<RectTransform>();
                 Destroy(openPanel);
@@ -102,6 +104,7 @@ namespace Assets.Scripts
             {
                 sPrevPanel = sCurrentPanel;
                 sCurrentPanel = panel;
+                Debug.Log(sPrevPanel + "," + sCurrentPanel);
                 tempPanel = Instantiate(pitScoutPanel);
                 rectTransform = tempPanel.GetComponent<RectTransform>();
                 Destroy(openPanel);
@@ -115,6 +118,7 @@ namespace Assets.Scripts
             {
                 sPrevPanel = sCurrentPanel;
                 sCurrentPanel = panel;
+                Debug.Log(sPrevPanel + "," + sCurrentPanel);
                 tempPanel = Instantiate(analyticsPanel);
                 rectTransform = tempPanel.GetComponent<RectTransform>();
                 Destroy(openPanel);
@@ -128,6 +132,7 @@ namespace Assets.Scripts
             {
                 sPrevPanel = sCurrentPanel;
                 sCurrentPanel = panel;
+                Debug.Log(sPrevPanel + "," + sCurrentPanel);
                 tempPanel = Instantiate(mainPanel);
                 rectTransform = tempPanel.GetComponent<RectTransform>();
                 Destroy(openPanel);
@@ -144,6 +149,7 @@ namespace Assets.Scripts
             {
                 sPrevPanel = sCurrentPanel;
                 sCurrentPanel = panel;
+                Debug.Log(sPrevPanel + "," + sCurrentPanel);
                 tempPanel = Instantiate(loginPanel);
                 rectTransform = tempPanel.GetComponent<RectTransform>();
                 Destroy(openPanel);
