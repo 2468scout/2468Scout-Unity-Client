@@ -81,7 +81,7 @@ namespace Assets.Scripts{
             SaveTeamMatch();
             WWWForm form = new WWWForm();
             form.AddField("obj", JsonUtility.ToJson(currentlyScoutingTeamMatch));
-            WWW download = new WWW(teamMatchURL, form);
+            WWW download = new WWW(sTeamMatchURL, form);
             yield return download;
             if (!string.IsNullOrEmpty(download.error))
             {

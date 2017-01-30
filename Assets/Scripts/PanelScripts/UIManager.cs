@@ -40,9 +40,9 @@ namespace Assets.Scripts
                 List<int> teamMatchPositions = new List<int>();
                 if(currentEvent != null)
                 {
-                    for (int i = 0; i < currentEvent.listNamesByTeamMatch.Count; i++)
+                    for (int i = 0; i < currentEvent.teamMatchList.Count; i++)
                     {
-                        string s = currentEvent.listNamesByTeamMatch[i];
+                        string s = currentEvent.teamMatchList[i].sPersonScouting;
                         if (s == sUserName)
                         {
                             teamMatchPositions.Add(i);

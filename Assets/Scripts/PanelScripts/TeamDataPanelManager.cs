@@ -166,7 +166,7 @@ namespace Assets.Scripts
 
         IEnumerator pullTeamFromServer()
         {
-            WWW pullFromServer = new WWW(manager.sGetTeamURL + simpleTeam.iTeamNumber);
+            WWW pullFromServer = new WWW(UIManager.sGetTeamURL + simpleTeam.iTeamNumber);
             yield return new WaitUntil(() => pullFromServer.isDone);
             team = JsonUtility.FromJson<Team>(pullFromServer.text);
             yield break;
