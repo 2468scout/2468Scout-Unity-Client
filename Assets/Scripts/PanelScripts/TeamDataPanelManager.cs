@@ -10,16 +10,15 @@ namespace Assets.Scripts
         UIManager manager;
         public Team team;              //use this when pulling statistics
         public SimpleTeam simpleTeam;
-        Button backButton;
+        Button backButton, leftButton, rightButton;
 
-        Text teamNameNumberText, gamesScoutedText, winPercentageText, backButtonText;
-        
+        Text teamNameNumberText, leftButtonText, rightButtonText, gamesScoutedText, winPercentageText, backButtonText;
         
             //General Texts
-            Text generalText, highGoalsPerGameText, lowGoalsPerGameText, gearsPerGameText, pointContText, rpPerGameText;
+            Text generalText, highGoalsPerGameText, lowGoalsPerGameText, gearsPerGameText, pointContText, rpPerGameText, generalSixText, generalSevenText, generalEightText, generalNineText, generalTenText;
 
             //Robot Texts
-            Text robotText, highGoalAccuracyText, speedText, weightText, bestSuitedRoleText, defenseCapText, antidefenseCapText, cakeSkillText;
+            Text robotText, highGoalAccuracyText, speedText, weightText, bestSuitedRoleText, defenseCapText, antidefenseCapText, cakeSkillText, compOfDrivingText;
 
             //Autonomous Texts 
             Text autonomousText, autoCapText, startPosText;
@@ -45,27 +44,35 @@ namespace Assets.Scripts
             //backButton.onClick.AddListener(() => { manager.CreatePanelWrapper("analyticsPanel"); });
             int spot = 0;
             teamNameNumberText      =       textArray[spot];       spot++;
+            leftButtonText          =       textArray[spot];       spot++;
+            rightButtonText         =       textArray[spot];       spot++;
             gamesScoutedText        =       textArray[spot];       spot++;
             winPercentageText       =       textArray[spot];       spot++;
 
             
-            //general
+            //general------------------------------------------------------------------------------------
             generalText             =       textArray[spot];       spot++;
             highGoalsPerGameText    =       textArray[spot];       spot++;
             lowGoalsPerGameText     =       textArray[spot];       spot++;
             gearsPerGameText        =       textArray[spot];       spot++;
             pointContText           =       textArray[spot];       spot++;
             rpPerGameText           =       textArray[spot];       spot++;
-            
+            generalSixText          =       textArray[spot];       spot++;
+            generalSevenText        =       textArray[spot];       spot++;
+            generalEightText        =       textArray[spot];       spot++;
+            generalNineText         =       textArray[spot];       spot++;
+            generalTenText          =       textArray[spot];       spot++;
+
             //robot
             robotText               =       textArray[spot];       spot++;
             highGoalAccuracyText    =       textArray[spot];       spot++;
             speedText               =       textArray[spot];       spot++;
             weightText              =       textArray[spot];       spot++;
             bestSuitedRoleText      =       textArray[spot];       spot++;
-            defenseCapText          =       textArray[spot];       spot++;/*
+            defenseCapText          =       textArray[spot];       spot++;
             antidefenseCapText      =       textArray[spot];       spot++;
             cakeSkillText           =       textArray[spot];       spot++;
+            compOfDrivingText       =       textArray[spot];       spot++;
             
             //Autonomous
             autonomousText          =       textArray[spot];       spot++;
@@ -82,8 +89,8 @@ namespace Assets.Scripts
             penaltyLikeText         =       textArray[spot];       spot++;
             breakdownLikeText       =       textArray[spot];       spot++;
             stuckLikeText           =       textArray[spot];       spot++;
-            */
             
+
 
             //personalizing data to specific team
 
@@ -101,7 +108,7 @@ namespace Assets.Scripts
 
             
             //GENERAL==========================================================================
-            generalText.text = "GENERAL (Per Match Averages)";
+            generalText.text = "Averages (Per Match )";
 
             double highGoals = 30; //team.highGoalsPerGame
             highGoalsPerGameText.text = "High Goals: " + highGoals;
@@ -120,7 +127,7 @@ namespace Assets.Scripts
             rpPerGameText.text = "Ranking Points: " + rpPerGame;
 
             //ROBOT==========================================================================
-            robotText.text = "ROBOT";
+            robotText.text = "Robot Statistics";
 
             double highGoalAccuracy = 100; //team.highGoalAccuracy
             highGoalAccuracyText.text = "High Goal Accuracy: " + highGoalAccuracy + "%";
@@ -131,18 +138,21 @@ namespace Assets.Scripts
             int weight = 3; //team.weight
             weightText.text = "Weight: " + weight;
 
-            string bestSuitedRole = "all of the above"; //team.bestSuitedRole
+            string bestSuitedRole = "Gears"; //team.bestSuitedRole
             bestSuitedRoleText.text = "Best Role: " + bestSuitedRole;
             
             int defenseCap = 2; //team.defenseCap
             defenseCapText.text = "Defense Capability: " + defenseCap;
-            /*
+            
             int antidefenseCap = 3; //team.antidefenseCap
             antidefenseCapText.text = "Antidefense Capability: " + antidefenseCap;
 
             int cakeSkill = 0;
             cakeSkillText.text = "Cake ability: " + cakeSkill;
-            */
+
+            int competencyOfDriving = 5;
+            compOfDrivingText.text = "Competency of Driving: " + competencyOfDriving;
+            
         }
 
         // Update is called once per frame
