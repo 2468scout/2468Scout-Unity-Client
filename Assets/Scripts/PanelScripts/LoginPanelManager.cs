@@ -16,7 +16,7 @@ namespace Assets.Scripts
             eventCodeText = GetComponentsInChildren<Text>()[1];
             userNameText = GetComponentsInChildren<Text>()[3];
             manager = GetComponentInParent<UIManager>();
-            GetComponentInChildren<Button>().onClick.AddListener(() => { Submit(); });
+            GetComponentInChildren<Button>().onClick.AddListener(() => { this.Submit(); });
         }
 
         // Update is called once per frame
@@ -29,8 +29,9 @@ namespace Assets.Scripts
         {
             manager.sEventCode = eventCodeText.text;
             manager.sUserName = userNameText.text;
-            manager.ChangePanel("mainPanel");
-            manager.DownloadEvent();
+            Debug.Log("Submitted thing" + manager.sEventCode);
+            StartCoroutine(manager.ChangePanel("mainPanel"));
+            //StartCoroutine(manager.DownloadEvent());
         }
     }
 }

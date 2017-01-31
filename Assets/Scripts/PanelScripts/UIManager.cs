@@ -46,34 +46,41 @@ namespace Assets.Scripts
             }
             if(sPrevEventCode != sEventCode)
             {
-                DownloadEvent();
+                StartCoroutine(DownloadEvent());
                 sPrevEventCode = sEventCode;
             }
             if(sPrevEventCode != sEventCode || sPrevUserName != sUserName)
             {
+                sPrevUserName = sUserName;
                 List<int> teamMatchPositions = new List<int>();
                 if(currentEvent != null)
                 {
-                    for (int i = 0; i < currentEvent.teamMatchList.Count; i++)
+                    if(currentEvent.teamMatchList != null)
                     {
-                        string s = currentEvent.teamMatchList[i].sPersonScouting;
-                        if (s == sUserName)
+                        for (int i = 0; i < currentEvent.teamMatchList.Count; i++)
                         {
-                            teamMatchPositions.Add(i);
+                            string s = currentEvent.teamMatchList[i].sPersonScouting;
+                            if (s == sUserName)
+                            {
+                                teamMatchPositions.Add(i);
+                            }
                         }
-                    }
-                    for(int i = 0; i < teamMatchPositions.Count; i++)
-                    {
-                        teamMatchListToScout.Add(currentEvent.teamMatchList[teamMatchPositions[i]]);
+                        for (int i = 0; i < teamMatchPositions.Count; i++)
+                        {
+                            teamMatchListToScout.Add(currentEvent.teamMatchList[teamMatchPositions[i]]);
+                        }
                     }
                 }
             }
         }
         public IEnumerator DownloadEvent ()
         {
+            Debug.Log("Downloading Event from " + sGetEventURL + sEventCode + ".json");
             WWW download = new WWW(sGetEventURL + sEventCode + ".json");
             yield return download;
+            Debug.Log(download.text);
             currentEvent = JsonUtility.FromJson<FRCEvent>(download.text);
+            yield break;
         }
 
         public void CreatePanelWrapper(string panel)

@@ -8,9 +8,9 @@ namespace Assets.Scripts
     public class FRCEvent
     {
         string sEventName, sEventCode;
-        List<string> teamNameList;
+        List<SimpleTeam> simpleTeamList;
         //List<Alliance> allianceList;
         public List<TeamMatch> teamMatchList;
-        List<SimpleMatch> matchList;
+        List<SimpleMatch> simpleMatchList;
     }
 }
