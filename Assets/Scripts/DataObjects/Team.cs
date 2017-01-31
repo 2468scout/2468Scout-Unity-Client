@@ -12,8 +12,9 @@ namespace Assets.Scripts
         List<FRCAward> awardsList;
 
         //ADD GAME SPECIFIC STATS
-        float fAvgGearsPerMatch, fAvgHighFuelPerMatch, fAvgLowFuelPerMatch, fAvgRankingPoints, fAvgRankingPointsPerGame;
+        float fAvgGearsPerMatch, fAvgHighFuelPerMatch, fAvgLowFuelPerMatch, fAvgRankingPoints, fHighGoalAccuracy, fClimbAttemptPercent, fTouchpadPercent, fPenaltyLikelihood, fBreakdownLikelihood, fStuckLikelihood;
         string sBestRole;
-        int iGamesScouted;
+        List<string> sNotesList;
+        int iGamesScouted, iSpeed, iWeight, iStartingPosition, iTeamAge;
     }
 }
