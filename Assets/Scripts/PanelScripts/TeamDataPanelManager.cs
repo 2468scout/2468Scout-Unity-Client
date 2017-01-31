@@ -8,7 +8,7 @@ namespace Assets.Scripts
     public class TeamDataPanelManager : MonoBehaviour
     {
         UIManager manager;
-        public Team team;              //use this when pulling statistics
+        public Team team;
         public SimpleTeam simpleTeam;
         Button backButton, leftButton, rightButton;
 
@@ -18,16 +18,16 @@ namespace Assets.Scripts
             Text generalText, highGoalsPerGameText, lowGoalsPerGameText, gearsPerGameText, pointContText, rpPerGameText, generalSixText, generalSevenText, generalEightText, generalNineText, generalTenText;
 
             //Robot Texts
-            Text robotText, highGoalAccuracyText, speedText, weightText, bestSuitedRoleText, defenseCapText, antidefenseCapText, cakeSkillText, compOfDrivingText;
+            Text robotText, highGoalAccuracyText, speedText, weightText, bestSuitedRoleText, defenseCapText, antidefenseCapText, cakeSkillText, compOfDrivingText, robotNineText, robotTenText;
 
             //Autonomous Texts 
-            Text autonomousText, autoCapText, startPosText;
+            Text autonomousText, autoCapText, startPosText, autonomousThreeText, autonomousFourText, autonomousFiveText;
 
             //End game Texts 
-            Text endGameText, climbPercText, touchpadPercText;
+            Text endGameText, climbPercText, touchpadPercText, endGameThreeText, endGameFourText, endGameFiveText;
 
             //Likelihoods Texts
-            Text likelihoodText, penaltyLikeText, breakdownLikeText, stuckLikeText;
+            Text likelihoodText, penaltyLikeText, breakdownLikeText, stuckLikeText, likelihoodsFourText, likelihoodsFiveText;
        
         
 
@@ -73,23 +73,33 @@ namespace Assets.Scripts
             antidefenseCapText      =       textArray[spot];       spot++;
             cakeSkillText           =       textArray[spot];       spot++;
             compOfDrivingText       =       textArray[spot];       spot++;
-            
+            robotNineText           =       textArray[spot];       spot++;
+            robotTenText            =       textArray[spot];       spot++;
+
             //Autonomous
             autonomousText          =       textArray[spot];       spot++;
             autoCapText             =       textArray[spot];       spot++;
             startPosText            =       textArray[spot];       spot++;
+            autonomousThreeText     =       textArray[spot];       spot++;
+            autonomousFourText      =       textArray[spot];       spot++;
+            autonomousFiveText      =       textArray[spot];       spot++;
 
             //End game
             endGameText             =       textArray[spot];       spot++;
             climbPercText           =       textArray[spot];       spot++;
             touchpadPercText        =       textArray[spot];       spot++;
+            endGameThreeText        =       textArray[spot];       spot++;
+            endGameFourText         =       textArray[spot];       spot++;
+            endGameFiveText         =       textArray[spot];       spot++;
 
             //Likelihood
             likelihoodText          =       textArray[spot];       spot++;
             penaltyLikeText         =       textArray[spot];       spot++;
             breakdownLikeText       =       textArray[spot];       spot++;
             stuckLikeText           =       textArray[spot];       spot++;
-            
+            likelihoodsFourText     =       textArray[spot];       spot++;
+            likelihoodsFiveText     =       textArray[spot];       spot++;
+
 
 
             //personalizing data to specific team
@@ -126,6 +136,12 @@ namespace Assets.Scripts
             double rpPerGame = 1.5;
             rpPerGameText.text = "Ranking Points: " + rpPerGame;
 
+            generalSixText.text = "";
+            generalSevenText.text = "";
+            generalEightText.text = "";
+            generalNineText.text = "";
+            generalTenText.text = "";
+
             //ROBOT==========================================================================
             robotText.text = "Robot Statistics";
 
@@ -152,7 +168,50 @@ namespace Assets.Scripts
 
             int competencyOfDriving = 5;
             compOfDrivingText.text = "Competency of Driving: " + competencyOfDriving;
-            
+
+            robotNineText.text = "";
+            robotTenText.text = "";
+
+            //AUTONOMOUS==========================================================================
+            autonomousText.text = "Autonomous";
+
+            string autoCap = "score";
+            autoCapText.text = "Capabilities: " + autoCap;
+
+            int startPos = 3;
+            startPosText.text = "Starting pos: " + startPos;
+
+            autonomousThreeText.text = "";
+            autonomousFourText.text = "";
+            autonomousFiveText.text = "";
+
+            //END GAME==========================================================================
+            endGameText.text = "End Game";
+
+            int climbPerc = 67;
+            climbPercText.text = "Climb: " + climbPerc + "%";
+
+            int touchpadPerc = 23;
+            touchpadPercText.text = "TouchPad: " + touchpadPerc + "%";
+
+            endGameThreeText.text = "";
+            endGameFourText.text = "";
+            endGameFiveText.text = "";
+
+            //LIKELIHOOD==========================================================================
+            likelihoodText.text = "Likelihoods";
+
+            int penaltyLike = 1;
+            penaltyLikeText.text = "Penalties: " + penaltyLike;
+
+            int breakdownLike = 1;
+            breakdownLikeText.text = "Breakdown: " + breakdownLike;
+
+            int stuckLike = 2;
+            stuckLikeText.text = "Stuck: " + stuckLike;
+
+            likelihoodsFourText.text = "";
+            likelihoodsFiveText.text = "";
         }
 
         // Update is called once per frame
