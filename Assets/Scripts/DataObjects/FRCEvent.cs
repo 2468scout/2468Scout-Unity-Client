@@ -7,10 +7,10 @@ namespace Assets.Scripts
 {
     public class FRCEvent
     {
-        string sEventName, sEventCode;
-        List<string> teamNameList;
+        public string sEventName, sEventCode;
+        public List<SimpleTeam> simpleTeamList;
         //List<Alliance> allianceList;
         public List<TeamMatch> teamMatchList;
-        List<SimpleMatch> matchList;
+        public List<SimpleMatch> simpleMatchList;
     }
 }
