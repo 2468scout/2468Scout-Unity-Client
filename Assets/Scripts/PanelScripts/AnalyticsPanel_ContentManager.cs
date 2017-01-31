@@ -20,7 +20,7 @@ namespace Assets.Scripts
             content = GameObject.Find("Content");
             foreach (SimpleTeam s in manager.currentEvent.simpleTeamList)
             {
-                int i = simpleTeamList.IndexOf(s);
+                int i = manager.currentEvent.simpleTeamList.IndexOf(s);
                 GameObject tempPanel = Instantiate(selectableTeamPanel);
                 tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().iNumInList = i;
                 tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().containedTeam = s;
