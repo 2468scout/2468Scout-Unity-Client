@@ -7,14 +7,14 @@ namespace Assets.Scripts
 {
     public class Team
     {
-        string sTeamName;
-        int iTeamNumber, iNumPictures;
-        List<FRCAward> awardsList;
+        public string sTeamName;
+        public int iTeamNumber, iNumPictures;
+        public List<FRCAward> awardsList;
 
         //ADD GAME SPECIFIC STATS
-        float fAvgGearsPerMatch, fAvgHighFuelPerMatch, fAvgLowFuelPerMatch, fAvgRankingPoints, fHighGoalAccuracy, fClimbAttemptPercent, fTouchpadPercent, fPenaltyLikelihood, fBreakdownLikelihood, fStuckLikelihood;
-        string sBestRole;
-        List<string> sNotesList;
-        int iGamesScouted, iSpeed, iWeight, iStartingPosition, iTeamAge;
+        public float fAvgGearsPerMatch, fAvgHighFuelPerMatch, fAvgLowFuelPerMatch, fAvgRankingPoints, fHighGoalAccuracy, fClimbAttemptPercent, fTouchpadPercent, fPenaltyLikelihood, fBreakdownLikelihood, fStuckLikelihood;
+        public string sBestRole;
+        public List<string> sNotesList;
+        public int iGamesScouted, iSpeed, iWeight, iStartingPosition, iTeamAge;
     }
 }
