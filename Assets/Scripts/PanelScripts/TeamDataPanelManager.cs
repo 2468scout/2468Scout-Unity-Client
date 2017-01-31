@@ -104,36 +104,36 @@ namespace Assets.Scripts
 
             //personalizing data to specific team
 
-            teamNameNumberText.text = "2468 Team Appreciate";  //team.teamNameNumberText
+            teamNameNumberText.text = "" + team.iTeamNumber + " " + team.sTeamName;  //team.teamNameNumberText
             
             Image robotImage = GetComponentInChildren<Image>();
             //robotImage = team.robotImage;
             robotImage.preserveAspect = true;
            
-            int gamesScouted = 10; //team.gamesScouted;
+            int gamesScouted = team.iGamesScouted; //team.gamesScouted;
             gamesScoutedText.text = "Games Scouted: " + gamesScouted;
             
-            double winPercentage = 95; //team.winPercentage;
-            winPercentageText.text = "Win Percentage: " + winPercentage + "%";
+            float winPercentage = team.fWinPercentage; //team.winPercentage;
+            winPercentageText.text = "Win Percentage: " + (winPercentage * 100) + "%";
 
             
             //GENERAL==========================================================================
             generalText.text = "Averages (Per Match )";
 
-            double highGoals = 30; //team.highGoalsPerGame
+            float highGoals = team.fAvgHighFuelPerMatch; //team.highGoalsPerGame
             highGoalsPerGameText.text = "High Goals: " + highGoals;
 
-            double lowGoals = 10; //team.lowGoalsPerGame
+            float lowGoals = team.fAvgLowFuelPerMatch; //team.lowGoalsPerGame
             lowGoalsPerGameText.text = "Low Goals: " + lowGoals;
 
             
-            double gears = 12; //team.gearsPerGame
+            float gears = team.fAvgGearsPerMatch; //team.gearsPerGame
             gearsPerGameText.text = "Gears: " + gears;
             
             double pointCont = 50;
             pointContText.text = "Point Contribution: " + pointCont;
 
-            double rpPerGame = 1.5;
+            float rpPerGame = team.fAvgRankingPoints;
             rpPerGameText.text = "Ranking Points: " + rpPerGame;
 
             generalSixText.text = "";
@@ -145,16 +145,16 @@ namespace Assets.Scripts
             //ROBOT==========================================================================
             robotText.text = "Robot Statistics";
 
-            double highGoalAccuracy = 100; //team.highGoalAccuracy
+            float highGoalAccuracy = team.fHighGoalAccuracy; //team.highGoalAccuracy
             highGoalAccuracyText.text = "High Goal Accuracy: " + highGoalAccuracy + "%";
 
-            int speed = 4; //team.speed
+            int speed = team.iSpeed; //team.speed
             speedText.text = "Speed: " + speed;
 
-            int weight = 3; //team.weight
+            int weight = team.iWeight; //team.weight
             weightText.text = "Weight: " + weight;
 
-            string bestSuitedRole = "Gears"; //team.bestSuitedRole
+            string bestSuitedRole = team.sBestRole; //team.bestSuitedRole
             bestSuitedRoleText.text = "Best Role: " + bestSuitedRole;
             
             int defenseCap = 2; //team.defenseCap
@@ -178,7 +178,7 @@ namespace Assets.Scripts
             string autoCap = "score";
             autoCapText.text = "Capabilities: " + autoCap;
 
-            int startPos = 3;
+            int startPos = team.iStartingPosition;
             startPosText.text = "Starting pos: " + startPos;
 
             autonomousThreeText.text = "";
@@ -188,11 +188,11 @@ namespace Assets.Scripts
             //END GAME==========================================================================
             endGameText.text = "End Game";
 
-            int climbPerc = 67;
-            climbPercText.text = "Climb: " + climbPerc + "%";
+            float climbPerc = team.fClimbAttemptPercent;
+            climbPercText.text = "Climb: " + (climbPerc * 100) + "%";
 
-            int touchpadPerc = 23;
-            touchpadPercText.text = "TouchPad: " + touchpadPerc + "%";
+            float touchpadPerc = team.fTouchpadPercent;
+            touchpadPercText.text = "TouchPad: " + (touchpadPerc * 100) + "%";
 
             endGameThreeText.text = "";
             endGameFourText.text = "";
@@ -201,14 +201,14 @@ namespace Assets.Scripts
             //LIKELIHOOD==========================================================================
             likelihoodText.text = "Likelihoods";
 
-            int penaltyLike = 1;
-            penaltyLikeText.text = "Penalties: " + penaltyLike;
+            float penaltyLike = team.fPenaltyLikelihood;
+            penaltyLikeText.text = "Penalty Chance: " + (penaltyLike * 100) + "%";
 
-            int breakdownLike = 1;
-            breakdownLikeText.text = "Breakdown: " + breakdownLike;
+            float breakdownLike = team.fBreakdownLikelihood;
+            breakdownLikeText.text = "Breakdown Chance: " + (breakdownLike * 100) + "%";
 
-            int stuckLike = 2;
-            stuckLikeText.text = "Stuck: " + stuckLike;
+            float stuckLike = team.fStuckLikelihood;
+            stuckLikeText.text = "Stuck: " + (stuckLike * 100) + "%";
 
             likelihoodsFourText.text = "";
             likelihoodsFiveText.text = "";
@@ -219,7 +219,7 @@ namespace Assets.Scripts
         {
             if(team == null && simpleTeam != null)
             {
-                this.pullTeamFromServer();
+                StartCoroutine(pullTeamFromServer());
             }
         }
 
