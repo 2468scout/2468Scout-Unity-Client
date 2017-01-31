@@ -15,7 +15,7 @@ namespace Assets.Scripts
         public static readonly string sGetEventURL = sMainURL + ":8080/Events/";
         public static readonly string sGetTeamURL = sMainURL + ":8080/Teams/";
         bool hasStarted = false;
-        FRCEvent currentEvent;
+        public FRCEvent currentEvent;
         // Use this for initialization
         void Start()
         {
@@ -80,6 +80,7 @@ namespace Assets.Scripts
             yield return download;
             Debug.Log(download.text);
             currentEvent = JsonUtility.FromJson<FRCEvent>(download.text);
+            Debug.Log(JsonUtility.ToJson(currentEvent));
             yield break;
         }
 
@@ -105,7 +106,6 @@ namespace Assets.Scripts
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
                 openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel(sPrevPanel)); });
-
             }
             else if (panel == "pitScoutPanel")
             {

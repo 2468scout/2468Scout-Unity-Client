@@ -16,16 +16,9 @@ namespace Assets.Scripts
         // Use this for initialization
         void Start()
         {
-            simpleTeamList.Add(new SimpleTeam("Team Appreciate", 2468));
-            simpleTeamList.Add(new SimpleTeam("Team Appreciate", 2468));
-            simpleTeamList.Add(new SimpleTeam("Team Appreciate", 2468));
-            simpleTeamList.Add(new SimpleTeam("Team Appreciate", 2468));
-            simpleTeamList.Add(new SimpleTeam("Team Appreciate", 2468));
-            simpleTeamList.Add(new SimpleTeam("Team Appreciate", 2468));
-            simpleTeamList.Add(new SimpleTeam("Team Appreciate", 2468));
             manager = GetComponentInParent<UIManager>();
             content = GameObject.Find("Content");
-            foreach (SimpleTeam s in simpleTeamList)
+            foreach (SimpleTeam s in manager.currentEvent.simpleTeamList)
             {
                 int i = simpleTeamList.IndexOf(s);
                 GameObject tempPanel = Instantiate(selectableTeamPanel);
