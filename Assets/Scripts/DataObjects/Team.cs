@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Assets.Scripts
 {
+    [System.Serializable]
     public class Team
     {
         public string sTeamName;
