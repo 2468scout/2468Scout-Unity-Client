@@ -13,6 +13,8 @@ namespace Assets.Scripts
         // Use this for initialization
         void Start()
         {
+            GameObject content = GameObject.Find("content");
+            content.GetComponent<RectTransform>().offsetMin = new Vector2(0,(float) (-Screen.height * 1.2));
             speedResponseText = GetComponentsInChildren<Text>()[3];
             currentPitScout = new TeamPitScout();
         }
