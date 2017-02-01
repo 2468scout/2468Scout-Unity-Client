@@ -1008,6 +1008,7 @@ GameObject:
   - component: {fileID: 224120312082803286}
   - component: {fileID: 222301723093121768}
   - component: {fileID: 114132836354042828}
+  - component: {fileID: 114814604587725194}
   m_Layer: 5
   m_Name: TeamDataPanel
   m_TagString: Untagged
@@ -1443,6 +1444,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bba47143bcacad249afa6ad78f5614b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team:
+    sTeamName: 
+    iTeamNumber: 0
+    iNumPictures: 0
+    awardsList: []
+    fAvgGearsPerMatch: 0
+    fAvgHighFuelPerMatch: 0
+    fAvgLowFuelPerMatch: 0
+    fAvgRankingPoints: 0
+    fHighGoalAccuracy: 0
+    fClimbAttemptPercent: 0
+    fTouchpadPercent: 0
+    fPenaltyLikelihood: 0
+    fBreakdownLikelihood: 0
+    fStuckLikelihood: 0
+    fWinPercentage: 0
+    sBestRole: 
+    sNotesList: []
+    iGamesScouted: 0
+    iSpeed: 0
+    iWeight: 0
+    iStartingPosition: 0
+    iTeamAge: 0
+  simpleTeam:
+    sTeamName: 
+    iTeamNumber: 0
 --- !u!114 &114093244683647406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3075,6 +3102,43 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114814604587725194
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1834135649790856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bba47143bcacad249afa6ad78f5614b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  team:
+    sTeamName: 
+    iTeamNumber: 0
+    iNumPictures: 0
+    awardsList: []
+    fAvgGearsPerMatch: 0
+    fAvgHighFuelPerMatch: 0
+    fAvgLowFuelPerMatch: 0
+    fAvgRankingPoints: 0
+    fHighGoalAccuracy: 0
+    fClimbAttemptPercent: 0
+    fTouchpadPercent: 0
+    fPenaltyLikelihood: 0
+    fBreakdownLikelihood: 0
+    fStuckLikelihood: 0
+    fWinPercentage: 0
+    sBestRole: 
+    sNotesList: []
+    iGamesScouted: 0
+    iSpeed: 0
+    iWeight: 0
+    iStartingPosition: 0
+    iTeamAge: 0
+  simpleTeam:
+    sTeamName: Null
+    iTeamNumber: 0
 --- !u!114 &114817579712933616
 MonoBehaviour:
   m_ObjectHideFlags: 1

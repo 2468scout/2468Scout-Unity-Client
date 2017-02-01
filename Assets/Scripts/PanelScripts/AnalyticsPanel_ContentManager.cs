@@ -25,7 +25,7 @@ namespace Assets.Scripts
                 tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().iNumInList = i;
                 tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().containedTeam = s;
                 tempPanel.transform.SetParent(content.transform);
-                tempPanel.GetComponent<Button>().onClick.AddListener(() => manager.CreatePanelWrapper("teampanel:" + JsonUtility.ToJson(s)));
+                tempPanel.GetComponent<Button>().onClick.AddListener(() => manager.CreatePanelWrapper("teamPanel:" + JsonUtility.ToJson(s)));
                 content.GetComponent<RectTransform>().offsetMin = new Vector2(0, (-150 * i) - 150);
             }
         }
