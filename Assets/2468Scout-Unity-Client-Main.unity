@@ -203,7 +203,7 @@ Prefab:
         type: 2}
       propertyPath: teamPanel
       value: 
-      objectReference: {fileID: 1599247158091348, guid: 61e13c8f724a51c4b9571b51abec99a6,
+      objectReference: {fileID: 1834135649790856, guid: 61e13c8f724a51c4b9571b51abec99a6,
         type: 2}
     - target: {fileID: 114688188530383694, guid: 0c12b5fbda81664438119bec586207c3,
         type: 2}
@@ -421,12 +421,14 @@ MonoBehaviour:
   analyticsPanel: {fileID: 1175494049306230, guid: d8fcae399c8a141439ff132b46a79aca,
     type: 2}
   loginPanel: {fileID: 1220046461198874, guid: 707c8eca485a6234b8745c6f4787c27c, type: 2}
-  teamPanel: {fileID: 1599247158091348, guid: 61e13c8f724a51c4b9571b51abec99a6, type: 2}
+  teamPanel: {fileID: 1834135649790856, guid: 61e13c8f724a51c4b9571b51abec99a6, type: 2}
   openPanel: {fileID: 1959794535}
   sUserName: 
   sEventCode: 
   sPrevEventCode: 
   sPrevUserName: 
+  sPrevPanel: 
+  sCurrentPanel: 
   teamMatchListToScout: []
 --- !u!1 &1588982031
 GameObject:
