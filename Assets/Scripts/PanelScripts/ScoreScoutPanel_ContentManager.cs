@@ -15,7 +15,7 @@ namespace Assets.Scripts
         UIManager manager;
         Button backButton, menuButton, matchStartButton, increase1Button, increase5Button, increase40Button, increase50Button, increase60Button;
         Text timeRemainingText;
-        List<Time> increase1TimeList, increase5TimeList, increase40TimeList, increase50TimeList, increase60TimeList;
+        ScoreScout currentScoreScout;
         // Use this for initialization
         void Start()
         {
@@ -37,21 +37,13 @@ namespace Assets.Scripts
 
             matchStartButton.onClick.AddListener(() => { this.StartMatch(); });
             this.manager = GetComponentInParent<UIManager>();
-            if (bColor)
+            if (currentScoreScout.bColor)
             {
-                this.increase1TimeList = currentlyScoutingMatch.blueIncrease1TimeList;
-                this.increase5TimeList = currentlyScoutingMatch.blueIncrease5TimeList;
-                this.increase40TimeList = currentlyScoutingMatch.blueIncrease40TimeList;
-                this.increase50TimeList = currentlyScoutingMatch.blueIncrease50TimeList;
-                this.increase60TimeList = currentlyScoutingMatch.blueIncrease60TimeList;
+                currentScoreScout = currentlyScoutingMatch.blueScoreScout;
             }
             else
             {
-                this.increase1TimeList = currentlyScoutingMatch.redIncrease1TimeList;
-                this.increase5TimeList = currentlyScoutingMatch.redIncrease5TimeList;
-                this.increase40TimeList = currentlyScoutingMatch.redIncrease40TimeList;
-                this.increase50TimeList = currentlyScoutingMatch.redIncrease50TimeList;
-                this.increase60TimeList = currentlyScoutingMatch.redIncrease60TimeList;
+                currentScoreScout = currentlyScoutingMatch.redScoreScout;
             }
         }
         // Update is called once per frame
@@ -79,19 +71,19 @@ namespace Assets.Scripts
             switch (i)
             {
                 case 1:
-                    increase1TimeList.Add(GetCurrentTime());
+                    currentScoreScout.increase1TimeList.Add(GetCurrentTime());
                     break;
                 case 5:
-                    increase5TimeList.Add(GetCurrentTime());
+                    currentScoreScout.increase5TimeList.Add(GetCurrentTime());
                     break;
                 case 40:
-                    increase40TimeList.Add(GetCurrentTime());
+                    currentScoreScout.increase40TimeList.Add(GetCurrentTime());
                     break;
                 case 50:
-                    increase50TimeList.Add(GetCurrentTime());
+                    currentScoreScout.increase50TimeList.Add(GetCurrentTime());
                     break;
                 case 60:
-                    increase60TimeList.Add(GetCurrentTime());
+                    currentScoreScout.increase60TimeList.Add(GetCurrentTime());
                     break;
             }
         }
