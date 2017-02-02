@@ -6,7 +6,7 @@ using System.Text;
 namespace Assets.Scripts
 {
     [System.Serializable]
-    class Match
+    public class Match
     {
         public int iMatchNumber, iRedScore, iBlueScore, iRedRankingPoints, iBlueRankingPoints;
         public string sCompetitionLevel, sEventPlayedAtCode;
