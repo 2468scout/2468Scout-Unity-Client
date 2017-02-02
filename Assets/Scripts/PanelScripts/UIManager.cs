@@ -8,7 +8,7 @@ namespace Assets.Scripts
     public class UIManager : MonoBehaviour
     {
 
-        public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel;
+        public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel, scoreScoutPanel;
         public string sUserName, sEventCode, sPrevEventCode, sPrevUserName, sPrevPanel, sCurrentPanel;
         public List<TeamMatch> teamMatchListToScout;
         public static readonly string sMainURL = "localhost";
