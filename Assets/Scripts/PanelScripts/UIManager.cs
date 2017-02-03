@@ -16,6 +16,9 @@ namespace Assets.Scripts
         public static readonly string sGetTeamURL = sMainURL + ":8080/Teams/";
         bool hasStarted = false;
         public FRCEvent currentEvent;
+        public List<TeamMatch> teamMatchesToScout;
+        public List<TeamPitScout> teamPitScoutsToScout;
+        public List<ScoreScout> scoreScoutsToScout;
         // Use this for initialization
         void Start()
         {
@@ -80,7 +83,7 @@ namespace Assets.Scripts
             yield return download;
             Debug.Log(download.text);
             currentEvent = JsonUtility.FromJson<FRCEvent>(download.text);
-            Debug.Log(JsonUtility.ToJson(currentEvent));
+
             yield break;
         }
 
