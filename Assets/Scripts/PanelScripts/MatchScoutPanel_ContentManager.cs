@@ -23,7 +23,15 @@ namespace Assets.Scripts{
         // Use this for initialization
         void Start()
         {
-            currentlyScoutingTeamMatch = new TeamMatch(2468, 1, false);
+            manager = GetComponentInParent<UIManager>();
+            switch (manager.scheduleItemList[manager.iNumInSchedule].sItemType)
+            {
+                case "matchScout":
+                    currentlyScoutingTeamMatch = new TeamMatch(manager.scheduleItemList[manager.iNumInSchedule]);
+                    break;
+                case "scoreScout":
+                    break;
+            }
             fieldImage = GameObject.Find("FieldImage");
             fieldImageRectTransform = fieldImage.GetComponent<RectTransform>();
             fieldImageRectTransform.offsetMin = new Vector2(0, -(GameObject.Find("FieldPanel").GetComponent<RectTransform>().rect.width /2048) * 784 / 2);
@@ -39,7 +47,6 @@ namespace Assets.Scripts{
             leftCountDecreaseButton = buttonArray[6];
             rightCountIncreaseButton = buttonArray[7];
             rightCountDecreaseButton = buttonArray[8];
-            manager = GetComponentInParent<UIManager>();
             matchStartButton.onClick.AddListener(() => { this.StartMatch(); });
             fieldImageButton.onClick.AddListener(() => { this.CreatePointEvent(UnityEngine.Input.mousePosition); });
 

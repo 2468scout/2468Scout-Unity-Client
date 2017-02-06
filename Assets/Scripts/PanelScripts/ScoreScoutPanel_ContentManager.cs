@@ -71,19 +71,19 @@ namespace Assets.Scripts
             switch (i)
             {
                 case 1:
-                    currentScoreScout.increase1TimeList.Add(GetCurrentTime());
+                    currentScoreScout.increase1TimeList.Add(GetCurrentTime().sumMilliseconds());
                     break;
                 case 5:
-                    currentScoreScout.increase5TimeList.Add(GetCurrentTime());
+                    currentScoreScout.increase5TimeList.Add(GetCurrentTime().sumMilliseconds());
                     break;
                 case 40:
-                    currentScoreScout.increase40TimeList.Add(GetCurrentTime());
+                    currentScoreScout.increase40TimeList.Add(GetCurrentTime().sumMilliseconds());
                     break;
                 case 50:
-                    currentScoreScout.increase50TimeList.Add(GetCurrentTime());
+                    currentScoreScout.increase50TimeList.Add(GetCurrentTime().sumMilliseconds());
                     break;
                 case 60:
-                    currentScoreScout.increase60TimeList.Add(GetCurrentTime());
+                    currentScoreScout.increase60TimeList.Add(GetCurrentTime().sumMilliseconds());
                     break;
             }
         }

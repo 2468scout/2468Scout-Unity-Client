@@ -8,8 +8,9 @@ namespace Assets.Scripts
     [System.Serializable]
     public class ScheduleItem
     {
-        string sPersonResponsible,
-            sEventType, sEventCode; // pitScout, matchScout, scoreScout
-        int iMatchNumber, iTeamNumber;
+        public string sPersonResponsible,
+            sItemType, sEventCode; // matchScout, scoreScout
+        public int iMatchNumber, iTeamNumber;
+        public bool bColor;
     }
 }

@@ -16,9 +16,11 @@ namespace Assets.Scripts
         public static readonly string sGetTeamURL = sMainURL + ":8080/Teams/";
         bool hasStarted = false;
         public FRCEvent currentEvent;
+        public List<ScheduleItem> scheduleItemList;
         public List<TeamMatch> teamMatchesToScout;
         public List<TeamPitScout> teamPitScoutsToScout;
         public List<ScoreScout> scoreScoutsToScout;
+        public int iNumInSchedule, iNumInTeamPitScouts;
         // Use this for initialization
         void Start()
         {
@@ -83,7 +85,22 @@ namespace Assets.Scripts
             yield return download;
             Debug.Log(download.text);
             currentEvent = JsonUtility.FromJson<FRCEvent>(download.text);
-
+            foreach(ScheduleItem s in currentEvent.scheduleItemList)
+            {
+                scheduleItemList.Add(s);
+                if(s.sPersonResponsible == sUserName)
+                {
+                    switch (s.sItemType)
+                    {
+                        case "matchScout":
+                            teamMatchesToScout.Add(new TeamMatch(s.iTeamNumber, s.iMatchNumber, s.bColor, sEventCode));
+                            break;
+                        case "scoreScout":
+                            scoreScoutsToScout.Add(new ScoreScout(s.bColor, s.iMatchNumber, s.sEventCode));
+                            break;
+                    }
+                }
+            }
             yield break;
         }
 
@@ -101,14 +118,29 @@ namespace Assets.Scripts
                 sPrevPanel = sCurrentPanel;
                 sCurrentPanel = panel;
                 Debug.Log(sPrevPanel + "," + sCurrentPanel);
-                tempPanel = Instantiate(matchScoutPanel);
-                rectTransform = tempPanel.GetComponent<RectTransform>();
-                Destroy(openPanel);
-                openPanel = tempPanel;
-                openPanel.transform.SetParent(gameObject.transform);
-                rectTransform.offsetMin = new Vector2(0, 0);
-                rectTransform.offsetMax = new Vector2(0, 0);
-                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel(sPrevPanel)); });
+                if(scheduleItemList.Count == 0)
+                {
+
+                }
+                else
+                {
+                    switch (scheduleItemList[iNumInSchedule].sItemType)
+                    {
+                        case "matchScout":
+                            tempPanel = Instantiate(matchScoutPanel);
+                            break;
+                        case "scoreScout":
+                            tempPanel = Instantiate(scoreScoutPanel);
+                            break;
+                    }
+                    rectTransform = tempPanel.GetComponent<RectTransform>();
+                    Destroy(openPanel);
+                    openPanel = tempPanel;
+                    openPanel.transform.SetParent(gameObject.transform);
+                    rectTransform.offsetMin = new Vector2(0, 0);
+                    rectTransform.offsetMax = new Vector2(0, 0);
+                    openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel(sPrevPanel)); });
+                }
             }
             else if (panel == "pitScoutPanel")
             {
