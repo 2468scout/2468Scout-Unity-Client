@@ -115,8 +115,6 @@ namespace Assets.Scripts
             RectTransform rectTransform = null;
             if (panel == "matchScoutPanel")
             {
-                sPrevPanel = sCurrentPanel;
-                sCurrentPanel = panel;
                 Debug.Log(sPrevPanel + "," + sCurrentPanel);
                 if(scheduleItemList.Count == 0)
                 {
@@ -124,6 +122,8 @@ namespace Assets.Scripts
                 }
                 else
                 {
+                    sPrevPanel = sCurrentPanel;
+                    sCurrentPanel = panel;
                     switch (scheduleItemList[iNumInSchedule].sItemType)
                     {
                         case "matchScout":
