@@ -9,7 +9,7 @@ namespace Assets.Scripts
     {
         public int iSpeed; //0-5
         public int iFuelCapacity, iTeamNumber; 
-        string sEventCode;
+        public string sEventCode, sPersonResponsible;
         public bool bCanHighGoal, bCanGears, bCanLowGoal, bCanClimb, bCanHopper, bCanIntake;
         public TeamPitScout(int iTeamNumber, string sEventCode)
         {

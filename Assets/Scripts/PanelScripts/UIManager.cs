@@ -17,9 +17,9 @@ namespace Assets.Scripts
         bool hasStarted = false;
         public FRCEvent currentEvent;
         public List<ScheduleItem> scheduleItemList;
-        public List<TeamMatch> teamMatchesToScout;
-        public List<TeamPitScout> teamPitScoutsToScout;
-        public List<ScoreScout> scoreScoutsToScout;
+        public List<TeamMatch> teamMatchesToScout = new List<TeamMatch>();
+        public List<TeamPitScout> teamPitScoutsToScout = new List<TeamPitScout>();
+        public List<ScoreScout> scoreScoutsToScout = new List<ScoreScout>();
         public int iNumInSchedule, iNumInTeamPitScouts;
         // Use this for initialization
         void Start()

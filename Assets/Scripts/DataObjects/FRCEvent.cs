@@ -14,5 +14,6 @@ namespace Assets.Scripts
         public List<Match> matchList;
         public List<ScheduleItem> scheduleItemList;
         public List<SimpleMatch> simpleMatchList;
+        public List<TeamPitScout> teamPitScoutList;
     }
 }

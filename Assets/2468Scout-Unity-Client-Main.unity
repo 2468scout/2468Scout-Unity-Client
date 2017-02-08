@@ -211,6 +211,12 @@ Prefab:
       value: 
       objectReference: {fileID: 1980679212518614, guid: c6c133a05c3833649aea137cc46940aa,
         type: 2}
+    - target: {fileID: 114688188530383694, guid: 0c12b5fbda81664438119bec586207c3,
+        type: 2}
+      propertyPath: scoreScoutPanel
+      value: 
+      objectReference: {fileID: 1657178988354312, guid: ac2a1e1e7a9a4dd45ab5ec1e660bf223,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c12b5fbda81664438119bec586207c3, type: 2}
   m_IsPrefabParent: 0
@@ -423,6 +429,8 @@ MonoBehaviour:
   loginPanel: {fileID: 1220046461198874, guid: 707c8eca485a6234b8745c6f4787c27c, type: 2}
   teamPanel: {fileID: 1834135649790856, guid: 61e13c8f724a51c4b9571b51abec99a6, type: 2}
   openPanel: {fileID: 1959794535}
+  scoreScoutPanel: {fileID: 1657178988354312, guid: ac2a1e1e7a9a4dd45ab5ec1e660bf223,
+    type: 2}
   sUserName: 
   sEventCode: 
   sPrevEventCode: 
@@ -430,6 +438,10 @@ MonoBehaviour:
   sPrevPanel: 
   sCurrentPanel: 
   teamMatchListToScout: []
+  scheduleItemList: []
+  teamMatchesToScout: []
+  iNumInSchedule: 0
+  iNumInTeamPitScouts: 0
 --- !u!1 &1588982031
 GameObject:
   m_ObjectHideFlags: 0
