@@ -516,11 +516,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1433366231}
     m_Modifications:
-    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 224613768047745892, guid: 869a32609b1b4c34b9f70aa237b3ea83,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -611,7 +606,7 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114704808322852456, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+    - target: {fileID: 114152217876430010, guid: 869a32609b1b4c34b9f70aa237b3ea83,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -621,66 +616,16 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1433366232}
-    - target: {fileID: 114152217876430010, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1433366232}
     - target: {fileID: 114704808322852456, guid: 869a32609b1b4c34b9f70aa237b3ea83,
         type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CreatePanelWrapper
-      objectReference: {fileID: 0}
-    - target: {fileID: 114152217876430010, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CreatePanelWrapper
-      objectReference: {fileID: 0}
-    - target: {fileID: 114540389841962534, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CreatePanelWrapper
-      objectReference: {fileID: 0}
-    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1433366232}
     - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
         type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CreatePanelWrapper
-      objectReference: {fileID: 0}
-    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: '"loginPanel"'
-      objectReference: {fileID: 0}
-    - target: {fileID: 114073029327543470, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_FontData.m_BestFit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114073029327543470, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_FontData.m_MaxSize
-      value: 300
-      objectReference: {fileID: 0}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1433366232}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 869a32609b1b4c34b9f70aa237b3ea83, type: 2}
   m_IsPrefabParent: 0

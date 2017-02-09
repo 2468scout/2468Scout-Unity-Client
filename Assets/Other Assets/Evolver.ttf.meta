@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: f3c071ad4365a014e8f210da0897b28d
+timeCreated: 1486676949
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Evolver
+  fontNames:
+  - Evolver
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
