@@ -192,7 +192,7 @@ Prefab:
         type: 2}
       propertyPath: openPanel
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1959794535}
     - target: {fileID: 114688188530383694, guid: 0c12b5fbda81664438119bec586207c3,
         type: 2}
       propertyPath: loginPanel
@@ -203,13 +203,19 @@ Prefab:
         type: 2}
       propertyPath: teamPanel
       value: 
-      objectReference: {fileID: 1599247158091348, guid: 61e13c8f724a51c4b9571b51abec99a6,
+      objectReference: {fileID: 1834135649790856, guid: 61e13c8f724a51c4b9571b51abec99a6,
         type: 2}
     - target: {fileID: 114688188530383694, guid: 0c12b5fbda81664438119bec586207c3,
         type: 2}
       propertyPath: pointEventButtonPanel
       value: 
       objectReference: {fileID: 1980679212518614, guid: c6c133a05c3833649aea137cc46940aa,
+        type: 2}
+    - target: {fileID: 114688188530383694, guid: 0c12b5fbda81664438119bec586207c3,
+        type: 2}
+      propertyPath: scoreScoutPanel
+      value: 
+      objectReference: {fileID: 1657178988354312, guid: ac2a1e1e7a9a4dd45ab5ec1e660bf223,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c12b5fbda81664438119bec586207c3, type: 2}
@@ -421,13 +427,21 @@ MonoBehaviour:
   analyticsPanel: {fileID: 1175494049306230, guid: d8fcae399c8a141439ff132b46a79aca,
     type: 2}
   loginPanel: {fileID: 1220046461198874, guid: 707c8eca485a6234b8745c6f4787c27c, type: 2}
-  teamPanel: {fileID: 1599247158091348, guid: 61e13c8f724a51c4b9571b51abec99a6, type: 2}
-  openPanel: {fileID: 0}
+  teamPanel: {fileID: 1834135649790856, guid: 61e13c8f724a51c4b9571b51abec99a6, type: 2}
+  openPanel: {fileID: 1959794535}
+  scoreScoutPanel: {fileID: 1657178988354312, guid: ac2a1e1e7a9a4dd45ab5ec1e660bf223,
+    type: 2}
   sUserName: 
   sEventCode: 
   sPrevEventCode: 
   sPrevUserName: 
+  sPrevPanel: 
+  sCurrentPanel: 
   teamMatchListToScout: []
+  scheduleItemList: []
+  teamMatchesToScout: []
+  iNumInSchedule: 0
+  iNumInTeamPitScouts: 0
 --- !u!1 &1588982031
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,6 +504,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1959794535 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1288324044579824, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+    type: 2}
+  m_PrefabInternal: {fileID: 1986328305}
 --- !u!1001 &1986328305
 Prefab:
   m_ObjectHideFlags: 0
@@ -497,11 +516,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1433366231}
     m_Modifications:
-    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 224613768047745892, guid: 869a32609b1b4c34b9f70aa237b3ea83,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -592,7 +606,7 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114704808322852456, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+    - target: {fileID: 114152217876430010, guid: 869a32609b1b4c34b9f70aa237b3ea83,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -602,66 +616,16 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1433366232}
-    - target: {fileID: 114152217876430010, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1433366232}
     - target: {fileID: 114704808322852456, guid: 869a32609b1b4c34b9f70aa237b3ea83,
         type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CreatePanelWrapper
-      objectReference: {fileID: 0}
-    - target: {fileID: 114152217876430010, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CreatePanelWrapper
-      objectReference: {fileID: 0}
-    - target: {fileID: 114540389841962534, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CreatePanelWrapper
-      objectReference: {fileID: 0}
-    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1433366232}
     - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
         type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CreatePanelWrapper
-      objectReference: {fileID: 0}
-    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: '"loginPanel"'
-      objectReference: {fileID: 0}
-    - target: {fileID: 114073029327543470, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_FontData.m_BestFit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114073029327543470, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_FontData.m_MaxSize
-      value: 300
-      objectReference: {fileID: 0}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1433366232}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 869a32609b1b4c34b9f70aa237b3ea83, type: 2}
   m_IsPrefabParent: 0

@@ -5,11 +5,12 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-    class Match
+    [System.Serializable]
+    public class Match
     {
-        int iMatchNumber, iRedScore, iBlueScore, iRedRankingPoints, iBlueRankingPoints;
-        string sCompetitionLevel, sEventPlayedAtCode;
-        List<TeamMatch> teamMatchList;
-
+        public int iMatchNumber, iRedScore, iBlueScore, iRedRankingPoints, iBlueRankingPoints;
+        public string sCompetitionLevel, sEventPlayedAtCode;
+        public List<TeamMatch> teamMatchList;
+        public ScoreScout redScoreScout, blueScoreScout;
     }
 }

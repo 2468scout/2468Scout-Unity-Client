@@ -31,6 +31,10 @@ namespace Assets.Scripts
         }
         public override string ToString()
         {
+            if (this.second < 10)
+            {
+                return "" + minute + ":0" + second;
+            }
             return "" + minute + ":" + second;
         }
         public int sumMilliseconds()

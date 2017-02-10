@@ -8,54 +8,100 @@ namespace Assets.Scripts
     public class UIManager : MonoBehaviour
     {
 
-        public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel;
-        public string sUserName, sEventCode, sPrevEventCode, sPrevUserName;
+        public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel, scoreScoutPanel;
+        public string sUserName, sEventCode, sPrevEventCode, sPrevUserName, sPrevPanel, sCurrentPanel;
         public List<TeamMatch> teamMatchListToScout;
-        const string sGetEventURL = "blah/events/";
-        const string sGetTeamURL = "blah/teams/";
+        public static readonly string sMainURL = "localhost";
+        public static readonly string sGetEventURL = sMainURL + ":8080/Events/";
+        public static readonly string sGetTeamURL = sMainURL + ":8080/Teams/";
         bool hasStarted = false;
-        FRCEvent currentEvent;
+        public FRCEvent currentEvent;
+        public List<ScheduleItem> scheduleItemList;
+        public List<TeamMatch> teamMatchesToScout = new List<TeamMatch>();
+        public List<TeamPitScout> teamPitScoutsToScout = new List<TeamPitScout>();
+        public List<ScoreScout> scoreScoutsToScout = new List<ScoreScout>();
+        public int iNumInSchedule, iNumInTeamPitScouts;
         // Use this for initialization
         void Start()
         {
+            Screen.fullScreen = false;
             currentEvent = new FRCEvent();
         }
 
         // Update is called once per frame
         void Update()
         {
+            if(sPrevPanel != null)
+            {
+                Input.backButtonLeavesApp = false;
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    StartCoroutine(ChangePanel(sPrevPanel));
+                }
+            }
+            else
+            {
+                Input.backButtonLeavesApp = true;
+            }
             if(!hasStarted)
             {
-                StartCoroutine(ChangePanel("MainPanel"));
+                StartCoroutine(ChangePanel("mainPanel"));
+                sCurrentPanel = "mainPanel";
                 hasStarted = true;
             }
             if(sPrevEventCode != sEventCode)
             {
-                DownloadEvent();
+                StartCoroutine(DownloadEvent());
                 sPrevEventCode = sEventCode;
             }
             if(sPrevEventCode != sEventCode || sPrevUserName != sUserName)
             {
+                sPrevUserName = sUserName;
                 List<int> teamMatchPositions = new List<int>();
-                for (int i = 0; i < currentEvent.listNamesByTeamMatch.Count; i++)
+                if(currentEvent != null)
                 {
-                    string s = currentEvent.listNamesByTeamMatch[i];
-                    if (s == sUserName)
+                    if(currentEvent.teamMatchList != null)
                     {
-                        teamMatchPositions.Add(i);
+                        for (int i = 0; i < currentEvent.teamMatchList.Count; i++)
+                        {
+                            string s = currentEvent.teamMatchList[i].sPersonScouting;
+                            if (s == sUserName)
+                            {
+                                teamMatchPositions.Add(i);
+                            }
+                        }
+                        for (int i = 0; i < teamMatchPositions.Count; i++)
+                        {
+                            teamMatchListToScout.Add(currentEvent.teamMatchList[teamMatchPositions[i]]);
+                        }
                     }
-                }
-                for(int i = 0; i < teamMatchPositions.Count; i++)
-                {
-                    teamMatchListToScout.Add(currentEvent.teamMatchList[teamMatchPositions[i]]);
                 }
             }
         }
         public IEnumerator DownloadEvent ()
         {
+            Debug.Log("Downloading Event from " + sGetEventURL + sEventCode + ".json");
             WWW download = new WWW(sGetEventURL + sEventCode + ".json");
             yield return download;
+            Debug.Log(download.text);
             currentEvent = JsonUtility.FromJson<FRCEvent>(download.text);
+            foreach(ScheduleItem s in currentEvent.scheduleItemList)
+            {
+                scheduleItemList.Add(s);
+                if(s.sPersonResponsible == sUserName)
+                {
+                    switch (s.sItemType)
+                    {
+                        case "matchScout":
+                            teamMatchesToScout.Add(new TeamMatch(s.iTeamNumber, s.iMatchNumber, s.bColor, sEventCode));
+                            break;
+                        case "scoreScout":
+                            scoreScoutsToScout.Add(new ScoreScout(s.bColor, s.iMatchNumber, s.sEventCode));
+                            break;
+                    }
+                }
+            }
+            yield break;
         }
 
         public void CreatePanelWrapper(string panel)
@@ -69,17 +115,38 @@ namespace Assets.Scripts
             RectTransform rectTransform = null;
             if (panel == "matchScoutPanel")
             {
-                tempPanel = Instantiate(matchScoutPanel);
-                rectTransform = tempPanel.GetComponent<RectTransform>();
-                Destroy(openPanel);
-                openPanel = tempPanel;
-                openPanel.transform.SetParent(gameObject.transform);
-                rectTransform.offsetMin = new Vector2(0, 0);
-                rectTransform.offsetMax = new Vector2(0, 0);
-                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel("mainPanel")); });
+                Debug.Log(sPrevPanel + "," + sCurrentPanel);
+                if(scheduleItemList.Count == 0)
+                {
+
+                }
+                else
+                {
+                    sPrevPanel = sCurrentPanel;
+                    sCurrentPanel = panel;
+                    switch (scheduleItemList[iNumInSchedule].sItemType)
+                    {
+                        case "matchScout":
+                            tempPanel = Instantiate(matchScoutPanel);
+                            break;
+                        case "scoreScout":
+                            tempPanel = Instantiate(scoreScoutPanel);
+                            break;
+                    }
+                    rectTransform = tempPanel.GetComponent<RectTransform>();
+                    Destroy(openPanel);
+                    openPanel = tempPanel;
+                    openPanel.transform.SetParent(gameObject.transform);
+                    rectTransform.offsetMin = new Vector2(0, 0);
+                    rectTransform.offsetMax = new Vector2(0, 0);
+                    openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel(sPrevPanel)); });
+                }
             }
             else if (panel == "pitScoutPanel")
             {
+                sPrevPanel = sCurrentPanel;
+                sCurrentPanel = panel;
+                Debug.Log(sPrevPanel + "," + sCurrentPanel);
                 tempPanel = Instantiate(pitScoutPanel);
                 rectTransform = tempPanel.GetComponent<RectTransform>();
                 Destroy(openPanel);
@@ -87,10 +154,13 @@ namespace Assets.Scripts
                 openPanel.transform.SetParent(gameObject.transform);
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
-                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel("mainPanel")); });
+                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel(sPrevPanel)); });
             }
             else if (panel == "analyticsPanel")
             {
+                sPrevPanel = sCurrentPanel;
+                sCurrentPanel = panel;
+                Debug.Log(sPrevPanel + "," + sCurrentPanel);
                 tempPanel = Instantiate(analyticsPanel);
                 rectTransform = tempPanel.GetComponent<RectTransform>();
                 Destroy(openPanel);
@@ -98,10 +168,13 @@ namespace Assets.Scripts
                 openPanel.transform.SetParent(gameObject.transform);
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
-                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel("mainPanel")); });
+                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel(sPrevPanel)); });
             }
             else if (panel == "mainPanel")
             {
+                sPrevPanel = sCurrentPanel;
+                sCurrentPanel = panel;
+                Debug.Log(sPrevPanel + "," + sCurrentPanel);
                 tempPanel = Instantiate(mainPanel);
                 rectTransform = tempPanel.GetComponent<RectTransform>();
                 Destroy(openPanel);
@@ -116,6 +189,9 @@ namespace Assets.Scripts
             }
             else if (panel == "loginPanel")
             {
+                sPrevPanel = sCurrentPanel;
+                sCurrentPanel = panel;
+                Debug.Log(sPrevPanel + "," + sCurrentPanel);
                 tempPanel = Instantiate(loginPanel);
                 rectTransform = tempPanel.GetComponent<RectTransform>();
                 Destroy(openPanel);
@@ -123,9 +199,12 @@ namespace Assets.Scripts
                 openPanel.transform.SetParent(gameObject.transform);
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
+                //openPanel.GetComponentInChildren<Button>().onClick.AddListener(() => { StartCoroutine()})
             }
             else if (panel.Contains("teamPanel:"))
             {
+                sPrevPanel = sCurrentPanel;
+                sCurrentPanel = panel;
                 tempPanel = Instantiate(teamPanel);
                 rectTransform = tempPanel.GetComponent<RectTransform>();
                 Destroy(openPanel);
@@ -133,9 +212,7 @@ namespace Assets.Scripts
                 openPanel.transform.SetParent(gameObject.transform);
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
-                WWW getTeamData = new WWW(sGetTeamURL);
-                yield return new WaitUntil(() => getTeamData.isDone);
-                openPanel.GetComponent<TeamDataPanelManager>().team = JsonUtility.FromJson<Team>(getTeamData.text);
+                openPanel.GetComponent<TeamDataPanelManager>().simpleTeam = JsonUtility.FromJson<SimpleTeam>(panel.Substring(10));
             }
             /*
             else if (panel == )

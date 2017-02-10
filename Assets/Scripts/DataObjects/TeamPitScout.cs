@@ -5,15 +5,16 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-    class TeamPitScout 
+    public class TeamPitScout 
     {
         public int iSpeed; //0-5
-        public int iFuelCapacity;
-        public SimpleTeam currentlyScoutedTeam; 
-        string sEventCode;
+        public int iFuelCapacity, iTeamNumber; 
+        public string sEventCode, sPersonResponsible;
         public bool bCanHighGoal, bCanGears, bCanLowGoal, bCanClimb, bCanHopper, bCanIntake;
-
-       
-
+        public TeamPitScout(int iTeamNumber, string sEventCode)
+        {
+            this.iTeamNumber = iTeamNumber;
+            this.sEventCode = sEventCode;
+        }
     }
 }

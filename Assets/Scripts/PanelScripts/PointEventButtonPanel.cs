@@ -15,7 +15,6 @@ namespace Assets.Scripts
         // Use this for initialization
         void Start()
         {
-            currentEvent = new MatchEvent();
             Button[] buttonArray = GetComponentsInChildren<Button>();
             hopperLoadButton = buttonArray[0];
             highGoalStartButton = buttonArray[1];
@@ -48,6 +47,8 @@ namespace Assets.Scripts
 
         void SetMatchEventCode(string s)
         {
+            Debug.Log(currentEvent == null);
+            Debug.Log("("  + currentEvent.loc.x + ", " + currentEvent.loc.y + ")");
             switch (s)
             {
 

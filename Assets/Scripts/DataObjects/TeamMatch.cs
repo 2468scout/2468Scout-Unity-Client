@@ -9,17 +9,26 @@ namespace Assets.Scripts
     [System.Serializable]
     public class TeamMatch
     {
-        public int iTeamNumber, iMatchNumber, iNumberInAlliance, iAllianceNumber;
-        public string sNotes, sFileName, sEventCode;
-        public bool bColor; // False is blue, true is red
+        public int iTeamNumber, iMatchNumber, iStationNumber, iAllianceNumber;
+        public string sNotes, sFileName, sEventCode, sPersonScouting;
+        public bool bColor; // Blue is true
         
         // GAME SPECIFIC ELEMENTS
         public List<MatchEvent> matchEventList;
-        public TeamMatch(int iTeamNumber, int iMatchNumber, bool bColor)
+        public TeamMatch(int iTeamNumber, int iMatchNumber, bool bColor, string sEventCode)
         {
             this.iTeamNumber = iTeamNumber;
             this.iMatchNumber = iMatchNumber;
             this.bColor = bColor;
+            this.sEventCode = sEventCode;
+            matchEventList = new List<MatchEvent>();
+        }
+        public TeamMatch(ScheduleItem item)
+        {
+            iTeamNumber = item.iTeamNumber;
+            iMatchNumber = item.iMatchNumber;
+            bColor = item.bColor;
+            sEventCode = item.sEventCode;
             matchEventList = new List<MatchEvent>();
         }
     }

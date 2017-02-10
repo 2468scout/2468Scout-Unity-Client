@@ -10,11 +10,14 @@ namespace Assets.Scripts
 
         Text speedResponseText;
         TeamPitScout currentPitScout;
+        UIManager manager;
         // Use this for initialization
         void Start()
         {
+            GameObject content = GameObject.Find("Content");
+            content.GetComponent<RectTransform>().offsetMin = new Vector2(0,(float) (-Screen.height * 1.2));
             speedResponseText = GetComponentsInChildren<Text>()[3];
-            currentPitScout = new TeamPitScout();
+            currentPitScout = manager.teamPitScoutsToScout[manager.iNumInTeamPitScouts];
         }
 
         // Update is called once per frame
@@ -33,7 +36,7 @@ namespace Assets.Scripts
             currentPitScout.bCanGears = GetComponentsInChildren<Toggle>()[3].isOn;
             currentPitScout.bCanHopper = GetComponentsInChildren<Toggle>()[4].isOn;
             currentPitScout.bCanIntake = GetComponentsInChildren<Toggle>()[5].isOn;
-
+            manager.iNumInTeamPitScouts++;
             Debug.Log("Speed: " + currentPitScout.iSpeed + " Fuel: " + currentPitScout.iFuelCapacity + " Can High Goal: " + currentPitScout.bCanHighGoal + " Can Low Goal: " + currentPitScout.bCanLowGoal + " Can Climb: " + currentPitScout.bCanClimb + " Can Gears: " + currentPitScout.bCanGears + " Can Hopper: " + currentPitScout.bCanHopper + " Can Intake: " + currentPitScout.bCanIntake);
 
         }

@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Assets.Scripts
 {
-    class FRCAward
+    [System.Serializable]
+    public class FRCAward
     {
         string sAwardName, sEventCode;
         int iYear, iAwardType;
