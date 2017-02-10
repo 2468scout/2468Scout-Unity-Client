@@ -28,16 +28,17 @@ namespace Assets.Scripts
 
             //Likelihoods Texts
             Text likelihoodText, penaltyLikeText, breakdownLikeText, stuckLikeText, likelihoodsFourText, likelihoodsFiveText;
-       
-        
+
+
 
         // Use this for initialization
         void Start()
         {
-            this.simpleTeam = simpleTeam;
             manager = GetComponentInParent<UIManager>();
             Debug.Log("Starting TeamDataPanel: SimpleTeam: " + JsonUtility.ToJson(simpleTeam));
             SetData();
+            backButton = GetComponentsInChildren<Button>()[0];
+            backButton.onClick.AddListener(() => { manager.CreatePanelWrapper(manager.sPrevPanel); });
         }
 
         // Update is called once per frame
