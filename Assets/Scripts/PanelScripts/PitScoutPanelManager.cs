@@ -14,6 +14,7 @@ namespace Assets.Scripts
         // Use this for initialization
         void Start()
         {
+            manager = GetComponentInParent<UIManager>();
             GameObject content = GameObject.Find("Content");
             content.GetComponent<RectTransform>().offsetMin = new Vector2(0,(float) (-Screen.height * 1.2));
             speedResponseText = GetComponentsInChildren<Text>()[3];
@@ -37,6 +38,15 @@ namespace Assets.Scripts
             currentPitScout.bCanHopper = GetComponentsInChildren<Toggle>()[4].isOn;
             currentPitScout.bCanIntake = GetComponentsInChildren<Toggle>()[5].isOn;
             manager.iNumInTeamPitScouts++;
+
+            GetComponentsInChildren<Text>()[3].text = "";
+            GetComponentsInChildren<Text>()[6].text = "";
+            GetComponentsInChildren<Toggle>()[0].isOn = false;
+            GetComponentsInChildren<Toggle>()[1].isOn = false;
+            GetComponentsInChildren<Toggle>()[2].isOn = false;
+            GetComponentsInChildren<Toggle>()[3].isOn = false;
+            GetComponentsInChildren<Toggle>()[4].isOn = false;
+            GetComponentsInChildren<Toggle>()[5].isOn = false;
             Debug.Log("Speed: " + currentPitScout.iSpeed + " Fuel: " + currentPitScout.iFuelCapacity + " Can High Goal: " + currentPitScout.bCanHighGoal + " Can Low Goal: " + currentPitScout.bCanLowGoal + " Can Climb: " + currentPitScout.bCanClimb + " Can Gears: " + currentPitScout.bCanGears + " Can Hopper: " + currentPitScout.bCanHopper + " Can Intake: " + currentPitScout.bCanIntake);
 
         }
