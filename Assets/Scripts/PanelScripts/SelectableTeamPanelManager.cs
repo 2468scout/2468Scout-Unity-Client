@@ -16,8 +16,8 @@ namespace Assets.Scripts
         void Start()
         {
             transform = this.gameObject.GetComponent<RectTransform>();
-            transform.offsetMin = new Vector2(0, -150 - (150 * iNumInList));
-            transform.offsetMax = new Vector2(0, -150 * iNumInList);
+            //transform.offsetMin = new Vector2(0, -150 - (150 * iNumInList));
+            //transform.offsetMax = new Vector2(0, -150 * iNumInList);
             displayText = GetComponentInChildren<Text>();
             manager = GetComponentInParent<UIManager>();
             displayText.text = "Team #" + containedTeam.iTeamNumber.ToString() + " - " + containedTeam.sTeamName;

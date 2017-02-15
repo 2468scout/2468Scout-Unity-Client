@@ -40,9 +40,9 @@ namespace Assets.Scripts
                 GameObject tempPanel = Instantiate(selectableTeamPanel);
                 tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().iNumInList = i;
                 tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().containedTeam = s;
-                tempPanel.GetComponent<RectTransform>().offsetMax = new Vector2(0, iTeamDataPanelHeight * i);
-                tempPanel.GetComponent<RectTransform>().offsetMin = new Vector2(0, iTeamDataPanelHeight * (i + 1));
-                Debug.Log("Changed offsetmax to " + (iTeamDataPanelHeight * i) + " and offsetMin to " + (iTeamDataPanelHeight * (i + 1)));
+                tempPanel.GetComponent<RectTransform>().offsetMax = new Vector2(0, -(iTeamDataPanelHeight * i));
+                tempPanel.GetComponent<RectTransform>().offsetMin = new Vector2(0, -(iTeamDataPanelHeight * (i + 1)));
+                Debug.Log("Changed offsetmax to " + (iTeamDataPanelHeight * i) + " and offsetMin to " + (iTeamDataPanelHeight * (i+1)));
                 tempPanel.transform.SetParent(content.transform);
                 tempPanel.GetComponent<Button>().onClick.AddListener(() => manager.CreatePanelWrapper("teamPanel:" + JsonUtility.ToJson(s)));
                 content.GetComponent<RectTransform>().offsetMin = new Vector2(0, (-iTeamDataPanelHeight * i) - iTeamDataPanelHeight);
