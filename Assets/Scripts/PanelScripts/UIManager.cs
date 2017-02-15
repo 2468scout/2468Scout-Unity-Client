@@ -36,7 +36,7 @@ namespace Assets.Scripts
                 Input.backButtonLeavesApp = false;
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    StartCoroutine(ChangePanel(sPrevPanel));
+                    BackPanel();
                 }
             }
             else
@@ -108,7 +108,34 @@ namespace Assets.Scripts
         {
             StartCoroutine(ChangePanel(panel));
         }
-
+        public void BackPanel()
+        {
+            Debug.Log("BackPanel:" + sCurrentPanel);
+            if (sCurrentPanel == "matchScoutPanel")
+            {
+                StartCoroutine(ChangePanel("mainPanel"));
+            }
+            else if (sCurrentPanel == "scoreScoutPanel" )
+            {
+                StartCoroutine(ChangePanel("mainPanel"));
+            }
+            else if (sCurrentPanel == "pitScoutPanel")
+            {
+                StartCoroutine(ChangePanel("mainPanel"));
+            }
+            else if (sCurrentPanel == "analyticsPanel" )
+            {
+                StartCoroutine(ChangePanel("mainPanel"));
+            }
+            else if (sCurrentPanel.Contains("teamPanel") )
+            {
+                StartCoroutine(ChangePanel("analyticsPanel"));
+            }
+            else if (sCurrentPanel == "loginPanel")
+            {
+                StartCoroutine(ChangePanel("mainPanel"));
+            }
+        }
         public IEnumerator ChangePanel(string panel)
         {
             GameObject tempPanel = null;
@@ -139,7 +166,6 @@ namespace Assets.Scripts
                     openPanel.transform.SetParent(gameObject.transform);
                     rectTransform.offsetMin = new Vector2(0, 0);
                     rectTransform.offsetMax = new Vector2(0, 0);
-                    openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel(sPrevPanel)); });
                 }
             }
             else if (panel == "pitScoutPanel")
@@ -147,37 +173,37 @@ namespace Assets.Scripts
                 sPrevPanel = sCurrentPanel;
                 sCurrentPanel = panel;
                 Debug.Log(sPrevPanel + "," + sCurrentPanel);
+                Destroy(openPanel);
                 tempPanel = Instantiate(pitScoutPanel);
                 rectTransform = tempPanel.GetComponent<RectTransform>();
-                Destroy(openPanel);
                 openPanel = tempPanel;
                 openPanel.transform.SetParent(gameObject.transform);
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
-                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel(sPrevPanel)); });
+                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { BackPanel(); });
             }
             else if (panel == "analyticsPanel")
             {
                 sPrevPanel = sCurrentPanel;
                 sCurrentPanel = panel;
                 Debug.Log(sPrevPanel + "," + sCurrentPanel);
+                Destroy(openPanel);
                 tempPanel = Instantiate(analyticsPanel);
                 rectTransform = tempPanel.GetComponent<RectTransform>();
-                Destroy(openPanel);
                 openPanel = tempPanel;
                 openPanel.transform.SetParent(gameObject.transform);
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
-                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel(sPrevPanel)); });
+                openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { BackPanel(); });
             }
             else if (panel == "mainPanel")
             {
                 sPrevPanel = sCurrentPanel;
                 sCurrentPanel = panel;
                 Debug.Log(sPrevPanel + "," + sCurrentPanel);
+                Destroy(openPanel);
                 tempPanel = Instantiate(mainPanel);
                 rectTransform = tempPanel.GetComponent<RectTransform>();
-                Destroy(openPanel);
                 openPanel = tempPanel;
                 openPanel.transform.SetParent(gameObject.transform);
                 rectTransform.offsetMin = new Vector2(0, 0);

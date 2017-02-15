@@ -14,16 +14,23 @@ namespace Assets.Scripts
         public List<SimpleTeam> simpleTeamList = new List<SimpleTeam>();
         public List<SimpleMatch> simpleMatchList;
         UIManager manager;
-        const string sGetAnalysisURL = "";
-        public WWW getAnalysisData;
         public bool bRefreshing = false;
         private int iRefreshTimer;
         private Vector2 size;
         // Use this for initialization
         void Start()
         {
+            Debug.Log("Starting analyticspanel");
             manager = GetComponentInParent<UIManager>();
             content = GameObject.Find("Content");
+            if(content != null)
+            {
+                Debug.Log("Content Found!");
+            }
+            else
+            {
+                Debug.Log("Content not found");
+            }
             content.GetComponentsInChildren<Image>()[0].enabled = false;
             scrollview = GameObject.Find("Scroll View");
             foreach (SimpleTeam s in manager.currentEvent.simpleTeamList)
@@ -36,13 +43,11 @@ namespace Assets.Scripts
                 tempPanel.GetComponent<Button>().onClick.AddListener(() => manager.CreatePanelWrapper("teamPanel:" + JsonUtility.ToJson(s)));
                 content.GetComponent<RectTransform>().offsetMin = new Vector2(0, (-150 * i) - 150);
             }
-            
         }
-
         // Update is called once per frame
         void Update()
         {
-            if ((content.GetComponent<RectTransform>().offsetMax.y < -115) && bRefreshing == false)
+            if ((content != null && content.GetComponent<RectTransform>().offsetMax.y < -115) && bRefreshing == false)
             {
                 StartCoroutine(Refresh());
                 size = content.GetComponent<RectTransform>().sizeDelta;
@@ -63,6 +68,7 @@ namespace Assets.Scripts
                 {
                     scrollview.GetComponent<ScrollRect>().movementType = ScrollRect.MovementType.Unrestricted;
                 }
+                /*
                 if (getAnalysisData.isDone && iRefreshTimer >= 100)
                 {
                     bRefreshing = false;
@@ -73,16 +79,25 @@ namespace Assets.Scripts
                     content.GetComponent<RectTransform>().sizeDelta = size;
                     StopCoroutine(Refresh());
                 }
+                */
             }
         }
 
         public IEnumerator Refresh()
         {
             content.GetComponentsInChildren<Image>()[0].enabled = true;
-            getAnalysisData = new WWW(sGetAnalysisURL);
             bRefreshing = true;
             scrollview.GetComponent<ScrollRect>().movementType = ScrollRect.MovementType.Unrestricted;
             scrollview.GetComponent<ScrollRect>().inertia = false;
+            GameObject.Find("Scrollbar Vertical").GetComponent<Scrollbar>().interactable = false;
+            yield return manager.DownloadEvent();
+            GameObject.Find("Scrollbar Vertical").GetComponent<Scrollbar>().interactable = true;
+            content.GetComponentsInChildren<Image>()[0].enabled = false;
+            scrollview.GetComponent<ScrollRect>().movementType = ScrollRect.MovementType.Elastic;
+            scrollview.GetComponent<ScrollRect>().inertia = true;
+            iRefreshTimer = 0;
+            content.GetComponent<RectTransform>().sizeDelta = size;
+            bRefreshing = false;
             yield break;
         }
 

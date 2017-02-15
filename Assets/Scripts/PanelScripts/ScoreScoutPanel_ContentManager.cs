@@ -11,15 +11,17 @@ namespace Assets.Scripts
     {
         Time matchStartTime;
         Match currentlyScoutingMatch;
-        bool bColor;
+        bool bColor, bMatchStarted;
         UIManager manager;
         Button backButton, menuButton, matchStartButton, increase1Button, increase5Button, increase40Button, increase50Button, increase60Button;
-        Text timeRemainingText;
+        Text timeRemainingText, backButtonText;
         ScoreScout currentScoreScout;
         // Use this for initialization
         void Start()
         {
+            bMatchStarted = false;
             Button[] buttonArray = GetComponentsInChildren<Button>();
+            backButtonText = GetComponentsInChildren<Text>()[0];
             timeRemainingText = GetComponentsInChildren<Text>()[2];
             backButton = buttonArray[0];
             menuButton = buttonArray[1];
@@ -36,6 +38,7 @@ namespace Assets.Scripts
             increase60Button.onClick.AddListener(() => { this.NewTimeEvent(60); });
 
             matchStartButton.onClick.AddListener(() => { this.StartMatch(); });
+            backButton.onClick.AddListener(() => { this.BackButton(); });
             this.manager = GetComponentInParent<UIManager>();
             if (currentScoreScout.bColor)
             {
@@ -55,13 +58,38 @@ namespace Assets.Scripts
                 t.TimeSince(matchStartTime);
                 timeRemainingText.text = t.TimeSince(matchStartTime).ToString();
             }
+            if (matchStartTime != null && bMatchStarted)
+            {
+                backButtonText.text = "Match End";
+            }
+            else if (bMatchStarted)
+            {
+                backButtonText.text = "Save Match";
+            }
         }
         public void StartMatch()
         {
+            bMatchStarted = true;
             matchStartTime = GetCurrentTime();
             matchStartButton.gameObject.SetActive(false);
             Debug.Log(JsonUtility.ToJson(matchStartTime));
         }
+        public void BackButton()
+        {
+            if(matchStartTime != null && bMatchStarted)
+            {
+                backButtonText.text = "Match End";
+            }
+            else if (bMatchStarted)
+            {
+                backButtonText.text = "Save Match";
+            }
+            else
+            {
+                StartCoroutine(manager.ChangePanel(manager.sPrevPanel));
+            }
+        }
+
         Time GetCurrentTime()
         {
             return new Time(System.DateTime.Now);

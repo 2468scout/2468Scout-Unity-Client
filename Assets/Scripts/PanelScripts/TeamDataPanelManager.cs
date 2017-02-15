@@ -37,8 +37,8 @@ namespace Assets.Scripts
             manager = GetComponentInParent<UIManager>();
             Debug.Log("Starting TeamDataPanel: SimpleTeam: " + JsonUtility.ToJson(simpleTeam));
             SetData();
-            backButton = GetComponentsInChildren<Button>()[0];
-            backButton.onClick.AddListener(() => { manager.CreatePanelWrapper(manager.sPrevPanel); });
+            backButton = GetComponentsInChildren<Button>()[2];
+            backButton.onClick.AddListener(() => { manager.BackPanel(); });
         }
 
         // Update is called once per frame
