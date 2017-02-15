@@ -86,7 +86,7 @@ namespace Assets.Scripts
             }
             else
             {
-                StartCoroutine(manager.ChangePanel(manager.sPrevPanel));
+                manager.BackPanel();
             }
         }
 

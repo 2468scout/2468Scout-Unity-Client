@@ -17,10 +17,11 @@ namespace Assets.Scripts
         public bool bRefreshing = false;
         private int iRefreshTimer;
         private Vector2 size;
+        int iTeamDataPanelHeight = (Screen.height / 5);
         // Use this for initialization
         void Start()
         {
-            Debug.Log("Starting analyticspanel");
+            Debug.Log("iTeamDataPanelHeight: " + iTeamDataPanelHeight);
             manager = GetComponentInParent<UIManager>();
             content = GameObject.Find("Content");
             if(content != null)
@@ -39,9 +40,12 @@ namespace Assets.Scripts
                 GameObject tempPanel = Instantiate(selectableTeamPanel);
                 tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().iNumInList = i;
                 tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().containedTeam = s;
+                tempPanel.GetComponent<RectTransform>().offsetMax = new Vector2(0, iTeamDataPanelHeight * i);
+                tempPanel.GetComponent<RectTransform>().offsetMin = new Vector2(0, iTeamDataPanelHeight * (i + 1));
+                Debug.Log("Changed offsetmax to " + (iTeamDataPanelHeight * i) + " and offsetMin to " + (iTeamDataPanelHeight * (i + 1)));
                 tempPanel.transform.SetParent(content.transform);
                 tempPanel.GetComponent<Button>().onClick.AddListener(() => manager.CreatePanelWrapper("teamPanel:" + JsonUtility.ToJson(s)));
-                content.GetComponent<RectTransform>().offsetMin = new Vector2(0, (-150 * i) - 150);
+                content.GetComponent<RectTransform>().offsetMin = new Vector2(0, (-iTeamDataPanelHeight * i) - iTeamDataPanelHeight);
             }
         }
         // Update is called once per frame
@@ -54,7 +58,7 @@ namespace Assets.Scripts
             }
             if (bRefreshing == true)
             {
-                content.GetComponent<RectTransform>().offsetMin = new Vector2(0, (-150 * simpleTeamList.Count) - 150);
+                content.GetComponent<RectTransform>().offsetMin = new Vector2(0, (-iTeamDataPanelHeight * simpleTeamList.Count) - iTeamDataPanelHeight);
                 iRefreshTimer++;
                 if (content.GetComponent<RectTransform>().offsetMax.y > -115)
                 {
