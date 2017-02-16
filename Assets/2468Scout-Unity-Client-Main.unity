@@ -437,6 +437,8 @@ MonoBehaviour:
   sPrevUserName: 
   sPrevPanel: 
   sCurrentPanel: 
+  sEventDownloadStatus: 
+  sPrevDownloadStatus: 
   teamMatchListToScout: []
   scheduleItemList: []
   teamMatchesToScout: []
@@ -606,12 +608,7 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114152217876430010, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1433366232}
-    - target: {fileID: 114540389841962534, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -621,7 +618,12 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1433366232}
-    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+    - target: {fileID: 114540389841962534, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1433366232}
+    - target: {fileID: 114152217876430010, guid: 869a32609b1b4c34b9f70aa237b3ea83,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

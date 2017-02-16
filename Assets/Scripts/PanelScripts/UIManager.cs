@@ -9,7 +9,7 @@ namespace Assets.Scripts
     {
 
         public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel, scoreScoutPanel;
-        public string sUserName, sEventCode, sPrevEventCode, sPrevUserName, sPrevPanel, sCurrentPanel;
+        public string sUserName, sEventCode, sPrevEventCode, sPrevUserName, sPrevPanel, sCurrentPanel, sEventDownloadStatus, sPrevDownloadStatus;
         public List<TeamMatch> teamMatchListToScout;
         public static readonly string sMainURL = "http://10.107.45.227";
         public static readonly string sGetEventURL = sMainURL + ":8080/Events/";
@@ -21,16 +21,27 @@ namespace Assets.Scripts
         public List<TeamPitScout> teamPitScoutsToScout = new List<TeamPitScout>();
         public List<ScoreScout> scoreScoutsToScout = new List<ScoreScout>();
         public int iNumInSchedule, iNumInTeamPitScouts;
+        Text eventStatusText;
         // Use this for initialization
         void Start()
         {
+            sEventDownloadStatus = "No Event specified, please login";
+            if(sCurrentPanel == "mainPanel")
+            {
+                eventStatusText = GetComponentsInChildren<Text>()[5];
+            }
             Screen.fullScreen = false;
             currentEvent = new FRCEvent();
+            eventStatusText = GameObject.Find("EventStatusText").GetComponent<Text>();
         }
 
         // Update is called once per frame
         void Update()
         {
+            if(sCurrentPanel == "mainPanel" && sPrevDownloadStatus != sEventDownloadStatus)
+            {
+                eventStatusText.text = sEventDownloadStatus;
+            }
             if(sPrevPanel != null)
             {
                 Input.backButtonLeavesApp = false;
@@ -81,11 +92,20 @@ namespace Assets.Scripts
         public IEnumerator DownloadEvent ()
         {
             Debug.Log("Downloading Event from " + sGetEventURL + sEventCode + ".json");
+            sEventDownloadStatus = "Downloading event " + sEventCode;
             WWW download = new WWW(sGetEventURL + sEventCode + ".json");
             yield return download;
             Debug.Log(download.text);
             currentEvent = JsonUtility.FromJson<FRCEvent>(download.text);
-            foreach(ScheduleItem s in currentEvent.scheduleItemList)
+            if(currentEvent.sEventCode == null || currentEvent.sEventCode == "")
+            {
+                sEventDownloadStatus = "Failed to download " + sEventCode;
+            }
+            else
+            {
+                sEventDownloadStatus = "Successfully loaded " + sEventCode;
+            }
+            foreach (ScheduleItem s in currentEvent.scheduleItemList)
             {
                 scheduleItemList.Add(s);
                 if(s.sPersonResponsible == sUserName)
@@ -176,6 +196,8 @@ namespace Assets.Scripts
                     openPanel.transform.SetParent(gameObject.transform);
                     rectTransform.offsetMin = new Vector2(0, 0);
                     rectTransform.offsetMax = new Vector2(0, 0);
+                    eventStatusText = null;
+                    sPrevDownloadStatus = "";
                 }
             }
             else if (panel == "pitScoutPanel")
@@ -191,6 +213,8 @@ namespace Assets.Scripts
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
                 openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { BackPanel(); });
+                eventStatusText = null;
+                sPrevDownloadStatus = "";
             }
             else if (panel == "analyticsPanel")
             {
@@ -205,6 +229,8 @@ namespace Assets.Scripts
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
                 openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { BackPanel(); });
+                eventStatusText = null;
+                sPrevDownloadStatus = "";
             }
             else if (panel == "mainPanel")
             {
@@ -222,6 +248,7 @@ namespace Assets.Scripts
                 openPanel.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => { StartCoroutine(ChangePanel("matchScoutPanel")); });
                 openPanel.GetComponentsInChildren<Button>()[2].onClick.AddListener(() => { StartCoroutine(ChangePanel("analyticsPanel")); });
                 openPanel.GetComponentsInChildren<Button>()[3].onClick.AddListener(() => { StartCoroutine(ChangePanel("loginPanel")); });
+                eventStatusText = GameObject.Find("EventStatusText").GetComponent<Text>();
             }
             else if (panel == "loginPanel")
             {
@@ -236,6 +263,8 @@ namespace Assets.Scripts
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
                 //openPanel.GetComponentInChildren<Button>().onClick.AddListener(() => { StartCoroutine()})
+                eventStatusText = null;
+                sPrevDownloadStatus = "";
             }
             else if (panel.Contains("teamPanel:"))
             {
@@ -249,6 +278,8 @@ namespace Assets.Scripts
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
                 openPanel.GetComponent<TeamDataPanelManager>().simpleTeam = JsonUtility.FromJson<SimpleTeam>(panel.Substring(10));
+                eventStatusText = null;
+                sPrevDownloadStatus = "";
             }
             /*
             else if (panel == )
