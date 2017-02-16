@@ -101,6 +101,13 @@ namespace Assets.Scripts
                     }
                 }
             }
+            foreach(TeamPitScout t in currentEvent.teamPitScoutList)
+            {
+                if(t.iSpeed == 0 && t.sPersonResponsible == sUserName)
+                {
+                    teamPitScoutsToScout.Add(t);
+                }
+            }
             yield break;
         }
 
