@@ -21,7 +21,8 @@ namespace Assets.Scripts
             
             speedResponseText = GetComponentsInChildren<Text>()[3];
             currentPitScout = manager.teamPitScoutsToScout[manager.iNumInTeamPitScouts];
-            toolbar.GetComponentsInChildren<Text>()[2].text = "xD";// ""+currentPitScout.iTeamNumber;
+            GetComponentsInChildren<Text>()[2].text = "#"+currentPitScout.iTeamNumber;
+            //Debug.Log(toolbar.GetComponentsInChildren<Text>()[2].text);
         }
 
         // Update is called once per frame

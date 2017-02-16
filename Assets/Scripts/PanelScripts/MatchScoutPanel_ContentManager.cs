@@ -60,6 +60,8 @@ namespace Assets.Scripts{
             rightCountIncreaseButton.gameObject.SetActive(false);
             rightCountDecreaseButton.gameObject.SetActive(false);
             autonomousToggle = GetComponentInChildren<Toggle>();
+
+            GetComponentsInChildren<Text>()[3].text = "#"+currentlyScoutingTeamMatch.iTeamNumber;
         }
 
         // Update is called once per frame
