@@ -11,7 +11,7 @@ namespace Assets.Scripts
         public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel, scoreScoutPanel;
         public string sUserName, sEventCode, sPrevEventCode, sPrevUserName, sPrevPanel, sCurrentPanel;
         public List<TeamMatch> teamMatchListToScout;
-        public static readonly string sMainURL = "localhost";
+        public static readonly string sMainURL = "http://10.107.45.227";
         public static readonly string sGetEventURL = sMainURL + ":8080/Events/";
         public static readonly string sGetTeamURL = sMainURL + ":8080/Teams/";
         bool hasStarted = false;
