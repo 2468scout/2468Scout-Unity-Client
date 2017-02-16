@@ -101,11 +101,14 @@ namespace Assets.Scripts
                     }
                 }
             }
-            foreach(TeamPitScout t in currentEvent.teamPitScoutList)
+            if(currentEvent.teamPitScoutList != null)
             {
-                if(t.iSpeed == 0 && t.sPersonResponsible == sUserName)
+                foreach (TeamPitScout t in currentEvent.teamPitScoutList)
                 {
-                    teamPitScoutsToScout.Add(t);
+                    if (t.iSpeed == 0 && t.sPersonResponsible == sUserName)
+                    {
+                        teamPitScoutsToScout.Add(t);
+                    }
                 }
             }
             yield break;
