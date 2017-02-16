@@ -7,14 +7,14 @@ namespace Assets.Scripts
 {
     public class AnalyticsPanel_ContentManager : MonoBehaviour
     {
-        string objectType;
+        string objectType, prevSearch, currentSearch;
         public GameObject selectableTeamPanel, selectableMatchPanel;
         public GameObject content;
         public GameObject scrollview;
         public List<SimpleTeam> simpleTeamList = new List<SimpleTeam>();
         public List<SimpleTeam> displayedTeamList = new List<SimpleTeam>();
         public List<SimpleMatch> simpleMatchList;
-        List<GameObject> teamPanelList;
+        List<GameObject> teamPanelList = new List<GameObject>();
         Text searchText;
         UIManager manager;
         public bool bRefreshing = false;
@@ -28,7 +28,7 @@ namespace Assets.Scripts
             Debug.Log("iTeamDataPanelHeight: " + iTeamDataPanelHeight);
             manager = GetComponentInParent<UIManager>();
             content = GameObject.Find("Content");
-            if(content != null)
+            if (content != null)
             {
                 Debug.Log("Content Found!");
             }
@@ -36,29 +36,17 @@ namespace Assets.Scripts
             {
                 Debug.Log("Content not found");
             }
-            simpleTeamList.AddRange(manager.currentEvent.simpleTeamList);
+            if(manager.currentEvent.simpleTeamList != null)
+            {
+                Debug.Log("Manager isn't null!");
+                simpleTeamList.AddRange(manager.currentEvent.simpleTeamList);
+            }
             content.GetComponentsInChildren<Image>()[0].enabled = false;
             scrollview = GameObject.Find("Scroll View");
-            if (manager.currentEvent.simpleTeamList != null)
-            {
-                foreach (SimpleTeam s in manager.currentEvent.simpleTeamList)
-                {
-                    int i = manager.currentEvent.simpleTeamList.IndexOf(s);
-                    GameObject tempPanel = Instantiate(selectableTeamPanel);
-                    tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().iNumInList = i;
-                    tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().containedTeam = s;
-                    tempPanel.GetComponent<RectTransform>().offsetMax = new Vector2(0, -(iTeamDataPanelHeight * i));
-                    tempPanel.GetComponent<RectTransform>().offsetMin = new Vector2(0, -(iTeamDataPanelHeight * (i + 1)));
-                    Debug.Log("Changed offsetmax to " + (iTeamDataPanelHeight * i) + " and offsetMin to " + (iTeamDataPanelHeight * (i + 1)));
-                    tempPanel.transform.SetParent(content.transform);
-                    tempPanel.GetComponent<Button>().onClick.AddListener(() => manager.CreatePanelWrapper("teamPanel:" + JsonUtility.ToJson(s)));
-                    content.GetComponent<RectTransform>().offsetMin = new Vector2(0, (-iTeamDataPanelHeight * i) - iTeamDataPanelHeight);
-                }
-            }
             if (content.GetComponent<RectTransform>().sizeDelta.y < 900)
             {
                 content.GetComponent<RectTransform>().sizeDelta = new Vector2(content.GetComponent<RectTransform>().sizeDelta.x, 900);
-            } 
+            }
             displayedTeamList.AddRange(simpleTeamList);
             Debug.Log("Currently found teams in manager: " + manager.currentEvent.simpleTeamList.Count);
             Debug.Log("Currently found teams in simpleTeamList: " + simpleTeamList.Count);
@@ -68,13 +56,16 @@ namespace Assets.Scripts
         // Update is called once per frame
         void Update()
         {
-            if(searchText.text != null && searchText.text != "")
+            if(searchText.text != null && searchText.text != "" && ((currentSearch == null && prevSearch == null) || currentSearch != prevSearch))
             {
+                currentSearch = searchText.text;
+                Debug.Log("Searching for: " + currentSearch);
                 displayedTeamList = new List<SimpleTeam>();
                 foreach(SimpleTeam t in simpleTeamList)
                 {
                     if(t.iTeamNumber.ToString().Contains(searchText.text) || t.sTeamName.Contains(searchText.text))
                     {
+                        Debug.Log("Adding to displayedTeamList");
                         displayedTeamList.Add(t);
                     }
                 }
@@ -122,6 +113,7 @@ namespace Assets.Scripts
                 }
                 */
             }
+            prevSearch = currentSearch;
         }
 
         public IEnumerator Refresh()
@@ -151,6 +143,7 @@ namespace Assets.Scripts
             }
             foreach (SimpleTeam s in displayedTeamList)
             {
+                Debug.Log("Displaying: " + s.iTeamNumber);
                 int i = displayedTeamList.IndexOf(s);
                 GameObject tempPanel = Instantiate(selectableTeamPanel);
                 tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().iNumInList = i;
@@ -160,6 +153,7 @@ namespace Assets.Scripts
                 tempPanel.transform.SetParent(content.transform);
                 tempPanel.GetComponent<Button>().onClick.AddListener(() => manager.CreatePanelWrapper("teamPanel:" + JsonUtility.ToJson(s)));
                 content.GetComponent<RectTransform>().offsetMin = new Vector2(0, (-iTeamDataPanelHeight * i) - iTeamDataPanelHeight);
+                content.GetComponent<RectTransform>().offsetMax = new Vector2(-20, 0);
                 teamPanelList.Add(tempPanel);
             }
         }
