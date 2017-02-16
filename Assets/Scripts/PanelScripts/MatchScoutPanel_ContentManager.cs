@@ -52,7 +52,7 @@ namespace Assets.Scripts{
 
             Text[] textArray = GetComponentsInChildren<Text>();
             timeRemainingText = textArray[2];
-            stopEventButtonText = textArray[4];
+            stopEventButtonText = textArray[7];
 
             stopEventButton.gameObject.SetActive(false);
             leftCountIncreaseButton.gameObject.SetActive(false);
@@ -60,6 +60,17 @@ namespace Assets.Scripts{
             rightCountIncreaseButton.gameObject.SetActive(false);
             rightCountDecreaseButton.gameObject.SetActive(false);
             autonomousToggle = GetComponentInChildren<Toggle>();
+
+            GetComponentsInChildren<Text>()[3].text = "Team " + currentlyScoutingTeamMatch.iTeamNumber;
+            GetComponentsInChildren<Text>()[4].text = "Match " + currentlyScoutingTeamMatch.iMatchNumber;
+            if (currentlyScoutingTeamMatch.bColor)
+            {
+                GetComponentsInChildren<Text>()[5].text = "Station: "+"Blue "+ currentlyScoutingTeamMatch.iStationNumber;
+            } else
+            {
+                GetComponentsInChildren<Text>()[5].text = "Station: "+"Red "+currentlyScoutingTeamMatch.iStationNumber;
+            }
+            
         }
 
         // Update is called once per frame

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,7 +22,8 @@ namespace Assets.Scripts
             
             speedResponseText = GetComponentsInChildren<Text>()[3];
             currentPitScout = manager.teamPitScoutsToScout[manager.iNumInTeamPitScouts];
-            toolbar.GetComponentsInChildren<Text>()[2].text = "xD";// ""+currentPitScout.iTeamNumber;
+            GetComponentsInChildren<Text>()[2].text = "#"+currentPitScout.iTeamNumber;
+            //Debug.Log(toolbar.GetComponentsInChildren<Text>()[2].text);
         }
 
         // Update is called once per frame
@@ -52,6 +54,19 @@ namespace Assets.Scripts
             GetComponentsInChildren<Toggle>()[5].isOn = false;
             Debug.Log("Speed: " + currentPitScout.iSpeed + " Fuel: " + currentPitScout.iFuelCapacity + " Can High Goal: " + currentPitScout.bCanHighGoal + " Can Low Goal: " + currentPitScout.bCanLowGoal + " Can Climb: " + currentPitScout.bCanClimb + " Can Gears: " + currentPitScout.bCanGears + " Can Hopper: " + currentPitScout.bCanHopper + " Can Intake: " + currentPitScout.bCanIntake);
 
+        }
+
+        public IEnumerator UploadPicture()
+        {
+            //EditorUtility.OpenFilePanel()
+            if (Application.platform == RuntimePlatform.Android)
+            {
+
+            } else if (Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+
+            }
+            yield break;
         }
     }
 }
