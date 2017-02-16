@@ -86,9 +86,7 @@ namespace Assets.Scripts{
         public IEnumerator SendTeamMatch ()
         {
             SaveTeamMatch();
-            WWWForm form = new WWWForm();
-            form.AddField("obj", JsonUtility.ToJson(currentlyScoutingTeamMatch));
-            WWW download = new WWW(sTeamMatchURL, form);
+            WWW download = new WWW(sTeamMatchURL, System.Text.Encoding.UTF8.GetBytes(JsonUtility.ToJson(currentlyScoutingTeamMatch)));
             yield return download;
             if (!string.IsNullOrEmpty(download.error))
             {
@@ -191,6 +189,18 @@ namespace Assets.Scripts{
         public void AddToRightCount(int val)
         {
             iRightCount += val;
+        }
+
+        public void BackButton()
+        {
+            if (matchStartTime != null)
+            {
+
+            }
+            else
+            {
+                manager.BackPanel();
+            }
         }
     }
 }
