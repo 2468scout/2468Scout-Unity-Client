@@ -14,6 +14,7 @@ namespace Assets.Scripts
         public List<SimpleTeam> simpleTeamList = new List<SimpleTeam>();
         public List<SimpleTeam> displayedTeamList = new List<SimpleTeam>();
         public List<SimpleMatch> simpleMatchList;
+        List<GameObject> teamPanelList;
         Text searchText;
         UIManager manager;
         public bool bRefreshing = false;
@@ -24,7 +25,6 @@ namespace Assets.Scripts
         void Start()
         {
             searchText = GetComponentsInChildren<Text>()[2];
-            //simpleTeamList.AddRange(manager.currentEvent.simpleTeamList);
             Debug.Log("iTeamDataPanelHeight: " + iTeamDataPanelHeight);
             manager = GetComponentInParent<UIManager>();
             content = GameObject.Find("Content");
@@ -36,10 +36,13 @@ namespace Assets.Scripts
             {
                 Debug.Log("Content not found");
             }
+            simpleTeamList.AddRange(manager.currentEvent.simpleTeamList);
             content.GetComponentsInChildren<Image>()[0].enabled = false;
             scrollview = GameObject.Find("Scroll View");
             displayedTeamList.AddRange(simpleTeamList);
-            Debug.Log("Currently found teams: " + simpleTeamList.Count);
+            Debug.Log("Currently found teams in manager: " + manager.currentEvent.simpleTeamList.Count);
+            Debug.Log("Currently found teams in simpleTeamList: " + simpleTeamList.Count);
+            Debug.Log("Currently found teams in displayedTeamList: " + displayedTeamList.Count);
             RefreshDisplayedTeams();
         }
         // Update is called once per frame
@@ -47,7 +50,6 @@ namespace Assets.Scripts
         {
             if(searchText.text != null && searchText.text != "")
             {
-                Debug.Log("Attempting to search...");
                 displayedTeamList = new List<SimpleTeam>();
                 foreach(SimpleTeam t in simpleTeamList)
                 {
@@ -119,21 +121,25 @@ namespace Assets.Scripts
             bRefreshing = false;
             yield break;
         }
+
         public void RefreshDisplayedTeams()
         {
-
+            foreach (GameObject panel in teamPanelList)
+            {
+                Destroy(panel);
+            }
             foreach (SimpleTeam s in displayedTeamList)
             {
-                int i = manager.currentEvent.simpleTeamList.IndexOf(s);
+                int i = displayedTeamList.IndexOf(s);
                 GameObject tempPanel = Instantiate(selectableTeamPanel);
                 tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().iNumInList = i;
                 tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().containedTeam = s;
                 tempPanel.GetComponent<RectTransform>().offsetMax = new Vector2(0, -(iTeamDataPanelHeight * i));
                 tempPanel.GetComponent<RectTransform>().offsetMin = new Vector2(0, -(iTeamDataPanelHeight * (i + 1)));
-                Debug.Log("Changed offsetmax to " + (iTeamDataPanelHeight * i) + " and offsetMin to " + (iTeamDataPanelHeight * (i + 1)));
                 tempPanel.transform.SetParent(content.transform);
                 tempPanel.GetComponent<Button>().onClick.AddListener(() => manager.CreatePanelWrapper("teamPanel:" + JsonUtility.ToJson(s)));
                 content.GetComponent<RectTransform>().offsetMin = new Vector2(0, (-iTeamDataPanelHeight * i) - iTeamDataPanelHeight);
+                teamPanelList.Add(tempPanel);
             }
         }
     }
