@@ -16,9 +16,12 @@ namespace Assets.Scripts
         {
             manager = GetComponentInParent<UIManager>();
             GameObject content = GameObject.Find("Content");
+            GameObject toolbar = GameObject.Find("ToolbarPanel");
             //content.GetComponent<RectTransform>().offsetMin = new Vector2(0,(float) (-Screen.height * 1.2));
+            
             speedResponseText = GetComponentsInChildren<Text>()[3];
             currentPitScout = manager.teamPitScoutsToScout[manager.iNumInTeamPitScouts];
+            toolbar.GetComponentsInChildren<Text>()[2].text = "xD";// ""+currentPitScout.iTeamNumber;
         }
 
         // Update is called once per frame
