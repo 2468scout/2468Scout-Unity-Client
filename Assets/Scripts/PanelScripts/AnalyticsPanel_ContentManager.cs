@@ -39,6 +39,26 @@ namespace Assets.Scripts
             simpleTeamList.AddRange(manager.currentEvent.simpleTeamList);
             content.GetComponentsInChildren<Image>()[0].enabled = false;
             scrollview = GameObject.Find("Scroll View");
+            if (manager.currentEvent.simpleTeamList != null)
+            {
+                foreach (SimpleTeam s in manager.currentEvent.simpleTeamList)
+                {
+                    int i = manager.currentEvent.simpleTeamList.IndexOf(s);
+                    GameObject tempPanel = Instantiate(selectableTeamPanel);
+                    tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().iNumInList = i;
+                    tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().containedTeam = s;
+                    tempPanel.GetComponent<RectTransform>().offsetMax = new Vector2(0, -(iTeamDataPanelHeight * i));
+                    tempPanel.GetComponent<RectTransform>().offsetMin = new Vector2(0, -(iTeamDataPanelHeight * (i + 1)));
+                    Debug.Log("Changed offsetmax to " + (iTeamDataPanelHeight * i) + " and offsetMin to " + (iTeamDataPanelHeight * (i + 1)));
+                    tempPanel.transform.SetParent(content.transform);
+                    tempPanel.GetComponent<Button>().onClick.AddListener(() => manager.CreatePanelWrapper("teamPanel:" + JsonUtility.ToJson(s)));
+                    content.GetComponent<RectTransform>().offsetMin = new Vector2(0, (-iTeamDataPanelHeight * i) - iTeamDataPanelHeight);
+                }
+            }
+            if (content.GetComponent<RectTransform>().sizeDelta.y < 900)
+            {
+                content.GetComponent<RectTransform>().sizeDelta = new Vector2(content.GetComponent<RectTransform>().sizeDelta.x, 900);
+            } 
             displayedTeamList.AddRange(simpleTeamList);
             Debug.Log("Currently found teams in manager: " + manager.currentEvent.simpleTeamList.Count);
             Debug.Log("Currently found teams in simpleTeamList: " + simpleTeamList.Count);
@@ -75,6 +95,7 @@ namespace Assets.Scripts
             if (bRefreshing == true)
             {
                 content.GetComponent<RectTransform>().offsetMin = new Vector2(0, (-iTeamDataPanelHeight * simpleTeamList.Count) - iTeamDataPanelHeight);
+                content.GetComponent<RectTransform>().sizeDelta = size;
                 iRefreshTimer++;
                 if (content.GetComponent<RectTransform>().offsetMax.y > -115)
                 {
