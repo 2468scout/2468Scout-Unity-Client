@@ -14,7 +14,9 @@ namespace Assets.Scripts
         public ArrayList picturesArray = null;
         public GameObject robotImage;
         public int pictureIndex = 0;
-        
+        public int prevPictureIndex = 1;
+        bool bIsPullingTeam;
+
         Button backButton, leftButton, rightButton;
         
 
@@ -56,12 +58,16 @@ namespace Assets.Scripts
         // Update is called once per frame
         void Update()
         {
-            if(team.sTeamName != simpleTeam.sTeamName && simpleTeam != null)
+            if(team.sTeamName != simpleTeam.sTeamName && simpleTeam != null && (!bIsPullingTeam))
             {
                 Debug.Log("Starting pull coroutine");
                 StartCoroutine(PullTeamFromServer());
             }
-            robotImage.GetComponent<Image>().sprite = Sprite.Create((Texture2D)picturesArray[pictureIndex], new Rect(0f, 0f, ((Texture2D)picturesArray[pictureIndex]).width, ((Texture2D)picturesArray[pictureIndex]).height), new Vector2(0.5f, 0.5f));
+            if(picturesArray != null && picturesArray.Count != 0 &&  (pictureIndex != prevPictureIndex))
+            {
+                robotImage.GetComponent<Image>().sprite = Sprite.Create((Texture2D)picturesArray[pictureIndex], new Rect(0f, 0f, ((Texture2D)picturesArray[pictureIndex]).width, ((Texture2D)picturesArray[pictureIndex]).height), new Vector2(0.5f, 0.5f));
+                prevPictureIndex = pictureIndex;
+            }
         }
         public void navigateLeft()
         {
@@ -82,8 +88,10 @@ namespace Assets.Scripts
         {
             WWW pullFromServer = new WWW(UIManager.sGetTeamURL + simpleTeam.iTeamNumber + "/" + simpleTeam.iTeamNumber + ".json");
             Debug.Log("Pulling Team data from " + UIManager.sGetTeamURL + simpleTeam.iTeamNumber + "/" + simpleTeam.iTeamNumber + ".json");
+            bIsPullingTeam = true;
             yield return pullFromServer;
             team = JsonUtility.FromJson<Team>(pullFromServer.text);
+            StartCoroutine(DownloadPictures());
             SetData();
             yield break;
         }
@@ -94,6 +102,7 @@ namespace Assets.Scripts
             for (int i = 0; i < team.iNumPictures; i++)
             { 
                 WWW PicturesURL = new WWW(UIManager.sGetTeamURL + "/" + team.iTeamNumber + "/" + team.iTeamNumber + "_" + i + ".jpg");
+                Debug.Log("Downloading picture: " + team.iTeamNumber + "_" + i + ".jpg");
                 yield return PicturesURL;
                 Texture2D tex = PicturesURL.texture;
                 tex.Resize((int)robotImage.GetComponent<RectTransform>().sizeDelta.x, (int)robotImage.GetComponent<RectTransform>().sizeDelta.y);
