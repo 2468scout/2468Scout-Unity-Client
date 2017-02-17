@@ -11,8 +11,8 @@ namespace Assets.Scripts
         UIManager manager;
         public Team team = null;
         public SimpleTeam simpleTeam;
-        public ArrayList picturesArray = null;
-        public GameObject robotImage;
+        public ArrayList picturesArray;
+        public Image robotImage;
         public int pictureIndex = 0;
         
         Button backButton, leftButton, rightButton;
@@ -45,8 +45,10 @@ namespace Assets.Scripts
             manager = GetComponentInParent<UIManager>();
             Debug.Log("Starting TeamDataPanel: SimpleTeam: " + JsonUtility.ToJson(simpleTeam));
             SetData();
-            robotImage = GameObject.Find("robotImage");
-            backButton = GetComponentsInChildren<Button>()[2];
+            Debug.Log(GetComponentsInChildren<Button>()[0].ToString());
+            Debug.Log(GetComponentsInChildren<Button>()[1].ToString());
+            
+            backButton = GameObject.Find("ToolbarPanel").GetComponentsInChildren<Button>()[0];
             backButton.onClick.AddListener(() => { manager.BackPanel(); });
             leftButton = GetComponentsInChildren<Button>()[0];
             rightButton = GetComponentsInChildren<Button>()[1];
@@ -61,7 +63,15 @@ namespace Assets.Scripts
                 Debug.Log("Starting pull coroutine");
                 StartCoroutine(PullTeamFromServer());
             }
-            robotImage.GetComponent<Image>().sprite = Sprite.Create((Texture2D)picturesArray[pictureIndex], new Rect(0f, 0f, ((Texture2D)picturesArray[pictureIndex]).width, ((Texture2D)picturesArray[pictureIndex]).height), new Vector2(0.5f, 0.5f));
+            if (picturesArray != null)
+            {
+                if (picturesArray.Count > 0)
+                {
+                    robotImage.sprite = Sprite.Create((Texture2D)picturesArray[pictureIndex], new Rect(0f, 0f, ((Texture2D)picturesArray[pictureIndex]).width, ((Texture2D)picturesArray[pictureIndex]).height), new Vector2(0.5f, 0.5f));
+                }
+            }
+            
+            
         }
         public void navigateLeft()
         {
@@ -172,7 +182,7 @@ namespace Assets.Scripts
 
             teamNameNumberText.text = "" + team.iTeamNumber + " " + team.sTeamName;  //team.teamNameNumberText
 
-            Image robotImage = GetComponentInChildren<Image>();
+            robotImage = GetComponentInChildren<Image>();
             //robotImage = team.robotImage;
             robotImage.preserveAspect = true;
 
