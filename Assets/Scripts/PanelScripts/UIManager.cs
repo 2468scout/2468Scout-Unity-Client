@@ -292,13 +292,26 @@ namespace Assets.Scripts
             yield break;
         }
 
-        public IEnumerator SendTeamMatch()
+        public IEnumerator SendData()
         {
             if (bHasTeamPitScoutsToSend)
             {
-                foreach (string s in listTeamPitScoutFilePaths)
+                foreach (string s in listTeamMatchFilePaths)
                 {
-
+                    WWW upload = new WWW(sMainURL + "/postPit", File.ReadAllBytes(s));
+                    yield return upload;
+                    if (!string.IsNullOrEmpty(upload.error))
+                    {
+                        print("Error uploading: " + upload.error);
+                    }
+                    else if (upload.text == "Error")
+                    {
+                        print("Unknown Upload Error");
+                    }
+                    else if (upload.text == "Success")
+                    {
+                        print("Success!");
+                    }
                 }
             }
             if (bHasImagesToSend)
@@ -312,8 +325,7 @@ namespace Assets.Scripts
             {
                 foreach (string s in listTeamMatchFilePaths)
                 {
-                    FileStream fs = new FileStream(s, FileAccess.Read);
-                    WWW upload = new WWW(sTeamMatchURL, System.Text.Encoding.UTF8.GetBytes(l);
+                    WWW upload = new WWW(sMainURL + "/postTeamMatch", File.ReadAllBytes(s));
                     yield return upload;
                     if (!string.IsNullOrEmpty(upload.error))
                     {
@@ -331,7 +343,23 @@ namespace Assets.Scripts
             }
             if (bHasScoreScoutsToSend)
             {
-
+                foreach (string s in listTeamMatchFilePaths)
+                {
+                    WWW upload = new WWW(sMainURL + "/postMatchScores", File.ReadAllBytes(s));
+                    yield return upload;
+                    if (!string.IsNullOrEmpty(upload.error))
+                    {
+                        print("Error uploading: " + upload.error);
+                    }
+                    else if (upload.text == "Error")
+                    {
+                        print("Unknown Upload Error");
+                    }
+                    else if (upload.text == "Success")
+                    {
+                        print("Success!");
+                    }
+                }
             }
             
         }

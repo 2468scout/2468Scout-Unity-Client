@@ -97,6 +97,7 @@ namespace Assets.Scripts{
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Create(Application.persistentDataPath + currentlyScoutingTeamMatch.sFileName + ".json");
+            manager.listScoreScoutFilePaths.Add(Application.persistentDataPath + currentlyScoutingTeamMatch.sFileName + ".json");
             bf.Serialize(file, null);
             file.Dispose();
             manager.bHasTeamMatchesToSend = true;
