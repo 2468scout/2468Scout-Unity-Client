@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,12 @@ namespace Assets.Scripts
         UIManager manager;
         public Team team = null;
         public SimpleTeam simpleTeam;
+        public ArrayList picturesArray = null;
+        public GameObject robotImage;
+        public int pictureIndex = 0;
+        
         Button backButton, leftButton, rightButton;
+        
 
         Text teamNameNumberText, leftButtonText, rightButtonText, gamesScoutedText, winPercentageText, backButtonText;
         
@@ -29,6 +35,8 @@ namespace Assets.Scripts
             //Likelihoods Texts
             Text likelihoodText, penaltyLikeText, breakdownLikeText, stuckLikeText, likelihoodsFourText, likelihoodsFiveText;
 
+        
+
 
 
         // Use this for initialization
@@ -37,8 +45,12 @@ namespace Assets.Scripts
             manager = GetComponentInParent<UIManager>();
             Debug.Log("Starting TeamDataPanel: SimpleTeam: " + JsonUtility.ToJson(simpleTeam));
             SetData();
+            robotImage = GameObject.Find("robotImage");
             backButton = GetComponentsInChildren<Button>()[2];
             backButton.onClick.AddListener(() => { manager.BackPanel(); });
+            leftButton = GetComponentsInChildren<Button>()[0];
+            rightButton = GetComponentsInChildren<Button>()[1];
+            picturesArray = new ArrayList();
         }
 
         // Update is called once per frame
@@ -49,6 +61,21 @@ namespace Assets.Scripts
                 Debug.Log("Starting pull coroutine");
                 StartCoroutine(PullTeamFromServer());
             }
+            robotImage.GetComponent<Image>().sprite = Sprite.Create((Texture2D)picturesArray[pictureIndex], new Rect(0f, 0f, ((Texture2D)picturesArray[pictureIndex]).width, ((Texture2D)picturesArray[pictureIndex]).height), new Vector2(0.5f, 0.5f));
+        }
+        public void navigateLeft()
+        {
+            if (pictureIndex > 0)
+            {
+                pictureIndex--;
+            }
+        }
+        public void navigateRight()
+        {
+            if (pictureIndex < picturesArray.Count-1)
+            {
+                pictureIndex++;
+            }
         }
 
         IEnumerator PullTeamFromServer()
@@ -58,6 +85,20 @@ namespace Assets.Scripts
             yield return pullFromServer;
             team = JsonUtility.FromJson<Team>(pullFromServer.text);
             SetData();
+            yield break;
+        }
+        
+        IEnumerator DownloadPictures()
+        {
+            picturesArray.Clear();
+            for (int i = 0; i < team.iNumPictures; i++)
+            { 
+                WWW PicturesURL = new WWW(UIManager.sGetTeamURL + "/" + team.iTeamNumber + "/" + team.iTeamNumber + "_" + i + ".jpg");
+                yield return PicturesURL;
+                Texture2D tex = PicturesURL.texture;
+                tex.Resize((int)robotImage.GetComponent<RectTransform>().sizeDelta.x, (int)robotImage.GetComponent<RectTransform>().sizeDelta.y);
+                picturesArray.Add(tex);
+            }
             yield break;
         }
         void SetData()
