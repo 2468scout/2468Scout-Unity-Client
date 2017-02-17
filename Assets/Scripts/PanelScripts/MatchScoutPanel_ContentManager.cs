@@ -112,6 +112,7 @@ namespace Assets.Scripts{
             MatchEvent newEvent = new MatchEvent(timeInMatch, autonomousToggle.isOn, new Point(adjustedMousePosition.x / fieldImageRectTransform.rect.width, adjustedMousePosition.y / fieldImageRectTransform.rect.height));
             createdPointMatchPanel.GetComponent<RectTransform>().localPosition = mousePosition;
             createdPointMatchPanel.transform.SetParent(this.transform);
+            createdPointMatchPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width / 5, Screen.width / 5);
             Debug.Log(JsonUtility.ToJson(newEvent));
             createdPointMatchPanel.GetComponent<PointEventButtonPanel>().currentEvent = newEvent;
             currentlyScoutingTeamMatch.matchEventList.Add(newEvent);
