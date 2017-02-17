@@ -15,7 +15,7 @@ namespace Assets.Scripts{
         public TeamMatch currentlyScoutingTeamMatch;
         Button backButton, matchStartButton, menuButton, fieldImageButton, stopEventButton, leftCountIncreaseButton, leftCountDecreaseButton, rightCountIncreaseButton, rightCountDecreaseButton;
         UIManager manager;
-        Text timeRemainingText, stopEventButtonText;
+        Text timeRemainingText, stopEventButtonText, teamNumberText, colorStationNumberText, matchNumberText;
         Toggle autonomousToggle;
         int iLeftCount, iRightCount;
         string sLeftCountCode, sRightCountCode;
@@ -61,14 +61,20 @@ namespace Assets.Scripts{
             rightCountDecreaseButton.gameObject.SetActive(false);
             autonomousToggle = GetComponentInChildren<Toggle>();
 
-            GetComponentsInChildren<Text>()[3].text = "Team " + currentlyScoutingTeamMatch.iTeamNumber;
-            GetComponentsInChildren<Text>()[4].text = "Match " + currentlyScoutingTeamMatch.iMatchNumber;
+            teamNumberText = GetComponentsInChildren<Text>()[4];
+            colorStationNumberText = GetComponentsInChildren<Text>()[5];
+            matchNumberText = GetComponentsInChildren<Text>()[6];
+
+            teamNumberText.text = "Team #" + currentlyScoutingTeamMatch.iTeamNumber;
+            matchNumberText.text = "Match #" + currentlyScoutingTeamMatch.iMatchNumber;
+
             if (currentlyScoutingTeamMatch.bColor)
             {
-                GetComponentsInChildren<Text>()[5].text = "Station: "+"Blue "+ currentlyScoutingTeamMatch.iStationNumber;
+
+                colorStationNumberText.text = "Blue " + currentlyScoutingTeamMatch.iStationNumber;
             } else
             {
-                GetComponentsInChildren<Text>()[5].text = "Station: "+"Red "+currentlyScoutingTeamMatch.iStationNumber;
+                colorStationNumberText.text = "Red " + currentlyScoutingTeamMatch.iStationNumber;
             }
             
         }
@@ -92,25 +98,8 @@ namespace Assets.Scripts{
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Create(Application.persistentDataPath + currentlyScoutingTeamMatch.sFileName + ".json");
             bf.Serialize(file, null);
-            file.Close();
-        }
-        public IEnumerator SendTeamMatch ()
-        {
-            SaveTeamMatch();
-            WWW download = new WWW(sTeamMatchURL, System.Text.Encoding.UTF8.GetBytes(JsonUtility.ToJson(currentlyScoutingTeamMatch)));
-            yield return download;
-            if (!string.IsNullOrEmpty(download.error))
-            {
-                print("Error uploading: " + download.error);
-            }
-            else if(download.text == "Error")
-            {
-                print("Unknown Upload Error");
-            }
-            else if(download.text == "Success")
-            {
-                print("Success!");
-            }            
+            file.Dispose();
+            manager.bHasTeamMatchesToSend = true;
         }
 
         public void CreatePointEvent(Vector2 mousePosition)
