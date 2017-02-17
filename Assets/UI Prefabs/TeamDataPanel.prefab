@@ -1470,8 +1470,10 @@ MonoBehaviour:
   simpleTeam:
     sTeamName: 
     iTeamNumber: 0
+  picturesArray: []
   robotImage: {fileID: 0}
   pictureIndex: 0
+  prevPictureIndex: 1
 --- !u!114 &114093244683647406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1810,8 +1812,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114867788705769280}
   m_HandleRect: {fileID: 224035185142292032}
   m_Direction: 0
-  m_Value: 0.5
-  m_Size: 0
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2123,12 +2125,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1834135649790856}
-        m_MethodName: 
+      - m_Target: {fileID: 114814604587725194}
+        m_MethodName: NavigateRight
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2500,7 +2502,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114814604587725194}
-        m_MethodName: navigateLeft
+        m_MethodName: NavigateLeft
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2841,8 +2843,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114183309065944710}
   m_HandleRect: {fileID: 224689684293186032}
   m_Direction: 2
-  m_Value: 0.33333334
-  m_Size: 0
+  m_Value: 1
+  m_Size: 0.49999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3163,8 +3165,10 @@ MonoBehaviour:
   simpleTeam:
     sTeamName: Null
     iTeamNumber: 0
+  picturesArray: []
   robotImage: {fileID: 0}
   pictureIndex: 0
+  prevPictureIndex: 1
 --- !u!114 &114817579712933616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3310,7 +3314,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 3bc85c6bf1bc00f43894d113ff2d7098, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

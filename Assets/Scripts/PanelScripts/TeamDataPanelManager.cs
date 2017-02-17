@@ -11,10 +11,10 @@ namespace Assets.Scripts
         UIManager manager;
         public Team team = null;
         public SimpleTeam simpleTeam;
-        public ArrayList picturesArray = null;
+        public List<Texture2D> picturesArray = null;
         public GameObject robotImage;
         public int pictureIndex = 0;
-        public int prevPictureIndex = 1;
+        public int prevPictureIndex = -1;
         bool bIsPullingTeam;
 
         Button backButton, leftButton, rightButton;
@@ -52,7 +52,7 @@ namespace Assets.Scripts
             backButton.onClick.AddListener(() => { manager.BackPanel(); });
             leftButton = GetComponentsInChildren<Button>()[0];
             rightButton = GetComponentsInChildren<Button>()[1];
-            picturesArray = new ArrayList();
+            picturesArray = new List<Texture2D>();
         }
 
         // Update is called once per frame
@@ -65,18 +65,18 @@ namespace Assets.Scripts
             }
             if(picturesArray != null && picturesArray.Count != 0 &&  (pictureIndex != prevPictureIndex))
             {
-                robotImage.GetComponent<Image>().sprite = Sprite.Create((Texture2D)picturesArray[pictureIndex], new Rect(0f, 0f, ((Texture2D)picturesArray[pictureIndex]).width, ((Texture2D)picturesArray[pictureIndex]).height), new Vector2(0.5f, 0.5f));
+                robotImage.GetComponent<Image>().overrideSprite = Sprite.Create((Texture2D)picturesArray[pictureIndex], new Rect(0f, 0f, (picturesArray[pictureIndex]).width, ((Texture2D)picturesArray[pictureIndex]).height), new Vector2(0.5f, 0.5f));
                 prevPictureIndex = pictureIndex;
             }
         }
-        public void navigateLeft()
+        public void NavigateLeft()
         {
             if (pictureIndex > 0)
             {
                 pictureIndex--;
             }
         }
-        public void navigateRight()
+        public void NavigateRight()
         {
             if (pictureIndex < picturesArray.Count-1)
             {
@@ -104,8 +104,11 @@ namespace Assets.Scripts
                 WWW PicturesURL = new WWW(UIManager.sGetTeamURL + "/" + team.iTeamNumber + "/" + team.iTeamNumber + "_" + i + ".jpg");
                 Debug.Log("Downloading picture: " + team.iTeamNumber + "_" + i + ".jpg");
                 yield return PicturesURL;
+                Debug.Log(PicturesURL.bytes.Length);
+                Debug.Log("Downloaded picture");
                 Texture2D tex = PicturesURL.texture;
-                tex.Resize((int)robotImage.GetComponent<RectTransform>().sizeDelta.x, (int)robotImage.GetComponent<RectTransform>().sizeDelta.y);
+                Debug.Log("Size: " + tex.height + ", " + tex.width);
+                //tex.Resize((int)robotImage.GetComponent<RectTransform>().sizeDelta.x, (int)robotImage.GetComponent<RectTransform>().sizeDelta.y);
                 picturesArray.Add(tex);
             }
             yield break;

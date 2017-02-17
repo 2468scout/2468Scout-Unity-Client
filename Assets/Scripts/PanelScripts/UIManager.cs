@@ -140,6 +140,7 @@ namespace Assets.Scripts
         {
             StartCoroutine(ChangePanel(panel));
         }
+
         public void BackPanel()
         {
             Debug.Log("BackPanel:" + sCurrentPanel);
@@ -168,6 +169,7 @@ namespace Assets.Scripts
                 StartCoroutine(ChangePanel("mainPanel"));
             }
         }
+
         public IEnumerator ChangePanel(string panel)
         {
             GameObject tempPanel = null;
