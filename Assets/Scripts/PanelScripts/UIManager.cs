@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Collections;
+using System.IO;
 
 namespace Assets.Scripts
 {
     public class UIManager : MonoBehaviour
     {
-
+        public bool bHasTeamPitScoutsToSend, bHasTeamMatchesToSend, bHasImagesToSend, bHasScoreScoutsToSend;
         public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel, scoreScoutPanel;
         public string sUserName, sEventCode, sPrevEventCode, sPrevUserName, sPrevPanel, sCurrentPanel, sEventDownloadStatus, sPrevDownloadStatus;
         public List<TeamMatch> teamMatchListToScout;
+        public List<string> listTeamMatchFilePaths, listTeamPitScoutFilePaths, listScoreScoutFilePaths, listImageFilePaths;
         public static readonly string sMainURL = "http://10.107.45.227";
         public static readonly string sGetEventURL = sMainURL + ":8080/Events/";
         public static readonly string sGetTeamURL = sMainURL + ":8080/Teams/";
@@ -288,6 +290,50 @@ namespace Assets.Scripts
             }
             */
             yield break;
+        }
+
+        public IEnumerator SendTeamMatch()
+        {
+            if (bHasTeamPitScoutsToSend)
+            {
+                foreach (string s in listTeamPitScoutFilePaths)
+                {
+
+                }
+            }
+            if (bHasImagesToSend)
+            {
+                foreach (string s in listImageFilePaths)
+                {
+
+                }
+            }
+            if (bHasTeamMatchesToSend)
+            {
+                foreach (string s in listTeamMatchFilePaths)
+                {
+                    FileStream fs = new FileStream(s, FileAccess.Read);
+                    WWW upload = new WWW(sTeamMatchURL, System.Text.Encoding.UTF8.GetBytes(l);
+                    yield return upload;
+                    if (!string.IsNullOrEmpty(upload.error))
+                    {
+                        print("Error uploading: " + upload.error);
+                    }
+                    else if (upload.text == "Error")
+                    {
+                        print("Unknown Upload Error");
+                    }
+                    else if (upload.text == "Success")
+                    {
+                        print("Success!");
+                    }
+                }
+            }
+            if (bHasScoreScoutsToSend)
+            {
+
+            }
+            
         }
     }
 }
