@@ -69,6 +69,7 @@ namespace Assets.Scripts
                 StartCoroutine(DownloadEvent());
                 sPrevEventCode = sEventCode;
             }
+            /*
             if(sPrevEventCode != sEventCode || sPrevUserName != sUserName)
             {
                 sPrevUserName = sUserName;
@@ -92,6 +93,7 @@ namespace Assets.Scripts
                     }
                 }
             }
+            */
         }
         public IEnumerator DownloadEvent ()
         {
@@ -111,9 +113,9 @@ namespace Assets.Scripts
             }
             foreach (ScheduleItem s in currentEvent.scheduleItemList)
             {
-                scheduleItemList.Add(s);
                 if(s.sPersonResponsible == sUserName)
                 {
+                    scheduleItemList.Add(s);/*
                     switch (s.sItemType)
                     {
                         case "matchScout":
@@ -123,6 +125,7 @@ namespace Assets.Scripts
                             scoreScoutsToScout.Add(new ScoreScout(s.bColor, s.iMatchNumber, s.sEventCode));
                             break;
                     }
+                    */
                 }
             }
             if(currentEvent.teamPitScoutList != null)
