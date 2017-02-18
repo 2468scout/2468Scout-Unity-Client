@@ -192,7 +192,7 @@ Prefab:
         type: 2}
       propertyPath: openPanel
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1279257632}
     - target: {fileID: 114688188530383694, guid: 0c12b5fbda81664438119bec586207c3,
         type: 2}
       propertyPath: loginPanel
@@ -483,24 +483,19 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114897118850772370, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+    - target: {fileID: 114046858505614292, guid: 869a32609b1b4c34b9f70aa237b3ea83,
         type: 2}
-      propertyPath: m_Color.r
-      value: 0.82745105
-      objectReference: {fileID: 0}
-    - target: {fileID: 114897118850772370, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 0.82745105
-      objectReference: {fileID: 0}
-    - target: {fileID: 114897118850772370, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 0.82745105
-      objectReference: {fileID: 0}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1064183779}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 869a32609b1b4c34b9f70aa237b3ea83, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1279257632 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1288324044579824, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+    type: 2}
+  m_PrefabInternal: {fileID: 1126813026}
 --- !u!224 &1433366231
 RectTransform:
   m_ObjectHideFlags: 0
@@ -536,6 +531,7 @@ MonoBehaviour:
   bHasTeamMatchesToSend: 0
   bHasImagesToSend: 0
   bHasScoreScoutsToSend: 0
+  bIsInDebugMode: 0
   mainPanel: {fileID: 1288324044579824, guid: 869a32609b1b4c34b9f70aa237b3ea83, type: 2}
   matchScoutPanel: {fileID: 1648408234723098, guid: 19baa8c1f17f66547970959e89ad6f4c,
     type: 2}
@@ -547,7 +543,7 @@ MonoBehaviour:
     type: 2}
   loginPanel: {fileID: 1220046461198874, guid: 707c8eca485a6234b8745c6f4787c27c, type: 2}
   teamPanel: {fileID: 1834135649790856, guid: 61e13c8f724a51c4b9571b51abec99a6, type: 2}
-  openPanel: {fileID: 0}
+  openPanel: {fileID: 1279257632}
   scoreScoutPanel: {fileID: 1657178988354312, guid: ac2a1e1e7a9a4dd45ab5ec1e660bf223,
     type: 2}
   sUserName: 
@@ -563,6 +559,9 @@ MonoBehaviour:
   listTeamPitScoutFilePaths: []
   listScoreScoutFilePaths: []
   listImageFilePaths: []
+  sMainURL: localhost:8080
+  sGetEventURL: 
+  sGetTeamURL: 
   scheduleItemList: []
   teamMatchesToScout: []
   iNumInSchedule: 0
