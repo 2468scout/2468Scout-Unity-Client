@@ -77,7 +77,7 @@ namespace Assets.Scripts{
             {
                 colorStationNumberText.text = "Red " + currentlyScoutingTeamMatch.iStationNumber;
             }
-            
+            backButton.onClick.AddListener(() => { BackButton(); });
         }
 
         // Update is called once per frame

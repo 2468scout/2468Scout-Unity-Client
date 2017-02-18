@@ -29,6 +29,7 @@ namespace Assets.Scripts
             iMatchNumber = item.iMatchNumber;
             bColor = item.bColor;
             sEventCode = item.sEventCode;
+            iStationNumber = item.iStationNumber;
             matchEventList = new List<MatchEvent>();
         }
     }
