@@ -13,7 +13,7 @@ namespace Assets.Scripts
         public string sUserName, sEventCode, sPrevEventCode, sPrevUserName, sPrevPanel, sCurrentPanel, sEventDownloadStatus, sPrevDownloadStatus;
         public List<TeamMatch> teamMatchListToScout;
         public List<string> listTeamMatchFilePaths, listTeamPitScoutFilePaths, listScoreScoutFilePaths, listImageFilePaths;
-        public string sMainURL = "localhost:8080";
+        public string sMainURL;
         public string sGetEventURL, sGetTeamURL;
         bool hasStarted = false;
         public FRCEvent currentEvent;
@@ -26,7 +26,7 @@ namespace Assets.Scripts
         // Use this for initialization
         void Start()
         {
-            sMainURL = "localhost:8080";
+            sMainURL = "http://scouting.westaaustin.org";
             sGetEventURL = sMainURL + "/Events/";
             sGetTeamURL = sMainURL + "/Teams/";
             sEventDownloadStatus = "No Event specified, please login";
