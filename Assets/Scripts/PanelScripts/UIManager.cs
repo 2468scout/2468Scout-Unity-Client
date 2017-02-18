@@ -8,14 +8,13 @@ namespace Assets.Scripts
 {
     public class UIManager : MonoBehaviour
     {
-        public bool bHasTeamPitScoutsToSend, bHasTeamMatchesToSend, bHasImagesToSend, bHasScoreScoutsToSend;
+        public bool bHasTeamPitScoutsToSend, bHasTeamMatchesToSend, bHasImagesToSend, bHasScoreScoutsToSend, bIsInDebugMode;
         public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel, scoreScoutPanel;
         public string sUserName, sEventCode, sPrevEventCode, sPrevUserName, sPrevPanel, sCurrentPanel, sEventDownloadStatus, sPrevDownloadStatus;
         public List<TeamMatch> teamMatchListToScout;
         public List<string> listTeamMatchFilePaths, listTeamPitScoutFilePaths, listScoreScoutFilePaths, listImageFilePaths;
-        public static readonly string sMainURL = "http://10.107.45.227";
-        public static readonly string sGetEventURL = sMainURL + ":8080/Events/";
-        public static readonly string sGetTeamURL = sMainURL + ":8080/Teams/";
+        public string sMainURL = "localhost:8080";
+        public string sGetEventURL, sGetTeamURL;
         bool hasStarted = false;
         public FRCEvent currentEvent;
         public List<ScheduleItem> scheduleItemList;
@@ -27,6 +26,9 @@ namespace Assets.Scripts
         // Use this for initialization
         void Start()
         {
+            sMainURL = "localhost:8080";
+            sGetEventURL = sMainURL + "/Events/";
+            sGetTeamURL = sMainURL + "/Teams/";
             sEventDownloadStatus = "No Event specified, please login";
             if(sCurrentPanel == "mainPanel")
             {
@@ -246,6 +248,8 @@ namespace Assets.Scripts
                 rectTransform = tempPanel.GetComponent<RectTransform>();
                 openPanel = tempPanel;
                 openPanel.transform.SetParent(gameObject.transform);
+                openPanel.GetComponentInChildren<Toggle>().onValueChanged.AddListener((value) => { SwitchDebug(value); });
+                openPanel.GetComponentInChildren<Toggle>().isOn = bIsInDebugMode;
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
                 openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel("pitScoutPanel")); });
@@ -364,6 +368,21 @@ namespace Assets.Scripts
                 }
             }
             
+        }
+
+        public void SwitchDebug(bool b)
+        {
+            bIsInDebugMode = b;
+            if (bIsInDebugMode)
+            {
+                sMainURL = "localhost:8080";
+            }
+            else
+            {
+                sMainURL = "http://scouting.westaaustin.org";
+            }
+            sGetEventURL = sMainURL + "/Events/";
+            sGetTeamURL = sMainURL + "/Teams/";
         }
     }
 }

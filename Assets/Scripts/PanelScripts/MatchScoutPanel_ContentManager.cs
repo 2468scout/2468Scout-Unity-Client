@@ -19,11 +19,12 @@ namespace Assets.Scripts{
         Toggle autonomousToggle;
         int iLeftCount, iRightCount;
         string sLeftCountCode, sRightCountCode;
-        string sTeamMatchURL = UIManager.sMainURL + "/postTeamMatch";
+        string sTeamMatchURL;
         // Use this for initialization
         void Start()
         {
             manager = GetComponentInParent<UIManager>();
+            sTeamMatchURL = manager.sMainURL + "/postTeamMatch";
             switch (manager.scheduleItemList[manager.iNumInSchedule].sItemType)
             {
                 case "matchScout":

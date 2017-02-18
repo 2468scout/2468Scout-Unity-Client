@@ -86,8 +86,8 @@ namespace Assets.Scripts
 
         IEnumerator PullTeamFromServer()
         {
-            WWW pullFromServer = new WWW(UIManager.sGetTeamURL + simpleTeam.iTeamNumber + "/" + simpleTeam.iTeamNumber + ".json");
-            Debug.Log("Pulling Team data from " + UIManager.sGetTeamURL + simpleTeam.iTeamNumber + "/" + simpleTeam.iTeamNumber + ".json");
+            WWW pullFromServer = new WWW(manager.sGetTeamURL + simpleTeam.iTeamNumber + "/" + simpleTeam.iTeamNumber + ".json");
+            Debug.Log("Pulling Team data from " + manager.sGetTeamURL + simpleTeam.iTeamNumber + "/" + simpleTeam.iTeamNumber + ".json");
             bIsPullingTeam = true;
             yield return pullFromServer;
             team = JsonUtility.FromJson<Team>(pullFromServer.text);
@@ -101,7 +101,7 @@ namespace Assets.Scripts
             picturesArray.Clear();
             for (int i = 0; i < team.iNumPictures; i++)
             { 
-                WWW PicturesURL = new WWW(UIManager.sGetTeamURL + "/" + team.iTeamNumber + "/" + team.iTeamNumber + "_" + i + ".jpg");
+                WWW PicturesURL = new WWW(manager.sGetTeamURL + "/" + team.iTeamNumber + "/" + team.iTeamNumber + "_" + i + ".jpg");
                 Debug.Log("Downloading picture: " + team.iTeamNumber + "_" + i + ".jpg");
                 yield return PicturesURL;
                 Debug.Log(PicturesURL.bytes.Length);
