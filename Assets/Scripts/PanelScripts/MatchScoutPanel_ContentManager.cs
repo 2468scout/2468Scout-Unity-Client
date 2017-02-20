@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Text;
 using UnityEngine.UI;
 
 namespace Assets.Scripts{
@@ -100,10 +101,10 @@ namespace Assets.Scripts{
         }
         public void SaveTeamMatch()
         {
-            BinaryFormatter bf = new BinaryFormatter();
+            Debug.Log("Filename: " + Application.persistentDataPath + currentlyScoutingTeamMatch.sFileName);
             FileStream file = File.Create(Application.persistentDataPath + currentlyScoutingTeamMatch.sFileName + ".json");
             manager.listScoreScoutFilePaths.Add(Application.persistentDataPath + currentlyScoutingTeamMatch.sFileName + ".json");
-            bf.Serialize(file, currentlyScoutingTeamMatch);
+            file.Write(Encoding.ASCII.GetBytes(JsonUtility.ToJson(currentlyScoutingTeamMatch)), 0, Encoding.ASCII.GetByteCount(JsonUtility.ToJson(currentlyScoutingTeamMatch)));
             file.Dispose();
             manager.bHasTeamMatchesToSend = true;
         }

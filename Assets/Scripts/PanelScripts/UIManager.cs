@@ -305,22 +305,26 @@ namespace Assets.Scripts
         {
             if (bHasTeamPitScoutsToSend)
             {
-                foreach (string s in listTeamMatchFilePaths)
+                foreach (string s in listTeamPitScoutFilePaths)
                 {
                     WWW upload = new WWW(sMainURL + "/postPit", File.ReadAllBytes(s));
+                    Debug.Log("Uploading " + s + "to " + sMainURL + "/postPit");
                     yield return upload;
                     if (!string.IsNullOrEmpty(upload.error))
                     {
-                        print("Error uploading: " + upload.error);
+                        Debug.Log("Error uploading: " + upload.error);
                     }
                     else if (upload.text == "Error")
                     {
-                        print("Unknown Upload Error");
+                        Debug.Log("Unknown Upload Error");
                     }
                     else if (upload.text == "Success")
                     {
-                        print("Success!");
+                        Debug.Log("Success!");
                     }
+                    WWW testHasData = new WWW(sMainURL + "/getFileNameExistence?FILEPATH=" + s);
+                    yield return testHasData;
+                    Debug.Log("Server Has Data: " + testHasData.text);
                 }
             }
             if (bHasImagesToSend)
@@ -336,21 +340,23 @@ namespace Assets.Scripts
                 foreach (string s in listTeamMatchFilePaths)
                 {
                     WWW upload = new WWW(sMainURL + "/postTeamMatch", File.ReadAllBytes(s));
+                    Debug.Log("Uploading " + s + "to " + sMainURL + "/postTeamMatch");
                     yield return upload;
                     if (!string.IsNullOrEmpty(upload.error))
                     {
-                        print("Error uploading: " + upload.error);
+                        Debug.Log("Error uploading: " + upload.error);
                     }
                     else if (upload.text == "Error")
                     {
-                        print("Unknown Upload Error");
+                        Debug.Log("Unknown Upload Error");
                     }
                     else if (upload.text == "Success")
                     {
-                        print("Success!");
+                        Debug.Log("Success!");
                     }
                     WWW testHasData = new WWW(sMainURL + "/getFileNameExistence?FILEPATH=" + s);
                     yield return testHasData;
+                    Debug.Log("Server Has Data: " + testHasData.text);
                     bFailedToUpload = (testHasData.text == "false");
                 }
                 bHasTeamMatchesToSend = bFailedToUpload;
@@ -361,22 +367,24 @@ namespace Assets.Scripts
                 foreach (string s in listTeamMatchFilePaths)
                 {
                     WWW upload = new WWW(sMainURL + "/postMatchScores", File.ReadAllBytes(s));
+                    Debug.Log("Uploading " + s + "to " + sMainURL + "/postMatchScores");
                     yield return upload;
                     if (!string.IsNullOrEmpty(upload.error))
                     {
-                        print("Error uploading: " + upload.error);
+                        Debug.Log("Error uploading: " + upload.error);
                     }
                     else if (upload.text == "Error")
                     {
-                        print("Unknown Upload Error");
+                        Debug.Log("Unknown Upload Error");
                     }
                     else if (upload.text == "Success")
                     {
-                        print("Success!");
+                        Debug.Log("Success!");
                     }
 
                     WWW testHasData = new WWW(sMainURL + "/getFileNameExistence?FILEPATH=" + s);
                     yield return testHasData;
+                    Debug.Log("Server Has Data: " + testHasData.text);
                     bFailedToUpload = (testHasData.text == "false");
                 }
                 bHasScoreScoutsToSend = bFailedToUpload;
