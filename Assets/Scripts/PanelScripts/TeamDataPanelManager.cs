@@ -107,7 +107,6 @@ namespace Assets.Scripts
                 Debug.Log(PicturesURL.bytes.Length);
                 Debug.Log("Downloaded picture");
                 Texture2D tex = PicturesURL.texture;
-                Debug.Log("Size: " + tex.height + ", " + tex.width);
                 //tex.Resize((int)robotImage.GetComponent<RectTransform>().sizeDelta.x, (int)robotImage.GetComponent<RectTransform>().sizeDelta.y);
                 picturesArray.Add(tex);
             }

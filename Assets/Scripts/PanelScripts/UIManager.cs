@@ -332,6 +332,7 @@ namespace Assets.Scripts
             }
             if (bHasTeamMatchesToSend)
             {
+                bool bFailedToUpload = false;
                 foreach (string s in listTeamMatchFilePaths)
                 {
                     WWW upload = new WWW(sMainURL + "/postTeamMatch", File.ReadAllBytes(s));
@@ -348,10 +349,15 @@ namespace Assets.Scripts
                     {
                         print("Success!");
                     }
+                    WWW testHasData = new WWW(sMainURL + "/getFileNameExistence?FILEPATH=" + s);
+                    yield return testHasData;
+                    bFailedToUpload = (testHasData.text == "false");
                 }
+                bHasTeamMatchesToSend = bFailedToUpload;
             }
             if (bHasScoreScoutsToSend)
             {
+                bool bFailedToUpload = false;
                 foreach (string s in listTeamMatchFilePaths)
                 {
                     WWW upload = new WWW(sMainURL + "/postMatchScores", File.ReadAllBytes(s));
@@ -368,7 +374,12 @@ namespace Assets.Scripts
                     {
                         print("Success!");
                     }
+
+                    WWW testHasData = new WWW(sMainURL + "/getFileNameExistence?FILEPATH=" + s);
+                    yield return testHasData;
+                    bFailedToUpload = (testHasData.text == "false");
                 }
+                bHasScoreScoutsToSend = bFailedToUpload;
             }
             
         }
