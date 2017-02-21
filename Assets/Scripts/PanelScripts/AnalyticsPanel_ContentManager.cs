@@ -9,13 +9,11 @@ namespace Assets.Scripts
     {
         string objectType, prevSearch, currentSearch;
         public GameObject selectableTeamPanel, selectableMatchPanel;
-        public GameObject content;
-        public GameObject scrollview;
+        public GameObject content, scrollview, searchBar;
         public List<SimpleTeam> simpleTeamList = new List<SimpleTeam>();
         public List<SimpleTeam> displayedTeamList = new List<SimpleTeam>();
         public List<SimpleMatch> simpleMatchList;
         List<GameObject> teamPanelList = new List<GameObject>();
-        Text searchText;
         UIManager manager;
         public bool bRefreshing = false;
         private int iRefreshTimer;
@@ -24,11 +22,11 @@ namespace Assets.Scripts
         // Use this for initialization
         void Start()
         {
-            searchText = GetComponentsInChildren<Text>()[2];
+            searchBar = GameObject.Find("SearchBar");
             Debug.Log("iTeamDataPanelHeight: " + iTeamDataPanelHeight);
             manager = GetComponentInParent<UIManager>();
             content = GameObject.Find("Content");
-
+            searchBar.GetComponent<InputField>().onValueChanged.AddListener((value) => { Search(value); });
             if(manager.currentEvent.simpleTeamList != null)
             {
                 Debug.Log("Manager isn't null!");
@@ -49,6 +47,7 @@ namespace Assets.Scripts
         // Update is called once per frame
         void Update()
         {
+            /*
             if(searchText.text != null && searchText.text != "" && ((currentSearch == null && prevSearch == null) || currentSearch != prevSearch))
             {
                 currentSearch = searchText.text;
@@ -71,6 +70,7 @@ namespace Assets.Scripts
                 displayedTeamList.AddRange(simpleTeamList);
                 RefreshDisplayedTeams();
             }
+            */
             if ((content != null && content.GetComponent<RectTransform>().offsetMax.y < -115) && bRefreshing == false)
             {
                 StartCoroutine(Refresh());
@@ -108,7 +108,29 @@ namespace Assets.Scripts
             }
             prevSearch = currentSearch;
         }
-
+        
+        public void Search(string currentSearch)
+        {
+            Debug.Log("Searching for: " + currentSearch);
+            displayedTeamList = new List<SimpleTeam>();
+            if(currentSearch == "" || currentSearch == null)
+            {
+                displayedTeamList.AddRange(simpleTeamList);
+            }
+            else
+            {
+                foreach (SimpleTeam t in simpleTeamList)
+                {
+                    if (t.iTeamNumber.ToString().Contains(currentSearch) || t.sTeamName.Contains(currentSearch))
+                    {
+                        Debug.Log("Adding to displayedTeamList");
+                        displayedTeamList.Add(t);
+                    }
+                }
+            }
+            RefreshDisplayedTeams();
+        }
+        
         public IEnumerator Refresh()
         {
             content.GetComponentsInChildren<Image>()[0].enabled = true;
@@ -141,13 +163,14 @@ namespace Assets.Scripts
                 GameObject tempPanel = Instantiate(selectableTeamPanel);
                 tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().iNumInList = i;
                 tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().containedTeam = s;
-                tempPanel.GetComponent<RectTransform>().offsetMax = new Vector2(0, -(iTeamDataPanelHeight * i));
-                tempPanel.GetComponent<RectTransform>().offsetMin = new Vector2(0, -(iTeamDataPanelHeight * (i + 1)));
                 tempPanel.transform.SetParent(content.transform);
                 tempPanel.GetComponent<Button>().onClick.AddListener(() => manager.CreatePanelWrapper("teamPanel:" + JsonUtility.ToJson(s)));
                 content.GetComponent<RectTransform>().offsetMin = new Vector2(0, (-iTeamDataPanelHeight * i) - iTeamDataPanelHeight);
                 content.GetComponent<RectTransform>().offsetMax = new Vector2(-20, 0);
                 teamPanelList.Add(tempPanel);
+                tempPanel.GetComponent<RectTransform>().offsetMax = new Vector2(0, -(iTeamDataPanelHeight * i));
+                tempPanel.GetComponent<RectTransform>().offsetMin = new Vector2(0, -(iTeamDataPanelHeight * (i + 1)));
+                Debug.Log("Setting tempPanel offsets to: MAX: " + tempPanel.GetComponent<RectTransform>().offsetMax + ", MIN: " + tempPanel.GetComponent<RectTransform>().offsetMin);
             }
         }
     }
