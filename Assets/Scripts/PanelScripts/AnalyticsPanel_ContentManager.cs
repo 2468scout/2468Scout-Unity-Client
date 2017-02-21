@@ -28,14 +28,7 @@ namespace Assets.Scripts
             Debug.Log("iTeamDataPanelHeight: " + iTeamDataPanelHeight);
             manager = GetComponentInParent<UIManager>();
             content = GameObject.Find("Content");
-            if (content != null)
-            {
-                Debug.Log("Content Found!");
-            }
-            else
-            {
-                Debug.Log("Content not found");
-            }
+
             if(manager.currentEvent.simpleTeamList != null)
             {
                 Debug.Log("Manager isn't null!");

@@ -236,7 +236,7 @@ namespace Assets.Scripts
                 sPrevPanel = sCurrentPanel;
                 sCurrentPanel = panel;
                 Debug.Log(sPrevPanel + "," + sCurrentPanel);
-                Destroy(openPanel);
+                DestroyImmediate(openPanel);
                 tempPanel = Instantiate(analyticsPanel);
                 rectTransform = tempPanel.GetComponent<RectTransform>();
                 openPanel = tempPanel;
