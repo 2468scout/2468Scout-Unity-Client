@@ -8,7 +8,7 @@ namespace Assets.Scripts
 {
     public class UIManager : MonoBehaviour
     {
-        public bool bHasTeamPitScoutsToSend, bHasTeamMatchesToSend, bHasImagesToSend, bHasScoreScoutsToSend, bIsInDebugMode;
+        public bool bHasTeamPitScoutsToSend, bHasTeamMatchesToSend, bHasImagesToSend, bHasScoreScoutsToSend, bIsInDebugMode, bIsSendingData;
         public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel, scoreScoutPanel;
         public string sUserName, sEventCode, sPrevEventCode, sPrevUserName, sPrevPanel, sCurrentPanel, sEventDownloadStatus, sPrevDownloadStatus;
         public List<TeamMatch> teamMatchListToScout;
@@ -68,6 +68,12 @@ namespace Assets.Scripts
             {
                 StartCoroutine(DownloadEvent());
                 sPrevEventCode = sEventCode;
+            }
+
+            if(!bIsSendingData && (bHasImagesToSend || bHasScoreScoutsToSend || bHasTeamMatchesToSend || bHasTeamPitScoutsToSend))
+            {
+                Debug.Log("Sending Data");
+                StartCoroutine(SendData());
             }
             /*
             if(sPrevEventCode != sEventCode || sPrevUserName != sUserName)
@@ -303,6 +309,7 @@ namespace Assets.Scripts
 
         public IEnumerator SendData()
         {
+            bIsSendingData = true;
             if (bHasTeamPitScoutsToSend)
             {
                 foreach (string s in listTeamPitScoutFilePaths)
@@ -336,6 +343,7 @@ namespace Assets.Scripts
             }
             if (bHasTeamMatchesToSend)
             {
+                Debug.Log("Attempting to upload TeamMatches");
                 bool bFailedToUpload = false;
                 foreach (string s in listTeamMatchFilePaths)
                 {
@@ -389,7 +397,7 @@ namespace Assets.Scripts
                 }
                 bHasScoreScoutsToSend = bFailedToUpload;
             }
-            
+            bIsSendingData = false;
         }
 
         public void SwitchDebug(bool b)
