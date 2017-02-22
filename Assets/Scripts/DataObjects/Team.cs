@@ -19,8 +19,6 @@ namespace Assets.Scripts
         public string sBestRole;
         public List<string> sNotesList;
         public int iGamesScouted, iSpeed, iWeight, iStartingPosition, iTeamAge;
-        public List<Point> gearMapPointList, lowGoalMapPointList, highGoalMapPointList, climbMapPointList, hopperMapPointList;
-        public List<bool> climbMapBoolList;
-        public List<float> lowGoalMapFloatList, highGoalMapFloatList;
+        public HeatmapsData heatmapsData;
     }
 }

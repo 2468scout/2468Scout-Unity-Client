@@ -206,6 +206,7 @@ namespace Assets.Scripts
                 foreach (Point p in pointsList)
                 {
                     //Point p = pointsList[i];
+
                 }
             }
         }
