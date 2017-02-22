@@ -192,7 +192,7 @@ Prefab:
         type: 2}
       propertyPath: openPanel
       value: 
-      objectReference: {fileID: 1959794535}
+      objectReference: {fileID: 1279257632}
     - target: {fileID: 114688188530383694, guid: 0c12b5fbda81664438119bec586207c3,
         type: 2}
       propertyPath: loginPanel
@@ -386,132 +386,7 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!224 &1433366231
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 224081040671155982, guid: 0c12b5fbda81664438119bec586207c3,
-    type: 2}
-  m_PrefabInternal: {fileID: 101233828}
-  m_GameObject: {fileID: 1064183779}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
---- !u!114 &1433366232
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114688188530383694, guid: 0c12b5fbda81664438119bec586207c3,
-    type: 2}
-  m_PrefabInternal: {fileID: 101233828}
-  m_GameObject: {fileID: 1064183779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6131604a7f9bd4646b9d530072bf4ecc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainPanel: {fileID: 1288324044579824, guid: 869a32609b1b4c34b9f70aa237b3ea83, type: 2}
-  matchScoutPanel: {fileID: 1648408234723098, guid: 19baa8c1f17f66547970959e89ad6f4c,
-    type: 2}
-  pointEventButtonPanel: {fileID: 1980679212518614, guid: c6c133a05c3833649aea137cc46940aa,
-    type: 2}
-  pitScoutPanel: {fileID: 1297808088053184, guid: 89b7fb1d8cd25af44a5f3c2114a5b52c,
-    type: 2}
-  analyticsPanel: {fileID: 1175494049306230, guid: d8fcae399c8a141439ff132b46a79aca,
-    type: 2}
-  loginPanel: {fileID: 1220046461198874, guid: 707c8eca485a6234b8745c6f4787c27c, type: 2}
-  teamPanel: {fileID: 1834135649790856, guid: 61e13c8f724a51c4b9571b51abec99a6, type: 2}
-  openPanel: {fileID: 1959794535}
-  scoreScoutPanel: {fileID: 1657178988354312, guid: ac2a1e1e7a9a4dd45ab5ec1e660bf223,
-    type: 2}
-  sUserName: 
-  sEventCode: 
-  sPrevEventCode: 
-  sPrevUserName: 
-  sPrevPanel: 
-  sCurrentPanel: 
-  sEventDownloadStatus: 
-  sPrevDownloadStatus: 
-  teamMatchListToScout: []
-  scheduleItemList: []
-  teamMatchesToScout: []
-  iNumInSchedule: 0
-  iNumInTeamPitScouts: 0
---- !u!1 &1588982031
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1588982034}
-  - component: {fileID: 1588982033}
-  - component: {fileID: 1588982032}
-  m_Layer: 0
-  m_Name: EventSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1588982032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1588982031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1077351063, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
---- !u!114 &1588982033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1588982031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 5
---- !u!4 &1588982034
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1588982031}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1959794535 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1288324044579824, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-    type: 2}
-  m_PrefabInternal: {fileID: 1986328305}
---- !u!1001 &1986328305
+--- !u!1001 &1126813026
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -608,26 +483,148 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114890572921535680, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+    - target: {fileID: 114046858505614292, guid: 869a32609b1b4c34b9f70aa237b3ea83,
         type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1433366232}
-    - target: {fileID: 114704808322852456, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1433366232}
-    - target: {fileID: 114540389841962534, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1433366232}
-    - target: {fileID: 114152217876430010, guid: 869a32609b1b4c34b9f70aa237b3ea83,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1433366232}
+      objectReference: {fileID: 1064183779}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 869a32609b1b4c34b9f70aa237b3ea83, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1279257632 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1288324044579824, guid: 869a32609b1b4c34b9f70aa237b3ea83,
+    type: 2}
+  m_PrefabInternal: {fileID: 1126813026}
+--- !u!224 &1433366231
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 224081040671155982, guid: 0c12b5fbda81664438119bec586207c3,
+    type: 2}
+  m_PrefabInternal: {fileID: 101233828}
+  m_GameObject: {fileID: 1064183779}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &1433366232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114688188530383694, guid: 0c12b5fbda81664438119bec586207c3,
+    type: 2}
+  m_PrefabInternal: {fileID: 101233828}
+  m_GameObject: {fileID: 1064183779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6131604a7f9bd4646b9d530072bf4ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bHasTeamPitScoutsToSend: 0
+  bHasTeamMatchesToSend: 0
+  bHasImagesToSend: 0
+  bHasScoreScoutsToSend: 0
+  bIsInDebugMode: 0
+  mainPanel: {fileID: 1288324044579824, guid: 869a32609b1b4c34b9f70aa237b3ea83, type: 2}
+  matchScoutPanel: {fileID: 1648408234723098, guid: 19baa8c1f17f66547970959e89ad6f4c,
+    type: 2}
+  pointEventButtonPanel: {fileID: 1980679212518614, guid: c6c133a05c3833649aea137cc46940aa,
+    type: 2}
+  pitScoutPanel: {fileID: 1297808088053184, guid: 89b7fb1d8cd25af44a5f3c2114a5b52c,
+    type: 2}
+  analyticsPanel: {fileID: 1175494049306230, guid: d8fcae399c8a141439ff132b46a79aca,
+    type: 2}
+  loginPanel: {fileID: 1220046461198874, guid: 707c8eca485a6234b8745c6f4787c27c, type: 2}
+  teamPanel: {fileID: 1834135649790856, guid: 61e13c8f724a51c4b9571b51abec99a6, type: 2}
+  openPanel: {fileID: 1279257632}
+  scoreScoutPanel: {fileID: 1657178988354312, guid: ac2a1e1e7a9a4dd45ab5ec1e660bf223,
+    type: 2}
+  sUserName: 
+  sEventCode: 
+  sPrevEventCode: 
+  sPrevUserName: 
+  sPrevPanel: 
+  sCurrentPanel: 
+  sEventDownloadStatus: 
+  sPrevDownloadStatus: 
+  teamMatchListToScout: []
+  listTeamMatchFilePaths: []
+  listTeamPitScoutFilePaths: []
+  listScoreScoutFilePaths: []
+  listImageFilePaths: []
+  sMainURL: localhost:8080
+  sGetEventURL: 
+  sGetTeamURL: 
+  scheduleItemList: []
+  teamMatchesToScout: []
+  iNumInSchedule: 0
+  iNumInTeamPitScouts: 0
+--- !u!1 &1588982031
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1588982034}
+  - component: {fileID: 1588982033}
+  - component: {fileID: 1588982032}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1588982032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1588982031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1077351063, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &1588982033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1588982031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 5
+--- !u!4 &1588982034
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1588982031}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

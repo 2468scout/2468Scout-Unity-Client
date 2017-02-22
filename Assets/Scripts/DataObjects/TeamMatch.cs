@@ -22,6 +22,7 @@ namespace Assets.Scripts
             this.bColor = bColor;
             this.sEventCode = sEventCode;
             matchEventList = new List<MatchEvent>();
+            sFileName = "\\team" + iTeamNumber + "_match" + iMatchNumber + "_event" + sEventCode;
         }
         public TeamMatch(ScheduleItem item)
         {
@@ -29,7 +30,9 @@ namespace Assets.Scripts
             iMatchNumber = item.iMatchNumber;
             bColor = item.bColor;
             sEventCode = item.sEventCode;
+            iStationNumber = item.iStationNumber;
             matchEventList = new List<MatchEvent>();
+            sFileName = "\\team" + iTeamNumber + "_match" + iMatchNumber + "_event" + sEventCode;
         }
     }
 }

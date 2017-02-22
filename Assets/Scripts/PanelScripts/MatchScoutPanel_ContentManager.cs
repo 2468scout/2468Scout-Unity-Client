@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Text;
 using UnityEngine.UI;
 
 namespace Assets.Scripts{
@@ -18,12 +19,13 @@ namespace Assets.Scripts{
         Text timeRemainingText, stopEventButtonText, teamNumberText, colorStationNumberText, matchNumberText;
         Toggle autonomousToggle;
         int iLeftCount, iRightCount;
-        string sLeftCountCode, sRightCountCode;
-        string sTeamMatchURL = UIManager.sMainURL + "/postTeamMatch";
+        string sLeftCountCode, sRightCountCode, sTeamMatchURL, sMatchStatus;
         // Use this for initialization
         void Start()
         {
+            sMatchStatus = "Match Unstarted";
             manager = GetComponentInParent<UIManager>();
+            sTeamMatchURL = manager.sMainURL + "/postTeamMatch";
             switch (manager.scheduleItemList[manager.iNumInSchedule].sItemType)
             {
                 case "matchScout":
@@ -76,28 +78,36 @@ namespace Assets.Scripts{
             {
                 colorStationNumberText.text = "Red " + currentlyScoutingTeamMatch.iStationNumber;
             }
-            
+            backButton.onClick.AddListener(() => { BackButton(); });
+
+
         }
 
         // Update is called once per frame
         void Update()
         {
-            if(matchStartTime != null)
+            if (matchStartTime != null && sMatchStatus == "Match Active")
             {
                 Time t = GetCurrentTime();
                 t.TimeSince(matchStartTime);
                 timeRemainingText.text = t.TimeSince(matchStartTime).ToString();
-                if(t.TimeSince(matchStartTime).ToString() == "0:16")
+                if (t.TimeSince(matchStartTime).ToString() == "0:16")
                 {
                     autonomousToggle.isOn = false;
                 }
+                else if (t.TimeSince(matchStartTime).ToString() == "1:40")
+                {
+                    BackButton();
+                }
             }
+            
         }
         public void SaveTeamMatch()
         {
-            BinaryFormatter bf = new BinaryFormatter();
+            Debug.Log("Filename: " + Application.persistentDataPath + currentlyScoutingTeamMatch.sFileName);
             FileStream file = File.Create(Application.persistentDataPath + currentlyScoutingTeamMatch.sFileName + ".json");
-            bf.Serialize(file, null);
+            manager.listScoreScoutFilePaths.Add(Application.persistentDataPath + currentlyScoutingTeamMatch.sFileName + ".json");
+            file.Write(Encoding.ASCII.GetBytes(JsonUtility.ToJson(currentlyScoutingTeamMatch)), 0, Encoding.ASCII.GetByteCount(JsonUtility.ToJson(currentlyScoutingTeamMatch)));
             file.Dispose();
             manager.bHasTeamMatchesToSend = true;
         }
@@ -111,6 +121,7 @@ namespace Assets.Scripts{
             MatchEvent newEvent = new MatchEvent(timeInMatch, autonomousToggle.isOn, new Point(adjustedMousePosition.x / fieldImageRectTransform.rect.width, adjustedMousePosition.y / fieldImageRectTransform.rect.height));
             createdPointMatchPanel.GetComponent<RectTransform>().localPosition = mousePosition;
             createdPointMatchPanel.transform.SetParent(this.transform);
+            createdPointMatchPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width / 5, Screen.width / 5);
             Debug.Log(JsonUtility.ToJson(newEvent));
             createdPointMatchPanel.GetComponent<PointEventButtonPanel>().currentEvent = newEvent;
             currentlyScoutingTeamMatch.matchEventList.Add(newEvent);
@@ -121,6 +132,8 @@ namespace Assets.Scripts{
             matchStartTime = GetCurrentTime();
             matchStartButton.gameObject.SetActive(false);
             Debug.Log(JsonUtility.ToJson(matchStartTime));
+            backButton.GetComponentInChildren<Text>().text = "Stop Match";
+            sMatchStatus = "Match Active";
         }
 
         Time GetCurrentTime()
@@ -193,6 +206,29 @@ namespace Assets.Scripts{
 
         public void BackButton()
         {
+            switch (sMatchStatus)
+            {
+                case "Match Unstarted":
+                    manager.BackPanel();
+                    break;
+                case "Match Active":
+                    sMatchStatus = "Match Ended";
+                    backButton.GetComponentInChildren<Text>().text = "Save Match";
+                    break;
+                case "Match Ended":
+                    SaveTeamMatch();
+                    manager.iNumInSchedule++;
+                    if (manager.iNumInSchedule == manager.scheduleItemList.Count)
+                    {
+                        manager.BackPanel();
+                    }
+                    else
+                    {
+                        StartCoroutine(manager.ChangePanel("matchScoutPanel"));
+                    }
+                    break;
+            }
+            /*
             if (matchStartTime != null)
             {
 
@@ -201,6 +237,7 @@ namespace Assets.Scripts{
             {
                 manager.BackPanel();
             }
+            */
         }
     }
 }

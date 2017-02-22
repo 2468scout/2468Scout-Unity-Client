@@ -8,14 +8,13 @@ namespace Assets.Scripts
 {
     public class UIManager : MonoBehaviour
     {
-        public bool bHasTeamPitScoutsToSend, bHasTeamMatchesToSend, bHasImagesToSend, bHasScoreScoutsToSend;
+        public bool bHasTeamPitScoutsToSend, bHasTeamMatchesToSend, bHasImagesToSend, bHasScoreScoutsToSend, bIsInDebugMode;
         public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel, scoreScoutPanel;
         public string sUserName, sEventCode, sPrevEventCode, sPrevUserName, sPrevPanel, sCurrentPanel, sEventDownloadStatus, sPrevDownloadStatus;
         public List<TeamMatch> teamMatchListToScout;
         public List<string> listTeamMatchFilePaths, listTeamPitScoutFilePaths, listScoreScoutFilePaths, listImageFilePaths;
-        public static readonly string sMainURL = "http://10.107.45.227";
-        public static readonly string sGetEventURL = sMainURL + ":8080/Events/";
-        public static readonly string sGetTeamURL = sMainURL + ":8080/Teams/";
+        public string sMainURL;
+        public string sGetEventURL, sGetTeamURL;
         bool hasStarted = false;
         public FRCEvent currentEvent;
         public List<ScheduleItem> scheduleItemList;
@@ -27,6 +26,9 @@ namespace Assets.Scripts
         // Use this for initialization
         void Start()
         {
+            sMainURL = "http://scouting.westaaustin.org";
+            sGetEventURL = sMainURL + "/Events/";
+            sGetTeamURL = sMainURL + "/Teams/";
             sEventDownloadStatus = "No Event specified, please login";
             if(sCurrentPanel == "mainPanel")
             {
@@ -67,6 +69,7 @@ namespace Assets.Scripts
                 StartCoroutine(DownloadEvent());
                 sPrevEventCode = sEventCode;
             }
+            /*
             if(sPrevEventCode != sEventCode || sPrevUserName != sUserName)
             {
                 sPrevUserName = sUserName;
@@ -90,6 +93,7 @@ namespace Assets.Scripts
                     }
                 }
             }
+            */
         }
         public IEnumerator DownloadEvent ()
         {
@@ -109,9 +113,9 @@ namespace Assets.Scripts
             }
             foreach (ScheduleItem s in currentEvent.scheduleItemList)
             {
-                scheduleItemList.Add(s);
                 if(s.sPersonResponsible == sUserName)
                 {
+                    scheduleItemList.Add(s);/*
                     switch (s.sItemType)
                     {
                         case "matchScout":
@@ -121,6 +125,7 @@ namespace Assets.Scripts
                             scoreScoutsToScout.Add(new ScoreScout(s.bColor, s.iMatchNumber, s.sEventCode));
                             break;
                     }
+                    */
                 }
             }
             if(currentEvent.teamPitScoutList != null)
@@ -140,6 +145,7 @@ namespace Assets.Scripts
         {
             StartCoroutine(ChangePanel(panel));
         }
+
         public void BackPanel()
         {
             Debug.Log("BackPanel:" + sCurrentPanel);
@@ -168,6 +174,7 @@ namespace Assets.Scripts
                 StartCoroutine(ChangePanel("mainPanel"));
             }
         }
+
         public IEnumerator ChangePanel(string panel)
         {
             GameObject tempPanel = null;
@@ -244,6 +251,8 @@ namespace Assets.Scripts
                 rectTransform = tempPanel.GetComponent<RectTransform>();
                 openPanel = tempPanel;
                 openPanel.transform.SetParent(gameObject.transform);
+                openPanel.GetComponentInChildren<Toggle>().onValueChanged.AddListener((value) => { SwitchDebug(value); });
+                openPanel.GetComponentInChildren<Toggle>().isOn = bIsInDebugMode;
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
                 openPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => { StartCoroutine(ChangePanel("pitScoutPanel")); });
@@ -292,13 +301,30 @@ namespace Assets.Scripts
             yield break;
         }
 
-        public IEnumerator SendTeamMatch()
+        public IEnumerator SendData()
         {
             if (bHasTeamPitScoutsToSend)
             {
                 foreach (string s in listTeamPitScoutFilePaths)
                 {
-
+                    WWW upload = new WWW(sMainURL + "/postPit", File.ReadAllBytes(s));
+                    Debug.Log("Uploading " + s + "to " + sMainURL + "/postPit");
+                    yield return upload;
+                    if (!string.IsNullOrEmpty(upload.error))
+                    {
+                        Debug.Log("Error uploading: " + upload.error);
+                    }
+                    else if (upload.text == "Error")
+                    {
+                        Debug.Log("Unknown Upload Error");
+                    }
+                    else if (upload.text == "Success")
+                    {
+                        Debug.Log("Success!");
+                    }
+                    WWW testHasData = new WWW(sMainURL + "/getFileNameExistence?FILEPATH=" + s);
+                    yield return testHasData;
+                    Debug.Log("Server Has Data: " + testHasData.text);
                 }
             }
             if (bHasImagesToSend)
@@ -310,30 +336,75 @@ namespace Assets.Scripts
             }
             if (bHasTeamMatchesToSend)
             {
+                bool bFailedToUpload = false;
                 foreach (string s in listTeamMatchFilePaths)
                 {
-                    FileStream fs = new FileStream(s, FileAccess.Read);
-                    WWW upload = new WWW(sTeamMatchURL, System.Text.Encoding.UTF8.GetBytes(l);
+                    WWW upload = new WWW(sMainURL + "/postTeamMatch", File.ReadAllBytes(s));
+                    Debug.Log("Uploading " + s + "to " + sMainURL + "/postTeamMatch");
                     yield return upload;
                     if (!string.IsNullOrEmpty(upload.error))
                     {
-                        print("Error uploading: " + upload.error);
+                        Debug.Log("Error uploading: " + upload.error);
                     }
                     else if (upload.text == "Error")
                     {
-                        print("Unknown Upload Error");
+                        Debug.Log("Unknown Upload Error");
                     }
                     else if (upload.text == "Success")
                     {
-                        print("Success!");
+                        Debug.Log("Success!");
                     }
+                    WWW testHasData = new WWW(sMainURL + "/getFileNameExistence?FILEPATH=" + s);
+                    yield return testHasData;
+                    Debug.Log("Server Has Data: " + testHasData.text);
+                    bFailedToUpload = (testHasData.text == "false");
                 }
+                bHasTeamMatchesToSend = bFailedToUpload;
             }
             if (bHasScoreScoutsToSend)
             {
+                bool bFailedToUpload = false;
+                foreach (string s in listTeamMatchFilePaths)
+                {
+                    WWW upload = new WWW(sMainURL + "/postMatchScores", File.ReadAllBytes(s));
+                    Debug.Log("Uploading " + s + "to " + sMainURL + "/postMatchScores");
+                    yield return upload;
+                    if (!string.IsNullOrEmpty(upload.error))
+                    {
+                        Debug.Log("Error uploading: " + upload.error);
+                    }
+                    else if (upload.text == "Error")
+                    {
+                        Debug.Log("Unknown Upload Error");
+                    }
+                    else if (upload.text == "Success")
+                    {
+                        Debug.Log("Success!");
+                    }
 
+                    WWW testHasData = new WWW(sMainURL + "/getFileNameExistence?FILEPATH=" + s);
+                    yield return testHasData;
+                    Debug.Log("Server Has Data: " + testHasData.text);
+                    bFailedToUpload = (testHasData.text == "false");
+                }
+                bHasScoreScoutsToSend = bFailedToUpload;
             }
             
+        }
+
+        public void SwitchDebug(bool b)
+        {
+            bIsInDebugMode = b;
+            if (bIsInDebugMode)
+            {
+                sMainURL = "localhost:8080";
+            }
+            else
+            {
+                sMainURL = "http://scouting.westaaustin.org";
+            }
+            sGetEventURL = sMainURL + "/Events/";
+            sGetTeamURL = sMainURL + "/Teams/";
         }
     }
 }
