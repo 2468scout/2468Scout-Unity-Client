@@ -13,11 +13,14 @@ namespace Assets.Scripts
         public SimpleTeam simpleTeam;
         public List<Texture2D> picturesArray = null;
         public GameObject robotImage;
-        public int pictureIndex = 0;
+        public GameObject fieldHeatImage;
+        RectTransform fieldHeatImageRectTransform;
+        public int pictureIndex, heatSelectionIndex;
         public int prevPictureIndex = -1;
         bool bIsPullingTeam;
+        Texture2D heatTexture;
 
-        Button backButton, leftButton, rightButton;
+        Button backButton, leftButton, rightButton, heatLeftButton, heatRightButton;
         
 
         Text teamNameNumberText, leftButtonText, rightButtonText, gamesScoutedText, winPercentageText, backButtonText;
@@ -37,6 +40,9 @@ namespace Assets.Scripts
             //Likelihoods Texts
             Text likelihoodText, penaltyLikeText, breakdownLikeText, stuckLikeText, likelihoodsFourText, likelihoodsFiveText;
 
+            //Heatmap Texts
+            Text heatSelectionText;
+
         
 
 
@@ -47,12 +53,23 @@ namespace Assets.Scripts
             manager = GetComponentInParent<UIManager>();
             Debug.Log("Starting TeamDataPanel: SimpleTeam: " + JsonUtility.ToJson(simpleTeam));
             SetData();
-            robotImage = GameObject.Find("robotImage");
-            backButton = GetComponentsInChildren<Button>()[2];
+            Debug.Log(GetComponentsInChildren<Button>()[0].ToString());
+            Debug.Log(GetComponentsInChildren<Button>()[1].ToString());
+            
+            backButton = GameObject.Find("ToolbarPanel").GetComponentsInChildren<Button>()[0];
             backButton.onClick.AddListener(() => { manager.BackPanel(); });
             leftButton = GetComponentsInChildren<Button>()[0];
             rightButton = GetComponentsInChildren<Button>()[1];
+            heatLeftButton = GameObject.Find("heatMapPanel").GetComponentsInChildren<Button>()[0];
+            heatRightButton = GameObject.Find("heatMapPanel").GetComponentsInChildren<Button>()[1];
+            heatSelectionText = GameObject.Find("heatMapPanel").GetComponentsInChildren<Text>()[3];
             picturesArray = new List<Texture2D>();
+            heatTexture = Resources.Load("redrect") as Texture2D;
+            fieldHeatImage = GameObject.Find("fieldHeatImage");
+            fieldHeatImageRectTransform = fieldHeatImage.GetComponent<RectTransform>();
+            Debug.Log("" + ((fieldHeatImageRectTransform.anchorMax.x - fieldHeatImageRectTransform.anchorMin.x)));
+            fieldHeatImageRectTransform.anchorMin = new Vector2(0.25f, 0.4f-((fieldHeatImageRectTransform.anchorMax.x - fieldHeatImageRectTransform.anchorMin.x) * 768f / 2048f));
+            fieldHeatImageRectTransform.anchorMax = new Vector2(0.75f, 0.4f+((fieldHeatImageRectTransform.anchorMax.x - fieldHeatImageRectTransform.anchorMin.x) * 768f / 2048f));
         }
 
         // Update is called once per frame
@@ -63,11 +80,13 @@ namespace Assets.Scripts
                 Debug.Log("Starting pull coroutine");
                 StartCoroutine(PullTeamFromServer());
             }
+   
             if(picturesArray != null && picturesArray.Count != 0 &&  (pictureIndex != prevPictureIndex))
             {
                 robotImage.GetComponent<Image>().overrideSprite = Sprite.Create((Texture2D)picturesArray[pictureIndex], new Rect(0f, 0f, (picturesArray[pictureIndex]).width, ((Texture2D)picturesArray[pictureIndex]).height), new Vector2(0.5f, 0.5f));
                 prevPictureIndex = pictureIndex;
             }
+           
         }
         public void NavigateLeft()
         {
@@ -83,7 +102,36 @@ namespace Assets.Scripts
                 pictureIndex++;
             }
         }
-
+        public void NavigateHeatLeft()
+        {
+            if (heatSelectionIndex > 0)
+            {
+                heatSelectionIndex--;
+            }
+            switch (heatSelectionIndex)
+            {
+                case 0: heatSelectionText.text = ""; break;
+                case 1: heatSelectionText.text = ""; break;
+                case 2: heatSelectionText.text = ""; break;
+                case 3: heatSelectionText.text = ""; break;
+                case 4: heatSelectionText.text = ""; break;
+            }
+        }
+        public void NavigateHeatRight()
+        {
+            if (heatSelectionIndex < 4)
+            {
+                heatSelectionIndex++;
+            }
+            switch (heatSelectionIndex)
+            {
+                case 0: heatSelectionText.text = ""; break;
+                case 1: heatSelectionText.text = ""; break;
+                case 2: heatSelectionText.text = ""; break;
+                case 3: heatSelectionText.text = ""; break;
+                case 4: heatSelectionText.text = ""; break;
+            }
+        }
         IEnumerator PullTeamFromServer()
         {
             WWW pullFromServer = new WWW(manager.sGetTeamURL + simpleTeam.iTeamNumber + "/" + simpleTeam.iTeamNumber + ".json");
@@ -183,9 +231,9 @@ namespace Assets.Scripts
 
             teamNameNumberText.text = "" + team.iTeamNumber + " " + team.sTeamName;  //team.teamNameNumberText
 
-            Image robotImage = GetComponentInChildren<Image>();
+            robotImage = GameObject.Find("robotImage");
             //robotImage = team.robotImage;
-            robotImage.preserveAspect = true;
+            robotImage.GetComponent<Image>().preserveAspect = true;
 
             int gamesScouted = team.iGamesScouted; //team.gamesScouted;
             gamesScoutedText.text = "Games Scouted: " + gamesScouted;

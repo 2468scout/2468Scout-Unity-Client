@@ -79,12 +79,14 @@ namespace Assets.Scripts{
                 colorStationNumberText.text = "Red " + currentlyScoutingTeamMatch.iStationNumber;
             }
             backButton.onClick.AddListener(() => { BackButton(); });
+
+
         }
 
         // Update is called once per frame
         void Update()
         {
-            if(matchStartTime != null && sMatchStatus == "Match Active")
+            if (matchStartTime != null && sMatchStatus == "Match Active")
             {
                 Time t = GetCurrentTime();
                 t.TimeSince(matchStartTime);
@@ -98,6 +100,7 @@ namespace Assets.Scripts{
                     BackButton();
                 }
             }
+            
         }
         public void SaveTeamMatch()
         {
