@@ -99,6 +99,10 @@ namespace Assets.Scripts
             {
                 pictureIndex--;
             }
+            else
+            {
+                pictureIndex = picturesArray.Count - 1;
+            }
         }
         public void NavigateRight()
         {
@@ -106,12 +110,20 @@ namespace Assets.Scripts
             {
                 pictureIndex++;
             }
+            else
+            {
+                pictureIndex = 0;
+            }
         }
         public void NavigateHeatLeft()
         {
             if (heatSelectionIndex > 0)
             {
                 heatSelectionIndex--;
+            }
+            else
+            {
+                heatSelectionIndex = 4;
             }
             switch (heatSelectionIndex)
             {
@@ -129,6 +141,10 @@ namespace Assets.Scripts
             {
                 heatSelectionIndex++;
             }
+            else
+            {
+                heatSelectionIndex = 0;
+            }
             switch (heatSelectionIndex)
             {
                 case 0: heatSelectionText.text = "Gears Heatmap"; break;
@@ -144,7 +160,7 @@ namespace Assets.Scripts
             xList.Clear();
             if (heatSelectionIndex == 0)
             {
-                pointsList = team.gearMapPointList;
+                pointsList = team.heatmapsData.gearMapPointList;
                 for (int i = 0; i < pointsList.Count; i++)
                 {
                     Point p = pointsList[i];
@@ -160,8 +176,8 @@ namespace Assets.Scripts
             }
             if (heatSelectionIndex == 1)
             {
-                pointsList = team.lowGoalMapPointList;
-                accuraciesList = team.lowGoalMapFloatList;
+                pointsList = team.heatmapsData.lowGoalMapPointList;
+                accuraciesList = team.heatmapsData.lowGoalMapFloatList;
                 for (int i = 0; i < pointsList.Count; i++)
                 {
                     Point p = pointsList[i];
@@ -186,7 +202,7 @@ namespace Assets.Scripts
             }
             if (heatSelectionIndex == 2)
             {
-                pointsList = team.gearMapPointList;
+                pointsList = team.heatmapsData.gearMapPointList;
                 for (int i = 0; i < pointsList.Count; i++)
                 {
                     Point p = pointsList[i];
@@ -194,7 +210,7 @@ namespace Assets.Scripts
             }
             if (heatSelectionIndex == 3)
             {
-                pointsList = team.gearMapPointList;
+                pointsList = team.heatmapsData.gearMapPointList;
                 for (int i = 0; i < pointsList.Count; i++)
                 {
                     Point p = pointsList[i];
@@ -202,7 +218,7 @@ namespace Assets.Scripts
             }
             if (heatSelectionIndex == 4)
             {
-                pointsList = team.gearMapPointList;
+                pointsList = team.heatmapsData.gearMapPointList;
                 foreach (Point p in pointsList)
                 {
                     //Point p = pointsList[i];
