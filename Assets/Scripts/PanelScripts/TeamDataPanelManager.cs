@@ -205,7 +205,7 @@ namespace Assets.Scripts
                 pointsList = team.gearMapPointList;
                 foreach (Point p in pointsList)
                 {
-                    Point p = pointsList[i];
+                    //Point p = pointsList[i];
                 }
             }
         }
