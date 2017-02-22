@@ -18,7 +18,11 @@ namespace Assets.Scripts
         public int pictureIndex, heatSelectionIndex;
         public int prevPictureIndex = -1;
         bool bIsPullingTeam;
-        Texture2D heatTexture;
+        List<Point> pointsList;
+        List<bool> successesList;
+        List<float> accuraciesList;
+        List<GameObject> xList;
+        Sprite redXSprite, greenXSprite, blueXSprite;
 
         Button backButton, leftButton, rightButton, heatLeftButton, heatRightButton;
         
@@ -64,12 +68,14 @@ namespace Assets.Scripts
             heatRightButton = GameObject.Find("heatMapPanel").GetComponentsInChildren<Button>()[1];
             heatSelectionText = GameObject.Find("heatMapPanel").GetComponentsInChildren<Text>()[3];
             picturesArray = new List<Texture2D>();
-            heatTexture = Resources.Load("redrect") as Texture2D;
             fieldHeatImage = GameObject.Find("fieldHeatImage");
             fieldHeatImageRectTransform = fieldHeatImage.GetComponent<RectTransform>();
             Debug.Log("" + ((fieldHeatImageRectTransform.anchorMax.x - fieldHeatImageRectTransform.anchorMin.x)));
             fieldHeatImageRectTransform.anchorMin = new Vector2(0.25f, 0.4f-((fieldHeatImageRectTransform.anchorMax.x - fieldHeatImageRectTransform.anchorMin.x) * 768f / 2048f));
             fieldHeatImageRectTransform.anchorMax = new Vector2(0.75f, 0.4f+((fieldHeatImageRectTransform.anchorMax.x - fieldHeatImageRectTransform.anchorMin.x) * 768f / 2048f));
+            redXSprite = Resources.Load("xred.png") as Sprite;
+            greenXSprite = Resources.Load("xgreen.png") as Sprite;
+            blueXSprite = Resources.Load("xblue.png") as Sprite;
         }
 
         // Update is called once per frame
@@ -86,7 +92,6 @@ namespace Assets.Scripts
                 robotImage.GetComponent<Image>().overrideSprite = Sprite.Create((Texture2D)picturesArray[pictureIndex], new Rect(0f, 0f, (picturesArray[pictureIndex]).width, ((Texture2D)picturesArray[pictureIndex]).height), new Vector2(0.5f, 0.5f));
                 prevPictureIndex = pictureIndex;
             }
-           
         }
         public void NavigateLeft()
         {
@@ -110,12 +115,13 @@ namespace Assets.Scripts
             }
             switch (heatSelectionIndex)
             {
-                case 0: heatSelectionText.text = ""; break;
-                case 1: heatSelectionText.text = ""; break;
-                case 2: heatSelectionText.text = ""; break;
-                case 3: heatSelectionText.text = ""; break;
-                case 4: heatSelectionText.text = ""; break;
+                case 0: heatSelectionText.text = "Gears Heatmap"; break;
+                case 1: heatSelectionText.text = "Low Goal Heatmap"; break;
+                case 2: heatSelectionText.text = "High Goal Heatmap"; break;
+                case 3: heatSelectionText.text = "Climb Heatmap"; break;
+                case 4: heatSelectionText.text = "Hoppers Heatmap"; break;
             }
+            updatePoints();
         }
         public void NavigateHeatRight()
         {
@@ -125,11 +131,82 @@ namespace Assets.Scripts
             }
             switch (heatSelectionIndex)
             {
-                case 0: heatSelectionText.text = ""; break;
-                case 1: heatSelectionText.text = ""; break;
-                case 2: heatSelectionText.text = ""; break;
-                case 3: heatSelectionText.text = ""; break;
-                case 4: heatSelectionText.text = ""; break;
+                case 0: heatSelectionText.text = "Gears Heatmap"; break;
+                case 1: heatSelectionText.text = "Low Goal Heatmap"; break;
+                case 2: heatSelectionText.text = "High Goal Heatmap"; break;
+                case 3: heatSelectionText.text = "Climb Heatmap"; break;
+                case 4: heatSelectionText.text = "Hoppers Heatmap"; break;
+            }
+            updatePoints();
+        }
+        public void updatePoints()
+        {
+            xList.Clear();
+            if (heatSelectionIndex == 0)
+            {
+                pointsList = team.gearMapPointList;
+                for (int i = 0; i < pointsList.Count; i++)
+                {
+                    Point p = pointsList[i];
+                    GameObject g = new GameObject();
+                    SpriteRenderer renderer = g.AddComponent<SpriteRenderer>();
+                    RectTransform rect = g.AddComponent<RectTransform>();
+                    g.GetComponent<RectTransform>().anchorMin = new Vector2(p.x, p.y);
+                    g.GetComponent<RectTransform>().anchorMax = new Vector2(p.x, p.y);
+                    renderer.sprite = blueXSprite;
+                    xList.Add(g);
+                    g = null; renderer = null; rect = null; p = null;
+                }
+            }
+            if (heatSelectionIndex == 1)
+            {
+                pointsList = team.lowGoalMapPointList;
+                accuraciesList = team.lowGoalMapFloatList;
+                for (int i = 0; i < pointsList.Count; i++)
+                {
+                    Point p = pointsList[i];
+                    GameObject g = new GameObject();
+                    SpriteRenderer renderer = g.AddComponent<SpriteRenderer>();
+                    RectTransform rect = g.AddComponent<RectTransform>();
+                    g.GetComponent<RectTransform>().anchorMin = new Vector2(p.x, p.y);
+                    g.GetComponent<RectTransform>().anchorMax = new Vector2(p.x, p.y);
+                    renderer.sprite = redXSprite;
+                    xList.Add(g);
+                    g = null; renderer = null; rect = null;
+                    GameObject g2 = new GameObject();
+                    SpriteRenderer renderer2 = g2.AddComponent<SpriteRenderer>();
+                    RectTransform rect2 = g2.AddComponent<RectTransform>();
+                    g2.GetComponent<RectTransform>().anchorMin = new Vector2(p.x, p.y);
+                    g2.GetComponent<RectTransform>().anchorMax = new Vector2(p.x, p.y);
+                    renderer2.sprite = greenXSprite;
+                    renderer2.color = new Color(renderer2.color.r, renderer2.color.g, renderer2.color.b, accuraciesList[i]);
+                    xList.Add(g2);
+                    g2 = null; renderer2 = null; rect2 = null; p = null;
+                }
+            }
+            if (heatSelectionIndex == 2)
+            {
+                pointsList = team.gearMapPointList;
+                for (int i = 0; i < pointsList.Count; i++)
+                {
+                    Point p = pointsList[i];
+                }
+            }
+            if (heatSelectionIndex == 3)
+            {
+                pointsList = team.gearMapPointList;
+                for (int i = 0; i < pointsList.Count; i++)
+                {
+                    Point p = pointsList[i];
+                }
+            }
+            if (heatSelectionIndex == 4)
+            {
+                pointsList = team.gearMapPointList;
+                foreach (Point p in pointsList)
+                {
+                    Point p = pointsList[i];
+                }
             }
         }
         IEnumerator PullTeamFromServer()

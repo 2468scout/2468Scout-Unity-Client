@@ -1639,6 +1639,7 @@ MonoBehaviour:
   robotImage: {fileID: 0}
   fieldHeatImage: {fileID: 0}
   pictureIndex: 0
+  heatSelectionIndex: 0
   prevPictureIndex: 1
 --- !u!114 &114093244683647406
 MonoBehaviour:
@@ -3556,6 +3557,7 @@ MonoBehaviour:
   robotImage: {fileID: 0}
   fieldHeatImage: {fileID: 0}
   pictureIndex: 0
+  heatSelectionIndex: 0
   prevPictureIndex: 1
 --- !u!114 &114817579712933616
 MonoBehaviour:
