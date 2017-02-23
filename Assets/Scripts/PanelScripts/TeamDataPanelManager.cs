@@ -14,6 +14,7 @@ namespace Assets.Scripts
         public List<Texture2D> picturesArray = null;
         public GameObject robotImage;
         public GameObject fieldHeatImage;
+        public GameObject heatMapsPanel;
         RectTransform fieldHeatImageRectTransform;
         public int pictureIndex, heatSelectionIndex;
         public int prevPictureIndex = -1;
@@ -26,7 +27,7 @@ namespace Assets.Scripts
 
         Button backButton, leftButton, rightButton, heatLeftButton, heatRightButton;
         
-
+      
         Text teamNameNumberText, leftButtonText, rightButtonText, gamesScoutedText, winPercentageText, backButtonText;
         
             //General Texts
@@ -76,6 +77,9 @@ namespace Assets.Scripts
             redXSprite = Resources.Load("xred.png") as Sprite;
             greenXSprite = Resources.Load("xgreen.png") as Sprite;
             blueXSprite = Resources.Load("xblue.png") as Sprite;
+            heatMapsPanel = GameObject.Find("heatMapsPanel");
+            heatLeftButton.onClick.AddListener(() => { this.NavigateHeatLeft(); });
+            heatRightButton.onClick.AddListener(() => { this.NavigateHeatRight(); });
         }
 
         // Update is called once per frame
@@ -158,72 +162,91 @@ namespace Assets.Scripts
         public void updatePoints()
         {
             xList.Clear();
-            if (heatSelectionIndex == 0)
+            if (heatSelectionIndex == 0 || heatSelectionIndex == 4)
             {
-                pointsList = team.heatmapsData.gearMapPointList;
+                if (heatSelectionIndex == 0)
+                {
+                    pointsList = team.heatmapsData.gearMapPointList;
+                } else
+                {
+                    pointsList = team.heatmapsData.hopperMapPointList;
+                }
+                
                 for (int i = 0; i < pointsList.Count; i++)
                 {
                     Point p = pointsList[i];
                     GameObject g = new GameObject();
                     SpriteRenderer renderer = g.AddComponent<SpriteRenderer>();
                     RectTransform rect = g.AddComponent<RectTransform>();
-                    g.GetComponent<RectTransform>().anchorMin = new Vector2(p.x, p.y);
-                    g.GetComponent<RectTransform>().anchorMax = new Vector2(p.x, p.y);
+                    g.GetComponent<RectTransform>().anchorMin = new Vector2(fieldHeatImageRectTransform.anchorMin.x + p.x, fieldHeatImageRectTransform.anchorMin.x + p.y);
+                    g.GetComponent<RectTransform>().anchorMax = new Vector2(fieldHeatImageRectTransform.anchorMin.x + p.x, fieldHeatImageRectTransform.anchorMin.x + p.y);
                     renderer.sprite = blueXSprite;
+                    renderer.GetComponent<AspectRatioFitter>().aspectRatio = 1f;
                     xList.Add(g);
                     g = null; renderer = null; rect = null; p = null;
                 }
             }
-            if (heatSelectionIndex == 1)
+            if (heatSelectionIndex == 1 || heatSelectionIndex == 2)
             {
-                pointsList = team.heatmapsData.lowGoalMapPointList;
-                accuraciesList = team.heatmapsData.lowGoalMapFloatList;
+                if (heatSelectionIndex == 1)
+                {
+                    pointsList = team.heatmapsData.lowGoalMapPointList;
+                    accuraciesList = team.heatmapsData.lowGoalMapFloatList;
+                } else
+                {
+                    pointsList = team.heatmapsData.highGoalMapPointList;
+                    accuraciesList = team.heatmapsData.highGoalMapFloatList;
+                }
                 for (int i = 0; i < pointsList.Count; i++)
                 {
                     Point p = pointsList[i];
                     GameObject g = new GameObject();
                     SpriteRenderer renderer = g.AddComponent<SpriteRenderer>();
                     RectTransform rect = g.AddComponent<RectTransform>();
-                    g.GetComponent<RectTransform>().anchorMin = new Vector2(p.x, p.y);
-                    g.GetComponent<RectTransform>().anchorMax = new Vector2(p.x, p.y);
+                    g.GetComponent<RectTransform>().anchorMin = new Vector2(fieldHeatImageRectTransform.anchorMin.x + p.x, fieldHeatImageRectTransform.anchorMin.x + p.y);
+                    g.GetComponent<RectTransform>().anchorMax = new Vector2(fieldHeatImageRectTransform.anchorMin.x + p.x, fieldHeatImageRectTransform.anchorMin.x + p.y);
                     renderer.sprite = redXSprite;
+                    renderer.GetComponent<AspectRatioFitter>().aspectRatio = 1f;
                     xList.Add(g);
                     g = null; renderer = null; rect = null;
                     GameObject g2 = new GameObject();
                     SpriteRenderer renderer2 = g2.AddComponent<SpriteRenderer>();
                     RectTransform rect2 = g2.AddComponent<RectTransform>();
-                    g2.GetComponent<RectTransform>().anchorMin = new Vector2(p.x, p.y);
-                    g2.GetComponent<RectTransform>().anchorMax = new Vector2(p.x, p.y);
+                    g2.GetComponent<RectTransform>().anchorMin = new Vector2(fieldHeatImageRectTransform.anchorMin.x + p.x, fieldHeatImageRectTransform.anchorMin.x + p.y);
+                    g2.GetComponent<RectTransform>().anchorMax = new Vector2(fieldHeatImageRectTransform.anchorMin.x + p.x, fieldHeatImageRectTransform.anchorMin.x + p.y);
                     renderer2.sprite = greenXSprite;
                     renderer2.color = new Color(renderer2.color.r, renderer2.color.g, renderer2.color.b, accuraciesList[i]);
+                    renderer2.GetComponent<AspectRatioFitter>().aspectRatio = 1f;
                     xList.Add(g2);
                     g2 = null; renderer2 = null; rect2 = null; p = null;
-                }
-            }
-            if (heatSelectionIndex == 2)
-            {
-                pointsList = team.heatmapsData.gearMapPointList;
-                for (int i = 0; i < pointsList.Count; i++)
-                {
-                    Point p = pointsList[i];
-                }
+                } // loop through points in reverse
             }
             if (heatSelectionIndex == 3)
             {
-                pointsList = team.heatmapsData.gearMapPointList;
+                pointsList = team.heatmapsData.climbMapPointList;
+                successesList = team.heatmapsData.climbMapBoolList;
                 for (int i = 0; i < pointsList.Count; i++)
                 {
                     Point p = pointsList[i];
+                    GameObject g = new GameObject();
+                    SpriteRenderer renderer = g.AddComponent<SpriteRenderer>();
+                    RectTransform rect = g.AddComponent<RectTransform>();
+                    g.GetComponent<RectTransform>().anchorMin = new Vector2(fieldHeatImageRectTransform.anchorMin.x + p.x, fieldHeatImageRectTransform.anchorMin.x + p.y);
+                    g.GetComponent<RectTransform>().anchorMax = new Vector2(fieldHeatImageRectTransform.anchorMin.x + p.x, fieldHeatImageRectTransform.anchorMin.x + p.y);
+                    if (successesList[i])
+                    {
+                        renderer.sprite = greenXSprite;
+                    } else
+                    {
+                        renderer.sprite = redXSprite;
+                    }
+                    renderer.GetComponent<AspectRatioFitter>().aspectRatio = 1f;
+                    xList.Add(g);                   
                 }
             }
-            if (heatSelectionIndex == 4)
+            for(int i = xList.Count-1; i >= 0; i--)
             {
-                pointsList = team.heatmapsData.gearMapPointList;
-                foreach (Point p in pointsList)
-                {
-                    //Point p = pointsList[i];
-
-                }
+                xList[i].transform.SetParent(heatMapsPanel.transform);
             }
         }
         IEnumerator PullTeamFromServer()
