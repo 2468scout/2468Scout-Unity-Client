@@ -8,8 +8,8 @@ namespace Assets.Scripts
     public class AnalyticsPanel_ContentManager : MonoBehaviour
     {
         string objectType, prevSearch, currentSearch;
-        public GameObject selectableTeamPanel, selectableMatchPanel;
-        public GameObject content, scrollview, searchBar;
+        public GameObject selectableItemPanel;
+        public GameObject content, scrollview, searchBar, analyticsTypeDropdown;
         public List<SimpleTeam> simpleTeamList = new List<SimpleTeam>();
         public List<SimpleTeam> displayedTeamList = new List<SimpleTeam>();
         public List<SimpleMatch> simpleMatchList;
@@ -22,6 +22,7 @@ namespace Assets.Scripts
         // Use this for initialization
         void Start()
         {
+            analyticsTypeDropdown = GameObject.Find("AnalyticsTypeDropdown");
             searchBar = GameObject.Find("SearchBar");
             Debug.Log("iTeamDataPanelHeight: " + iTeamDataPanelHeight);
             manager = GetComponentInParent<UIManager>();
@@ -42,7 +43,7 @@ namespace Assets.Scripts
             Debug.Log("Currently found teams in manager: " + manager.currentEvent.simpleTeamList.Count);
             Debug.Log("Currently found teams in simpleTeamList: " + simpleTeamList.Count);
             Debug.Log("Currently found teams in displayedTeamList: " + displayedTeamList.Count);
-            RefreshDisplayedTeams();
+            RefreshDisplayedItems();
         }
         // Update is called once per frame
         void Update()
@@ -128,7 +129,7 @@ namespace Assets.Scripts
                     }
                 }
             }
-            RefreshDisplayedTeams();
+            RefreshDisplayedItems();
         }
         
         public IEnumerator Refresh()
@@ -150,7 +151,7 @@ namespace Assets.Scripts
             yield break;
         }
 
-        public void RefreshDisplayedTeams()
+        public void RefreshDisplayedItems()
         {
             foreach (GameObject panel in teamPanelList)
             {
@@ -160,7 +161,7 @@ namespace Assets.Scripts
             {
                 Debug.Log("Displaying: " + s.iTeamNumber);
                 int i = displayedTeamList.IndexOf(s);
-                GameObject tempPanel = Instantiate(selectableTeamPanel);
+                GameObject tempPanel = Instantiate(selectableItemPanel);
                 tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().iNumInList = i;
                 tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().containedTeam = s;
                 tempPanel.transform.SetParent(content.transform);

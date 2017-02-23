@@ -305,7 +305,7 @@ namespace Assets.Scripts
 
             }
             */
-            else if (panel == "comingMatchPanel")
+            else if (panel.Contains("comingMatchPanel:"))
             {
                 sPrevPanel = sCurrentPanel;
                 sCurrentPanel = panel;
@@ -316,13 +316,13 @@ namespace Assets.Scripts
                 openPanel.transform.SetParent(gameObject.transform);
                 rectTransform.offsetMin = new Vector2(0, 0);
                 rectTransform.offsetMax = new Vector2(0, 0);
-                WWW downloadPreMatch = new WWW(sMainURL + "/Matches/");
+                SimpleMatch sm = JsonUtility.FromJson<SimpleMatch>(panel.Substring(17));
+                WWW downloadPreMatch = new WWW(sMainURL + "/Matches/" + sm.sEventPlayedAtCode + "_" + sm.sCompetitionLevel + "_" + sm.iMatchNumber + ".json");
                 yield return downloadPreMatch;
-                openPanel.GetComponent<UpcomingMatchPanel_ContentManager>().preMatch = JsonUtility.FromJson<PreMatch>(panel.Substring(10));
+                openPanel.GetComponent<UpcomingMatchPanel_ContentManager>().preMatch = JsonUtility.FromJson<PreMatch>(downloadPreMatch.text);
                 eventStatusText = null;
                 sPrevDownloadStatus = "";
             }
-
             yield break;
         }
 

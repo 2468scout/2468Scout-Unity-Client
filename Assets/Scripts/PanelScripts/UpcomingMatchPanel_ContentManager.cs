@@ -21,7 +21,6 @@ namespace Assets.Scripts
             blueTeamText1 = GameObject.Find("BlueTeamText1");
             blueTeamText2 = GameObject.Find("BlueTeamText2");
             blueTeamText3 = GameObject.Find("BlueTeamText3");
-            
         }
 
         // Update is called once per frame
@@ -38,7 +37,7 @@ namespace Assets.Scripts
             blueTeamText1.GetComponent<Text>().text = preMatch.blueSimpleTeams[1].ToString();
             blueTeamText2.GetComponent<Text>().text = preMatch.blueSimpleTeams[2].ToString();
             blueTeamText3.GetComponent<Text>().text = preMatch.blueSimpleTeams[3].ToString();
-
+            
         }
     }
 }
