@@ -24,6 +24,14 @@ namespace Assets.Scripts
         void Start()
         {
             analyticsTypeDropdown = GameObject.Find("AnalyticsTypeDropdown");
+            if(analyticsTypeDropdown != null)
+            {
+                Debug.Log("Found analytics dropdown!");
+            }
+            else
+            {
+                Debug.Log("Missing analytics dropdown....");
+            }
             sItemTypeDisplaying = "Team Analytics";
             searchBar = GameObject.Find("SearchBar");
             Debug.Log("iTeamDataPanelHeight: " + iTeamDataPanelHeight);
@@ -46,8 +54,11 @@ namespace Assets.Scripts
             Debug.Log("Currently found teams in simpleTeamList: " + simpleTeamList.Count);
             Debug.Log("Currently found teams in displayedTeamList: " + displayedTeamList.Count);
             analyticsTypeDropdown.GetComponent<Dropdown>().onValueChanged.AddListener((val) => { ChangeDisplayedItem(); });
-            analyticsTypeDropdown.GetComponentsInChildren<RectTransform>()[3].offsetMin = new Vector2(0, (float) (Screen.height * 0.1));
-            analyticsTypeDropdown.GetComponentsInChildren<RectTransform>()[6].offsetMin = new Vector2(0, (float)(Screen.height * 0.05));
+            analyticsTypeDropdown.GetComponent<Dropdown>().template.offsetMin = new Vector2(0, -(float)(Screen.height * 0.1));
+            //analyticsTypeDropdown.GetComponentsInChildren<RectTransform>()[3].gameObject.SetActive(true);
+            //analyticsTypeDropdown.GetComponentsInChildren<RectTransform>()[3].offsetMin = new Vector2(0, (float) (Screen.height * 0.1));
+            //analyticsTypeDropdown.GetComponentsInChildren<RectTransform>()[6].offsetMin = new Vector2(0, (float)(Screen.height * 0.05));
+            //analyticsTypeDropdown.GetComponentsInChildren<RectTransform>()[3].gameObject.SetActive(false);
             RefreshDisplayedItems();
         }
         // Update is called once per frame
