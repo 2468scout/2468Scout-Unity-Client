@@ -15,5 +15,9 @@ namespace Assets.Scripts
             this.sTeamName = sTeamName;
             this.iTeamNumber = iTeamNumber;
         }
+        public override string ToString()
+        {
+            return "Team #" + iTeamNumber + "-" + sTeamName;
+        }
     }
 }

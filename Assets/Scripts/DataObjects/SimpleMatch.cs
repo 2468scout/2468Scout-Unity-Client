@@ -10,7 +10,7 @@ namespace Assets.Scripts
     {
         public int iMatchNumber, iRedScore, iBlueScore;
         public string sCompetitionLevel, sEventPlayedAtCode;
-        public List<string> listTeamsBlueAlliance, listTeamsRedAlliance;
         public List<SimpleTeam> simpleTeamsRed, simpleTeamsBlue;
+        public bool bHasBeenPlayed;
     }
 }

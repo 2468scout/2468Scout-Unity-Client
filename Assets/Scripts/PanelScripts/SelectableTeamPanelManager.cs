@@ -20,9 +20,12 @@ namespace Assets.Scripts
             //transform.offsetMax = new Vector2(0, -150 * iNumInList);
             displayText = GetComponentInChildren<Text>();
             manager = GetComponentInParent<UIManager>();
-            displayText.text = "Team #" + containedTeam.iTeamNumber.ToString() + " - " + containedTeam.sTeamName;
-            openTeamPanelButton = GetComponent<Button>();
-            openTeamPanelButton.onClick.AddListener(() => { manager.ChangePanel("teamPanel:" + containedTeam.iTeamNumber);});
+            if (containedTeam != null)
+            {
+                displayText.text = containedTeam.ToString();
+                openTeamPanelButton = GetComponent<Button>();
+                openTeamPanelButton.onClick.AddListener(() => { manager.ChangePanel("teamPanel:" + containedTeam.iTeamNumber); });
+            }
         }
 
         // Update is called once per frame

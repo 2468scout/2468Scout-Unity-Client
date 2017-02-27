@@ -9,7 +9,8 @@ namespace Assets.Scripts
     public class UIManager : MonoBehaviour
     {
         public bool bHasTeamPitScoutsToSend, bHasTeamMatchesToSend, bHasImagesToSend, bHasScoreScoutsToSend, bIsInDebugMode, bIsSendingData;
-        public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel, scoreScoutPanel;
+        public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel, 
+            scoreScoutPanel, prevMatchDataPanel, comingMatchDataPanel;
         public string sUserName, sEventCode, sPrevEventCode, sPrevUserName, sPrevPanel, sCurrentPanel, sEventDownloadStatus, sPrevDownloadStatus;
         public List<TeamMatch> teamMatchListToScout;
         public List<string> listTeamMatchFilePaths, listTeamPitScoutFilePaths, listScoreScoutFilePaths, listImageFilePaths;
@@ -304,6 +305,24 @@ namespace Assets.Scripts
 
             }
             */
+            else if (panel.Contains("comingMatchPanel:"))
+            {
+                sPrevPanel = sCurrentPanel;
+                sCurrentPanel = panel;
+                tempPanel = Instantiate(comingMatchDataPanel);
+                rectTransform = tempPanel.GetComponent<RectTransform>();
+                Destroy(openPanel);
+                openPanel = tempPanel;
+                openPanel.transform.SetParent(gameObject.transform);
+                rectTransform.offsetMin = new Vector2(0, 0);
+                rectTransform.offsetMax = new Vector2(0, 0);
+                SimpleMatch sm = JsonUtility.FromJson<SimpleMatch>(panel.Substring(17));
+                WWW downloadPreMatch = new WWW(sMainURL + "/Matches/" + sm.sEventPlayedAtCode + "_" + sm.sCompetitionLevel + "_" + sm.iMatchNumber + ".json");
+                yield return downloadPreMatch;
+                openPanel.GetComponent<UpcomingMatchPanel_ContentManager>().preMatch = JsonUtility.FromJson<PreMatch>(downloadPreMatch.text);
+                eventStatusText = null;
+                sPrevDownloadStatus = "";
+            }
             yield break;
         }
 

@@ -8,20 +8,31 @@ namespace Assets.Scripts
     public class AnalyticsPanel_ContentManager : MonoBehaviour
     {
         string objectType, prevSearch, currentSearch;
-        public GameObject selectableTeamPanel, selectableMatchPanel;
-        public GameObject content, scrollview, searchBar;
+        public GameObject selectableItemPanel;
+        public GameObject content, scrollview, searchBar, analyticsTypeDropdown;
         public List<SimpleTeam> simpleTeamList = new List<SimpleTeam>();
         public List<SimpleTeam> displayedTeamList = new List<SimpleTeam>();
         public List<SimpleMatch> simpleMatchList;
         List<GameObject> teamPanelList = new List<GameObject>();
         UIManager manager;
         public bool bRefreshing = false;
+        public string sItemTypeDisplaying;
         private int iRefreshTimer;
         private Vector2 size;
         int iTeamDataPanelHeight = (Screen.height / 5);
         // Use this for initialization
         void Start()
         {
+            analyticsTypeDropdown = GameObject.Find("AnalyticsTypeDropdown");
+            if(analyticsTypeDropdown != null)
+            {
+                Debug.Log("Found analytics dropdown!");
+            }
+            else
+            {
+                Debug.Log("Missing analytics dropdown....");
+            }
+            sItemTypeDisplaying = "Team Analytics";
             searchBar = GameObject.Find("SearchBar");
             Debug.Log("iTeamDataPanelHeight: " + iTeamDataPanelHeight);
             manager = GetComponentInParent<UIManager>();
@@ -42,7 +53,13 @@ namespace Assets.Scripts
             Debug.Log("Currently found teams in manager: " + manager.currentEvent.simpleTeamList.Count);
             Debug.Log("Currently found teams in simpleTeamList: " + simpleTeamList.Count);
             Debug.Log("Currently found teams in displayedTeamList: " + displayedTeamList.Count);
-            RefreshDisplayedTeams();
+            analyticsTypeDropdown.GetComponent<Dropdown>().onValueChanged.AddListener((val) => { ChangeDisplayedItem(); });
+            analyticsTypeDropdown.GetComponent<Dropdown>().template.offsetMin = new Vector2(0, -(float)(Screen.height * 0.1));
+            //analyticsTypeDropdown.GetComponentsInChildren<RectTransform>()[3].gameObject.SetActive(true);
+            //analyticsTypeDropdown.GetComponentsInChildren<RectTransform>()[3].offsetMin = new Vector2(0, (float) (Screen.height * 0.1));
+            //analyticsTypeDropdown.GetComponentsInChildren<RectTransform>()[6].offsetMin = new Vector2(0, (float)(Screen.height * 0.05));
+            //analyticsTypeDropdown.GetComponentsInChildren<RectTransform>()[3].gameObject.SetActive(false);
+            RefreshDisplayedItems();
         }
         // Update is called once per frame
         void Update()
@@ -128,7 +145,7 @@ namespace Assets.Scripts
                     }
                 }
             }
-            RefreshDisplayedTeams();
+            RefreshDisplayedItems();
         }
         
         public IEnumerator Refresh()
@@ -150,28 +167,50 @@ namespace Assets.Scripts
             yield break;
         }
 
-        public void RefreshDisplayedTeams()
+        public void RefreshDisplayedItems()
         {
             foreach (GameObject panel in teamPanelList)
             {
                 Destroy(panel);
             }
-            foreach (SimpleTeam s in displayedTeamList)
+            switch (sItemTypeDisplaying)
             {
-                Debug.Log("Displaying: " + s.iTeamNumber);
-                int i = displayedTeamList.IndexOf(s);
-                GameObject tempPanel = Instantiate(selectableTeamPanel);
-                tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().iNumInList = i;
-                tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().containedTeam = s;
-                tempPanel.transform.SetParent(content.transform);
-                tempPanel.GetComponent<Button>().onClick.AddListener(() => manager.CreatePanelWrapper("teamPanel:" + JsonUtility.ToJson(s)));
-                content.GetComponent<RectTransform>().offsetMin = new Vector2(0, (-iTeamDataPanelHeight * i) - iTeamDataPanelHeight);
-                content.GetComponent<RectTransform>().offsetMax = new Vector2(-20, 0);
-                teamPanelList.Add(tempPanel);
-                tempPanel.GetComponent<RectTransform>().offsetMax = new Vector2(0, -(iTeamDataPanelHeight * i));
-                tempPanel.GetComponent<RectTransform>().offsetMin = new Vector2(0, -(iTeamDataPanelHeight * (i + 1)));
-                Debug.Log("Setting tempPanel offsets to: MAX: " + tempPanel.GetComponent<RectTransform>().offsetMax + ", MIN: " + tempPanel.GetComponent<RectTransform>().offsetMin);
+                case "Team Analytics":
+                    foreach (SimpleTeam s in displayedTeamList)
+                    {
+                        Debug.Log("Displaying: " + s.iTeamNumber);
+                        int i = displayedTeamList.IndexOf(s);
+                        GameObject tempPanel = Instantiate(selectableItemPanel);
+                        tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().iNumInList = i;
+                        tempPanel.GetComponentInChildren<SelectableTeamPanelManager>().containedTeam = s;
+                        tempPanel.transform.SetParent(content.transform);
+                        tempPanel.GetComponent<Button>().onClick.AddListener(() => manager.CreatePanelWrapper("teamPanel:" + JsonUtility.ToJson(s)));
+                        content.GetComponent<RectTransform>().offsetMin = new Vector2(0, (-iTeamDataPanelHeight * i) - iTeamDataPanelHeight);
+                        content.GetComponent<RectTransform>().offsetMax = new Vector2(-20, 0);
+                        teamPanelList.Add(tempPanel);
+                        tempPanel.GetComponent<RectTransform>().offsetMax = new Vector2(0, -(iTeamDataPanelHeight * i));
+                        tempPanel.GetComponent<RectTransform>().offsetMin = new Vector2(0, -(iTeamDataPanelHeight * (i + 1)));
+                        Debug.Log("Setting tempPanel offsets to: MAX: " + tempPanel.GetComponent<RectTransform>().offsetMax + ", MIN: " + tempPanel.GetComponent<RectTransform>().offsetMin);
+                    }
+                    break;
+
+                case "Match Analytics":
+                    break;
             }
+        }
+
+        public void ChangeDisplayedItem()
+        {
+            switch (analyticsTypeDropdown.GetComponent<Dropdown>().value)
+            {
+                case 0:
+                    sItemTypeDisplaying = "Team Analytics";
+                    break;
+                case 1:
+                    sItemTypeDisplaying = "Match Analytics";
+                    break;
+            }
+            RefreshDisplayedItems();
         }
     }
 }
