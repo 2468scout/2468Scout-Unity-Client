@@ -424,7 +424,7 @@ namespace Assets.Scripts
             bIsInDebugMode = b;
             if (bIsInDebugMode)
             {
-                sMainURL = "localhost:8080";
+                sMainURL = "10.107.10.14:8080";
             }
             else
             {
