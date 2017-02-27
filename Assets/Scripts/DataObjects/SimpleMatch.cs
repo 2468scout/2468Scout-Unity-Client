@@ -12,5 +12,9 @@ namespace Assets.Scripts
         public string sCompetitionLevel, sEventPlayedAtCode;
         public List<SimpleTeam> simpleTeamsRed, simpleTeamsBlue;
         public bool bHasBeenPlayed;
+        public override string ToString()
+        {
+            return sCompetitionLevel + iMatchNumber;
+        }
     }
 }

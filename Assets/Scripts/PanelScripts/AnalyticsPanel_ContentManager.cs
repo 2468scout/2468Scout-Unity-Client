@@ -12,7 +12,8 @@ namespace Assets.Scripts
         public GameObject content, scrollview, searchBar, analyticsTypeDropdown;
         public List<SimpleTeam> simpleTeamList = new List<SimpleTeam>();
         public List<SimpleTeam> displayedTeamList = new List<SimpleTeam>();
-        public List<SimpleMatch> simpleMatchList;
+        public List<SimpleMatch> simpleMatchList = new List<SimpleMatch>();
+        public List<SimpleMatch> displayedMatchList = new List<SimpleMatch>();
         List<GameObject> teamPanelList = new List<GameObject>();
         UIManager manager;
         public bool bRefreshing = false;
@@ -43,6 +44,10 @@ namespace Assets.Scripts
                 Debug.Log("Manager isn't null!");
                 simpleTeamList.AddRange(manager.currentEvent.simpleTeamList);
             }
+            if(manager.currentEvent.simpleMatchList != null)
+            {
+                simpleMatchList.AddRange(manager.currentEvent.simpleMatchList);
+            }
             content.GetComponentsInChildren<Image>()[0].enabled = false;
             scrollview = GameObject.Find("Scroll View");
             if (content.GetComponent<RectTransform>().sizeDelta.y < 900)
@@ -50,9 +55,14 @@ namespace Assets.Scripts
                 content.GetComponent<RectTransform>().sizeDelta = new Vector2(content.GetComponent<RectTransform>().sizeDelta.x, 900);
             }
             displayedTeamList.AddRange(simpleTeamList);
+            displayedMatchList.AddRange(simpleMatchList);
             Debug.Log("Currently found teams in manager: " + manager.currentEvent.simpleTeamList.Count);
             Debug.Log("Currently found teams in simpleTeamList: " + simpleTeamList.Count);
             Debug.Log("Currently found teams in displayedTeamList: " + displayedTeamList.Count);
+
+            Debug.Log("Currently found matches in manager: " + manager.currentEvent.simpleMatchList.Count);
+            Debug.Log("Currently found matches in simpleMatchList: " + simpleMatchList.Count);
+            Debug.Log("Currently found matches in displayedMatchList: " + displayedMatchList.Count);
             analyticsTypeDropdown.GetComponent<Dropdown>().onValueChanged.AddListener((val) => { ChangeDisplayedItem(); });
             analyticsTypeDropdown.GetComponent<Dropdown>().template.offsetMin = new Vector2(0, -(float)(Screen.height * 0.1));
             //analyticsTypeDropdown.GetComponentsInChildren<RectTransform>()[3].gameObject.SetActive(true);
@@ -195,6 +205,22 @@ namespace Assets.Scripts
                     break;
 
                 case "Match Analytics":
+                    foreach (SimpleMatch s in displayedMatchList)
+                    {
+                        Debug.Log("Displaying: " + s.ToString());
+                        int i = displayedMatchList.IndexOf(s);
+                        GameObject tempPanel = Instantiate(selectableItemPanel);
+                        tempPanel.GetComponentInChildren<SelectableMatchPanelManager>().iNumInList = i;
+                        tempPanel.GetComponentInChildren<SelectableMatchPanelManager>().containedMatch = s;
+                        tempPanel.transform.SetParent(content.transform);
+                        tempPanel.GetComponent<Button>().onClick.AddListener(() => manager.CreatePanelWrapper("teamPanel:" + JsonUtility.ToJson(s)));
+                        content.GetComponent<RectTransform>().offsetMin = new Vector2(0, (-iTeamDataPanelHeight * i) - iTeamDataPanelHeight);
+                        content.GetComponent<RectTransform>().offsetMax = new Vector2(-20, 0);
+                        teamPanelList.Add(tempPanel);
+                        tempPanel.GetComponent<RectTransform>().offsetMax = new Vector2(0, -(iTeamDataPanelHeight * i));
+                        tempPanel.GetComponent<RectTransform>().offsetMin = new Vector2(0, -(iTeamDataPanelHeight * (i + 1)));
+                        Debug.Log("Setting tempPanel offsets to: MAX: " + tempPanel.GetComponent<RectTransform>().offsetMax + ", MIN: " + tempPanel.GetComponent<RectTransform>().offsetMin);
+                    }
                     break;
             }
         }

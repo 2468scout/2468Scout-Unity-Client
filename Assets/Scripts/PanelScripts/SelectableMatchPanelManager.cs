@@ -9,6 +9,7 @@ namespace Assets.Scripts
     {
         Text displayText;
         Button openMatchPanelButton;
+        public int iNumInList;
         public SimpleMatch containedMatch;
         UIManager manager;
         // Use this for initialization

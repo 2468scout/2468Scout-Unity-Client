@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 114793694058560982}
   - component: {fileID: 114842038071929194}
   m_Layer: 5
-  m_Name: DefendingButton
+  m_Name: ClimbAttemptButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 222408709961106750}
   - component: {fileID: 114191163869261712}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Touchpad Unlit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 114333592180396746}
   - component: {fileID: 114617300545404946}
   m_Layer: 5
-  m_Name: HighGoalMissButton
+  m_Name: DefendingButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -550,7 +550,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Low goal miss
+  m_Text: Touchpad Unlit
 --- !u!114 &114203061218839284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -792,7 +792,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Defending
+  m_Text: Climb attempt
 --- !u!114 &114370725837433082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -926,7 +926,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: High goal miss
+  m_Text: Defending
 --- !u!114 &114617300545404946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1041,7 +1041,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Climb
+  m_Text: Touchpad Lit
 --- !u!114 &114793694058560982
 MonoBehaviour:
   m_ObjectHideFlags: 1
