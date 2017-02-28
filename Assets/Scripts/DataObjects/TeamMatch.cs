@@ -11,7 +11,7 @@ namespace Assets.Scripts
     {
         public int iTeamNumber, iMatchNumber, iStationNumber, iAllianceNumber;
         public string sNotes, sFileName, sEventCode, sPersonScouting;
-        public bool bColor; // Blue is true
+        public bool bRematch, bColor; // Blue is true
         
         // GAME SPECIFIC ELEMENTS
         public List<MatchEvent> matchEventList;
@@ -21,6 +21,7 @@ namespace Assets.Scripts
             this.iMatchNumber = iMatchNumber;
             this.bColor = bColor;
             this.sEventCode = sEventCode;
+            bRematch = false;
             matchEventList = new List<MatchEvent>();
             sFileName = "\\team" + iTeamNumber + "_match" + iMatchNumber + "_event" + sEventCode;
         }
@@ -31,6 +32,7 @@ namespace Assets.Scripts
             bColor = item.bColor;
             sEventCode = item.sEventCode;
             iStationNumber = item.iStationNumber;
+            bRematch = item.bRematch;
             matchEventList = new List<MatchEvent>();
             sFileName = "\\team" + iTeamNumber + "_match" + iMatchNumber + "_event" + sEventCode;
         }

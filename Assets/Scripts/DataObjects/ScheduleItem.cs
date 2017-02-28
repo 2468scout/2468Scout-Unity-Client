@@ -11,6 +11,6 @@ namespace Assets.Scripts
         public string sPersonResponsible,
             sItemType, sEventCode; // matchScout, scoreScout
         public int iMatchNumber, iTeamNumber, iStationNumber;
-        public bool bColor;
+        public bool bColor, bRematch;
     }
 }
