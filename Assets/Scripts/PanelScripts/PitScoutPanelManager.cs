@@ -41,7 +41,9 @@ namespace Assets.Scripts
             currentPitScout.bCanGears = GetComponentsInChildren<Toggle>()[3].isOn;
             currentPitScout.bCanHopper = GetComponentsInChildren<Toggle>()[4].isOn;
             currentPitScout.bCanIntake = GetComponentsInChildren<Toggle>()[5].isOn;
+            currentPitScout.sPitScoutNotes = GetComponentsInChildren<Text>()[14].text;
             manager.iNumInTeamPitScouts++;
+            
 
             GetComponentsInChildren<Text>()[3].text = "";
             GetComponentsInChildren<Text>()[6].text = "";
