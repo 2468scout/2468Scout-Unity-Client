@@ -217,6 +217,12 @@ Prefab:
       value: 
       objectReference: {fileID: 1657178988354312, guid: ac2a1e1e7a9a4dd45ab5ec1e660bf223,
         type: 2}
+    - target: {fileID: 114688188530383694, guid: 0c12b5fbda81664438119bec586207c3,
+        type: 2}
+      propertyPath: pitScoutPanel
+      value: 
+      objectReference: {fileID: 1956879603411732, guid: 89b7fb1d8cd25af44a5f3c2114a5b52c,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c12b5fbda81664438119bec586207c3, type: 2}
   m_IsPrefabParent: 0
@@ -538,7 +544,7 @@ MonoBehaviour:
     type: 2}
   pointEventButtonPanel: {fileID: 1980679212518614, guid: c6c133a05c3833649aea137cc46940aa,
     type: 2}
-  pitScoutPanel: {fileID: 1297808088053184, guid: 89b7fb1d8cd25af44a5f3c2114a5b52c,
+  pitScoutPanel: {fileID: 1956879603411732, guid: 89b7fb1d8cd25af44a5f3c2114a5b52c,
     type: 2}
   analyticsPanel: {fileID: 1175494049306230, guid: d8fcae399c8a141439ff132b46a79aca,
     type: 2}
@@ -547,6 +553,8 @@ MonoBehaviour:
   openPanel: {fileID: 1279257632}
   scoreScoutPanel: {fileID: 1657178988354312, guid: ac2a1e1e7a9a4dd45ab5ec1e660bf223,
     type: 2}
+  prevMatchDataPanel: {fileID: 0}
+  comingMatchDataPanel: {fileID: 0}
   sUserName: 
   sEventCode: 
   sPrevEventCode: 
