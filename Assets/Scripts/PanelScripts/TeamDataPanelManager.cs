@@ -67,13 +67,14 @@ namespace Assets.Scripts
             rightButton = GetComponentsInChildren<Button>()[1];
             heatLeftButton = GameObject.Find("heatMapPanel").GetComponentsInChildren<Button>()[0];
             heatRightButton = GameObject.Find("heatMapPanel").GetComponentsInChildren<Button>()[1];
-            heatSelectionText = GameObject.Find("heatMapPanel").GetComponentsInChildren<Text>()[3];
+            heatSelectionText = GameObject.Find("heatMapPanel").GetComponentsInChildren<Text>()[2];
             picturesArray = new List<Texture2D>();
             fieldHeatImage = GameObject.Find("fieldHeatImage");
             fieldHeatImageRectTransform = fieldHeatImage.GetComponent<RectTransform>();
             Debug.Log("" + ((fieldHeatImageRectTransform.anchorMax.x - fieldHeatImageRectTransform.anchorMin.x)));
-            fieldHeatImageRectTransform.anchorMin = new Vector2(0.25f, 0.4f-((fieldHeatImageRectTransform.anchorMax.x - fieldHeatImageRectTransform.anchorMin.x) * 768f / 2048f));
-            fieldHeatImageRectTransform.anchorMax = new Vector2(0.75f, 0.4f+((fieldHeatImageRectTransform.anchorMax.x - fieldHeatImageRectTransform.anchorMin.x) * 768f / 2048f));
+            fieldHeatImageRectTransform.anchorMin = new Vector2(0f, 0.4f - ((.75f) * 768f / 2048f));
+            fieldHeatImageRectTransform.anchorMax = new Vector2(1f, 0.4f + ((.75f) * 768f / 2048f));
+            fieldHeatImage.GetComponent<Image>().preserveAspect = true;
             redXSprite = Resources.Load("xred.png") as Sprite;
             greenXSprite = Resources.Load("xgreen.png") as Sprite;
             blueXSprite = Resources.Load("xblue.png") as Sprite;
@@ -178,8 +179,8 @@ namespace Assets.Scripts
                     GameObject g = new GameObject();
                     SpriteRenderer renderer = g.AddComponent<SpriteRenderer>();
                     RectTransform rect = g.AddComponent<RectTransform>();
-                    g.GetComponent<RectTransform>().anchorMin = new Vector2(fieldHeatImageRectTransform.anchorMin.x + p.x, fieldHeatImageRectTransform.anchorMin.x + p.y);
-                    g.GetComponent<RectTransform>().anchorMax = new Vector2(fieldHeatImageRectTransform.anchorMin.x + p.x, fieldHeatImageRectTransform.anchorMin.x + p.y);
+                    g.GetComponent<RectTransform>().anchorMin = new Vector2(p.x, p.y);
+                    g.GetComponent<RectTransform>().anchorMax = new Vector2(p.x, p.y);
                     renderer.sprite = blueXSprite;
                     renderer.GetComponent<AspectRatioFitter>().aspectRatio = 1f;
                     xList.Add(g);
@@ -200,25 +201,25 @@ namespace Assets.Scripts
                 for (int i = 0; i < pointsList.Count; i++)
                 {
                     Point p = pointsList[i];
-                    GameObject g = new GameObject();
-                    SpriteRenderer renderer = g.AddComponent<SpriteRenderer>();
-                    RectTransform rect = g.AddComponent<RectTransform>();
-                    g.GetComponent<RectTransform>().anchorMin = new Vector2(fieldHeatImageRectTransform.anchorMin.x + p.x, fieldHeatImageRectTransform.anchorMin.x + p.y);
-                    g.GetComponent<RectTransform>().anchorMax = new Vector2(fieldHeatImageRectTransform.anchorMin.x + p.x, fieldHeatImageRectTransform.anchorMin.x + p.y);
-                    renderer.sprite = redXSprite;
-                    renderer.GetComponent<AspectRatioFitter>().aspectRatio = 1f;
-                    xList.Add(g);
-                    g = null; renderer = null; rect = null;
                     GameObject g2 = new GameObject();
                     SpriteRenderer renderer2 = g2.AddComponent<SpriteRenderer>();
                     RectTransform rect2 = g2.AddComponent<RectTransform>();
-                    g2.GetComponent<RectTransform>().anchorMin = new Vector2(fieldHeatImageRectTransform.anchorMin.x + p.x, fieldHeatImageRectTransform.anchorMin.x + p.y);
-                    g2.GetComponent<RectTransform>().anchorMax = new Vector2(fieldHeatImageRectTransform.anchorMin.x + p.x, fieldHeatImageRectTransform.anchorMin.x + p.y);
+                    g2.GetComponent<RectTransform>().anchorMin = new Vector2(p.x, p.y);
+                    g2.GetComponent<RectTransform>().anchorMax = new Vector2(p.x, p.y);
                     renderer2.sprite = greenXSprite;
                     renderer2.color = new Color(renderer2.color.r, renderer2.color.g, renderer2.color.b, accuraciesList[i]);
                     renderer2.GetComponent<AspectRatioFitter>().aspectRatio = 1f;
                     xList.Add(g2);
                     g2 = null; renderer2 = null; rect2 = null; p = null;
+                    GameObject g = new GameObject();
+                    SpriteRenderer renderer = g.AddComponent<SpriteRenderer>();
+                    RectTransform rect = g.AddComponent<RectTransform>();
+                    g.GetComponent<RectTransform>().anchorMin = new Vector2(p.x, p.y);
+                    g.GetComponent<RectTransform>().anchorMax = new Vector2(p.x, p.y);
+                    renderer.sprite = redXSprite;
+                    renderer.GetComponent<AspectRatioFitter>().aspectRatio = 1f;
+                    xList.Add(g);
+                    g = null; renderer = null; rect = null;
                 } // loop through points in reverse
             }
             if (heatSelectionIndex == 3)
@@ -231,8 +232,8 @@ namespace Assets.Scripts
                     GameObject g = new GameObject();
                     SpriteRenderer renderer = g.AddComponent<SpriteRenderer>();
                     RectTransform rect = g.AddComponent<RectTransform>();
-                    g.GetComponent<RectTransform>().anchorMin = new Vector2(fieldHeatImageRectTransform.anchorMin.x + p.x, fieldHeatImageRectTransform.anchorMin.x + p.y);
-                    g.GetComponent<RectTransform>().anchorMax = new Vector2(fieldHeatImageRectTransform.anchorMin.x + p.x, fieldHeatImageRectTransform.anchorMin.x + p.y);
+                    g.GetComponent<RectTransform>().anchorMin = new Vector2(p.x, p.y);
+                    g.GetComponent<RectTransform>().anchorMax = new Vector2(p.x, p.y);
                     if (successesList[i])
                     {
                         renderer.sprite = greenXSprite;

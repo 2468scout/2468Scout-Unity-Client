@@ -1,10 +1,21 @@
 fileFormatVersion: 2
 guid: 6131604a7f9bd4646b9d530072bf4ecc
-timeCreated: 1483070250
+timeCreated: 1488294440
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - mainPanel: {instanceID: 0}
+  - matchScoutPanel: {instanceID: 0}
+  - pointEventButtonPanel: {instanceID: 0}
+  - pitScoutPanel: {instanceID: 0}
+  - analyticsPanel: {instanceID: 0}
+  - loginPanel: {instanceID: 0}
+  - teamPanel: {instanceID: 0}
+  - openPanel: {instanceID: 0}
+  - scoreScoutPanel: {instanceID: 0}
+  - prevMatchDataPanel: {instanceID: 0}
+  - comingMatchDataPanel: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

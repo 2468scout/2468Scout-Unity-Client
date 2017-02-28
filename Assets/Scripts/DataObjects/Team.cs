@@ -20,5 +20,6 @@ namespace Assets.Scripts
         public List<string> sNotesList;
         public int iGamesScouted, iSpeed, iWeight, iStartingPosition, iTeamAge, iNumMatches, iRank, iWins, iLosses, iTies, iTimesDisqualified, iTotalBaselineMatches, iGearsScored, iTotalGearMatches, iTotalTouchpadMatches;
         public HeatmapsData heatmapsData;
+        public string sMatchScoutNotes;
     }
 }
