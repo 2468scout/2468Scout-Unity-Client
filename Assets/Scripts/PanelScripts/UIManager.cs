@@ -348,7 +348,8 @@ namespace Assets.Scripts
                     {
                         Debug.Log("Success!");
                     }
-                    WWW testHasData = new WWW(sMainURL + "/getFileNameExistence?FILEPATH=" + s);
+                    WWW testHasData = new WWW(sMainURL + "/getFileNameExistence?FILEPATH=" + "TeamMatches/"+s.Substring(s.IndexOf("/t")));
+                    Debug.Log("Looking for server data: " + "TeamMatches/" + s.Substring(s.IndexOf("/t")));
                     yield return testHasData;
                     Debug.Log("Server Has Data: " + testHasData.text);
                 }
@@ -381,7 +382,8 @@ namespace Assets.Scripts
                     {
                         Debug.Log("Success!");
                     }
-                    WWW testHasData = new WWW(sMainURL + "/getFileNameExistence?FILEPATH=" + s);
+                    WWW testHasData = new WWW(sMainURL + "/getFileNameExistence?FILEPATH=" +"TeamMatches" + s.Substring(s.IndexOf("/t")));
+                    Debug.Log("Looking for server data: " + "TeamMatches" + s.Substring(s.IndexOf("/t")));
                     yield return testHasData;
                     Debug.Log("Server Has Data: " + testHasData.text);
                     bFailedToUpload = !(testHasData.text == "true");
