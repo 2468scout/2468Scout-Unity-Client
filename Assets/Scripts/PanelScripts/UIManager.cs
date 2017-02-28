@@ -362,7 +362,7 @@ namespace Assets.Scripts
             }
             if (bHasTeamMatchesToSend)
             {
-                Debug.Log("Attempting to upload TeamMatches");
+                Debug.Log("Attempting to upload TeamMatches at: " + listTeamMatchFilePaths[0]);
                 bool bFailedToUpload = false;
                 foreach (string s in listTeamMatchFilePaths)
                 {
@@ -384,7 +384,7 @@ namespace Assets.Scripts
                     WWW testHasData = new WWW(sMainURL + "/getFileNameExistence?FILEPATH=" + s);
                     yield return testHasData;
                     Debug.Log("Server Has Data: " + testHasData.text);
-                    bFailedToUpload = (testHasData.text == "false");
+                    bFailedToUpload = !(testHasData.text == "true");
                 }
                 bHasTeamMatchesToSend = bFailedToUpload;
             }

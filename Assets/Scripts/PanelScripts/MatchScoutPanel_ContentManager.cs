@@ -106,7 +106,7 @@ namespace Assets.Scripts{
         {
             Debug.Log("Filename: " + Application.persistentDataPath + currentlyScoutingTeamMatch.sFileName);
             FileStream file = File.Create(Application.persistentDataPath + currentlyScoutingTeamMatch.sFileName + ".json");
-            manager.listScoreScoutFilePaths.Add(Application.persistentDataPath + currentlyScoutingTeamMatch.sFileName + ".json");
+            manager.listTeamMatchFilePaths.Add(Application.persistentDataPath + currentlyScoutingTeamMatch.sFileName + ".json");
             file.Write(Encoding.ASCII.GetBytes(JsonUtility.ToJson(currentlyScoutingTeamMatch)), 0, Encoding.ASCII.GetByteCount(JsonUtility.ToJson(currentlyScoutingTeamMatch)));
             file.Dispose();
             manager.bHasTeamMatchesToSend = true;
