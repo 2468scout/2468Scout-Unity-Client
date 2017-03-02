@@ -23,7 +23,11 @@ namespace Assets.Scripts
             
             speedResponseText = GetComponentsInChildren<Text>()[3];
             currentPitScout = manager.teamPitScoutsToScout[manager.iNumInTeamPitScouts];
-            GetComponentsInChildren<Text>()[2].text = "#"+currentPitScout.iTeamNumber;
+            if(currentPitScout == null)
+            {
+                Debug.Log("Current pit scout is null, yikes");
+            }
+            GetComponentsInChildren<Text>()[2].text = "Team # "+currentPitScout.iTeamNumber;
             //Debug.Log(toolbar.GetComponentsInChildren<Text>()[2].text);
         }
 

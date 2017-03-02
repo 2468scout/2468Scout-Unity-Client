@@ -22,7 +22,7 @@ namespace Assets.Scripts
         List<Point> pointsList;
         List<bool> successesList;
         List<float> accuraciesList;
-        List<GameObject> xList;
+        List<GameObject> xList = new List<GameObject>();
         Sprite redXSprite, greenXSprite, blueXSprite;
 
         Button backButton, leftButton, rightButton, heatLeftButton, heatRightButton;
@@ -81,6 +81,7 @@ namespace Assets.Scripts
             heatMapsPanel = GameObject.Find("heatMapsPanel");
             heatLeftButton.onClick.AddListener(() => { this.NavigateHeatLeft(); });
             heatRightButton.onClick.AddListener(() => { this.NavigateHeatRight(); });
+            backButton.onClick.AddListener(() => { manager.BackPanel(); });
         }
 
         // Update is called once per frame
@@ -241,7 +242,7 @@ namespace Assets.Scripts
                     {
                         renderer.sprite = redXSprite;
                     }
-                    renderer.GetComponent<AspectRatioFitter>().aspectRatio = 1f;
+                    renderer.GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
                     xList.Add(g);                   
                 }
             }
@@ -258,6 +259,7 @@ namespace Assets.Scripts
             yield return pullFromServer;
             team = JsonUtility.FromJson<Team>(pullFromServer.text);
             StartCoroutine(DownloadPictures());
+            StartCoroutine(DownloadHeatmapsData());
             SetData();
             yield break;
         }
@@ -278,6 +280,17 @@ namespace Assets.Scripts
             }
             yield break;
         }
+
+        IEnumerator DownloadHeatmapsData()
+        {
+            WWW heatmapsURL = new WWW(manager.sGetTeamURL + "/" + team.iTeamNumber + "/" + team.iTeamNumber + "heatmaps.json");
+            Debug.Log("Downloading heatmaps");
+            yield return heatmapsURL;
+            Debug.Log("Downloaded heatmaps");
+            team.heatmapsData = JsonUtility.FromJson<HeatmapsData>(heatmapsURL.text);
+            yield break;
+        }
+
         void SetData()
         {
             Debug.Log("Setting Data: " + JsonUtility.ToJson(team));

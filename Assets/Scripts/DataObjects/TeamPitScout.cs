@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Assets.Scripts
 {
+    [System.Serializable]
     public class TeamPitScout 
     {
         public int iSpeed; //0-5

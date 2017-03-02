@@ -110,7 +110,7 @@ namespace Assets.Scripts
             yield return download;
             Debug.Log(download.text);
             currentEvent = JsonUtility.FromJson<FRCEvent>(download.text);
-            if(currentEvent.sEventCode == null || currentEvent.sEventCode == "")
+            if(currentEvent == null || currentEvent.sEventCode == "")
             {
                 sEventDownloadStatus = "Failed to download " + sEventCode;
             }
@@ -137,6 +137,7 @@ namespace Assets.Scripts
             }
             if(currentEvent.teamPitScoutList != null)
             {
+                Debug.Log("TeamPitScoutList isn't null!");
                 foreach (TeamPitScout t in currentEvent.teamPitScoutList)
                 {
                     if (t.iSpeed == 0 && t.sPersonResponsible == sUserName)
@@ -144,6 +145,10 @@ namespace Assets.Scripts
                         teamPitScoutsToScout.Add(t);
                     }
                 }
+            }
+            else
+            {
+                Debug.Log("TeamPitScoutList is null!");
             }
             yield break;
         }
