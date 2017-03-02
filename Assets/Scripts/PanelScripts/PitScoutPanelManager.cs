@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,7 +56,7 @@ namespace Assets.Scripts
             GetComponentsInChildren<Toggle>()[4].isOn = false;
             GetComponentsInChildren<Toggle>()[5].isOn = false;
             Debug.Log("Speed: " + currentPitScout.iSpeed + " Fuel: " + currentPitScout.iFuelCapacity + " Can High Goal: " + currentPitScout.bCanHighGoal + " Can Low Goal: " + currentPitScout.bCanLowGoal + " Can Climb: " + currentPitScout.bCanClimb + " Can Gears: " + currentPitScout.bCanGears + " Can Hopper: " + currentPitScout.bCanHopper + " Can Intake: " + currentPitScout.bCanIntake);
-
+            Save();
         }
 
         public IEnumerator UploadPicture()
@@ -68,6 +70,15 @@ namespace Assets.Scripts
 
             }
             yield break;
+        }
+        public void Save()
+        {
+            Debug.Log("Filename: " + Application.persistentDataPath + "pit_team" + currentPitScout.iTeamNumber + "_event"+currentPitScout.sEventCode);
+            FileStream file = File.Create(Application.persistentDataPath + "pit_team" + currentPitScout.iTeamNumber + "_event" + currentPitScout.sEventCode + ".json");
+            manager.listTeamPitScoutFilePaths.Add(Application.persistentDataPath + "pit_team" + currentPitScout.iTeamNumber + "_event" + currentPitScout.sEventCode + ".json");
+            file.Write(Encoding.ASCII.GetBytes(JsonUtility.ToJson(currentPitScout)), 0, Encoding.ASCII.GetByteCount(JsonUtility.ToJson(currentPitScout)));
+            file.Dispose();
+            manager.bHasTeamPitScoutsToSend = true;
         }
     }
 }
