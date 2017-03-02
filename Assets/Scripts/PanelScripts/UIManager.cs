@@ -38,6 +38,7 @@ namespace Assets.Scripts
             Screen.fullScreen = false;
             currentEvent = new FRCEvent();
             eventStatusText = GameObject.Find("EventStatusText").GetComponent<Text>();
+            iNumInTeamPitScouts = 0;
         }
 
         // Update is called once per frame
@@ -140,7 +141,8 @@ namespace Assets.Scripts
                 Debug.Log("TeamPitScoutList isn't null!");
                 foreach (TeamPitScout t in currentEvent.teamPitScoutList)
                 {
-                    if (t.iSpeed == 0 && t.sPersonResponsible == sUserName)
+                    Debug.Log(t.sPersonResponsible + " : " + sUserName);
+                    if (t.sPersonResponsible == sUserName)
                     {
                         teamPitScoutsToScout.Add(t);
                     }

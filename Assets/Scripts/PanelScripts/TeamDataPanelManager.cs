@@ -183,7 +183,7 @@ namespace Assets.Scripts
                     g.GetComponent<RectTransform>().anchorMin = new Vector2(p.x, p.y);
                     g.GetComponent<RectTransform>().anchorMax = new Vector2(p.x, p.y);
                     renderer.sprite = blueXSprite;
-                    renderer.GetComponent<AspectRatioFitter>().aspectRatio = 1f;
+                    //renderer.GetComponent<AspectRatioFitter>().aspectRatio = 1f;
                     xList.Add(g);
                     g = null; renderer = null; rect = null; p = null;
                 }
@@ -209,7 +209,7 @@ namespace Assets.Scripts
                     g2.GetComponent<RectTransform>().anchorMax = new Vector2(p.x, p.y);
                     renderer2.sprite = greenXSprite;
                     renderer2.color = new Color(renderer2.color.r, renderer2.color.g, renderer2.color.b, accuraciesList[i]);
-                    renderer2.GetComponent<AspectRatioFitter>().aspectRatio = 1f;
+                    //renderer2.GetComponent<AspectRatioFitter>().aspectRatio = 1f;
                     xList.Add(g2);
                     g2 = null; renderer2 = null; rect2 = null; p = null;
                     GameObject g = new GameObject();
@@ -218,7 +218,7 @@ namespace Assets.Scripts
                     g.GetComponent<RectTransform>().anchorMin = new Vector2(p.x, p.y);
                     g.GetComponent<RectTransform>().anchorMax = new Vector2(p.x, p.y);
                     renderer.sprite = redXSprite;
-                    renderer.GetComponent<AspectRatioFitter>().aspectRatio = 1f;
+                    //renderer.GetComponent<AspectRatioFitter>().aspectRatio = 1f;
                     xList.Add(g);
                     g = null; renderer = null; rect = null;
                 } // loop through points in reverse
@@ -242,11 +242,11 @@ namespace Assets.Scripts
                     {
                         renderer.sprite = redXSprite;
                     }
-                    renderer.GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
+                    //renderer.GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
                     xList.Add(g);                   
                 }
             }
-            for(int i = xList.Count-1; i >= 0; i--)
+            for(int i = 0; i < xList.Count; i++)
             {
                 xList[i].transform.SetParent(heatMapsPanel.transform);
             }

@@ -38,9 +38,9 @@ namespace Assets.Scripts
         }
         public void Submit()
         {
-
-            currentPitScout.iSpeed = int.Parse(GetComponentsInChildren<Text>()[3].text.Trim());
-            currentPitScout.iFuelCapacity = int.Parse(GetComponentsInChildren<Text>()[6].text.Trim());
+            Debug.Log(GetComponentsInChildren<Text>()[4].text.Trim() + ", " + GetComponentsInChildren<Text>()[7].text.Trim());
+            currentPitScout.iSpeed = int.Parse(GetComponentsInChildren<Text>()[4].text.Trim());
+            currentPitScout.iFuelCapacity = int.Parse(GetComponentsInChildren<Text>()[7].text.Trim());
             currentPitScout.bCanHighGoal = GetComponentsInChildren<Toggle>()[0].isOn;
             currentPitScout.bCanLowGoal = GetComponentsInChildren<Toggle>()[1].isOn;
             currentPitScout.bCanClimb = GetComponentsInChildren<Toggle>()[2].isOn;
@@ -51,8 +51,8 @@ namespace Assets.Scripts
             manager.iNumInTeamPitScouts++;
             
 
-            GetComponentsInChildren<Text>()[3].text = "";
-            GetComponentsInChildren<Text>()[6].text = "";
+            GetComponentsInChildren<Text>()[4].text = "";
+            GetComponentsInChildren<Text>()[7].text = "";
             GetComponentsInChildren<Toggle>()[0].isOn = false;
             GetComponentsInChildren<Toggle>()[1].isOn = false;
             GetComponentsInChildren<Toggle>()[2].isOn = false;
@@ -61,6 +61,8 @@ namespace Assets.Scripts
             GetComponentsInChildren<Toggle>()[5].isOn = false;
             Debug.Log("Speed: " + currentPitScout.iSpeed + " Fuel: " + currentPitScout.iFuelCapacity + " Can High Goal: " + currentPitScout.bCanHighGoal + " Can Low Goal: " + currentPitScout.bCanLowGoal + " Can Climb: " + currentPitScout.bCanClimb + " Can Gears: " + currentPitScout.bCanGears + " Can Hopper: " + currentPitScout.bCanHopper + " Can Intake: " + currentPitScout.bCanIntake);
             Save();
+            currentPitScout = manager.teamPitScoutsToScout[manager.iNumInTeamPitScouts];
+            GetComponentsInChildren<Text>()[2].text = "Team # " + currentPitScout.iTeamNumber;
         }
 
         public IEnumerator UploadPicture()
