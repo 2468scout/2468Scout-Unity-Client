@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine.UI;
+using System.Text;
 
 namespace Assets.Scripts
 {
@@ -16,6 +17,7 @@ namespace Assets.Scripts
         Button backButton, menuButton, matchStartButton, increase1Button, increase5Button, increase40Button, increase50Button, increase60Button;
         Text timeRemainingText, backButtonText;
         ScoreScout currentScoreScout;
+        string sMatchStatus;
         // Use this for initialization
         void Start()
         {
@@ -48,6 +50,7 @@ namespace Assets.Scripts
             {
                 currentScoreScout = currentlyScoutingMatch.redScoreScout;
             }
+            sMatchStatus = "Match Unstarted";
         }
         // Update is called once per frame
         void Update()
@@ -73,10 +76,13 @@ namespace Assets.Scripts
             matchStartTime = GetCurrentTime();
             matchStartButton.gameObject.SetActive(false);
             Debug.Log(JsonUtility.ToJson(matchStartTime));
+            backButtonText.text = "End Match";
+            sMatchStatus = "Match Active";
         }
         public void BackButton()
         {
-            if(matchStartTime != null && bMatchStarted)
+            /*
+            if (matchStartTime != null && bMatchStarted)
             {
                 backButtonText.text = "Match End";
             }
@@ -87,6 +93,29 @@ namespace Assets.Scripts
             else
             {
                 manager.BackPanel();
+            }
+            */
+            switch (sMatchStatus)
+            {
+                case "Match Unstarted":
+                    manager.BackPanel();
+                    break;
+                case "Match Active":
+                    sMatchStatus = "Match Ended";
+                    backButton.GetComponentInChildren<Text>().text = "Save Match";
+                    break;
+                case "Match Ended":
+                    Save();
+                    manager.iNumInSchedule++;
+                    if (manager.iNumInSchedule == manager.scheduleItemList.Count)
+                    {
+                        manager.BackPanel();
+                    }
+                    else
+                    {
+                        StartCoroutine(manager.ChangePanel("matchScoutPanel"));
+                    }
+                    break;
             }
         }
 
@@ -114,6 +143,27 @@ namespace Assets.Scripts
                     currentScoreScout.increase60TimeList.Add(GetCurrentTime().sumMilliseconds());
                     break;
             }
+        }
+        void Save()
+        {
+            FileStream file = null;
+            if (currentScoreScout.bColor)
+            {
+
+                Debug.Log("Filename: " + Application.persistentDataPath + "score_match" + currentScoreScout.iMatchNumber + "_" + currentScoreScout.sEventCode + "_side" + "blue.json");
+                file = File.Create(Application.persistentDataPath + "score_match" + currentScoreScout.iMatchNumber + "_" + currentScoreScout.sEventCode + "_side" + "blue.json");
+                manager.listTeamMatchFilePaths.Add(Application.persistentDataPath + "score_match" + currentScoreScout.iMatchNumber + "_" + currentScoreScout.sEventCode + "_side" + "blue.json");
+            }
+            else
+            {
+                Debug.Log("Filename: " + Application.persistentDataPath + "score_match" + currentScoreScout.iMatchNumber + "_" + currentScoreScout.sEventCode + "_side" + "red.json");
+                file = File.Create(Application.persistentDataPath + "score_match" + currentScoreScout.iMatchNumber + "_" + currentScoreScout.sEventCode + "_side" + "red.json");
+                manager.listTeamMatchFilePaths.Add(Application.persistentDataPath + "score_match" + currentScoreScout.iMatchNumber + "_" + currentScoreScout.sEventCode + "_side" + "red.json");
+            }
+
+            file.Write(Encoding.ASCII.GetBytes(JsonUtility.ToJson(currentScoreScout)), 0, Encoding.ASCII.GetByteCount(JsonUtility.ToJson(currentScoreScout)));
+            file.Dispose();
+            manager.bHasTeamMatchesToSend = true;
         }
     }
 }

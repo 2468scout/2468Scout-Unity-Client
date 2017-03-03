@@ -100,7 +100,6 @@ namespace Assets.Scripts{
                     BackButton();
                 }
             }
-            
         }
         public void SaveTeamMatch()
         {

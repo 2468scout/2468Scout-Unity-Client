@@ -71,7 +71,8 @@ namespace Assets.Scripts
             if (Application.platform == RuntimePlatform.Android)
             {
 
-            } else if (Application.platform == RuntimePlatform.IPhonePlayer)
+            }
+            else if (Application.platform == RuntimePlatform.IPhonePlayer)
             {
 
             }

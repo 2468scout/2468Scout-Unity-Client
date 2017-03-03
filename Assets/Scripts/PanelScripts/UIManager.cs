@@ -354,6 +354,9 @@ namespace Assets.Scripts
         public IEnumerator SendData()
         {
             bIsSendingData = true;
+            listTeamPitScoutFilePaths = new List<string>(Directory.GetFiles(Application.persistentDataPath, "pit_team*.json"));
+            listTeamMatchFilePaths = new List<string>(Directory.GetFiles(Application.persistentDataPath, "team*.json"));
+            listScoreScoutFilePaths = new List<string>(Directory.GetFiles(Application.persistentDataPath, "score_match*.json"));
             if (bHasTeamPitScoutsToSend)
             {
                 foreach (string s in listTeamPitScoutFilePaths)
