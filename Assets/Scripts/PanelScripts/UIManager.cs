@@ -60,6 +60,7 @@ namespace Assets.Scripts
             }
             if(sPrevPanel != null)
             {
+
                 Input.backButtonLeavesApp = false;
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
@@ -135,6 +136,7 @@ namespace Assets.Scripts
             {
                 if(s.sPersonResponsible == sUserName)
                 {
+                    Debug.Log("I am responsible for a match!");
                     scheduleItemList.Add(s);/*
                     switch (s.sItemType)
                     {
@@ -221,14 +223,16 @@ namespace Assets.Scripts
                     {
                         case "matchScout":
                             tempPanel = Instantiate(matchScoutPanel);
+                            Debug.Log("Instantiated a new matchScout panel!");
                             break;
                         case "scoreScout":
                             tempPanel = Instantiate(scoreScoutPanel);
+                            Debug.Log("Instantiated a new scoreScout panel!");
                             break;
                     }
-                    rectTransform = tempPanel.GetComponent<RectTransform>();
                     Destroy(openPanel);
                     openPanel = tempPanel;
+                    rectTransform = openPanel.GetComponent<RectTransform>();
                     openPanel.transform.SetParent(gameObject.transform);
                     rectTransform.offsetMin = new Vector2(0, 0);
                     rectTransform.offsetMax = new Vector2(0, 0);

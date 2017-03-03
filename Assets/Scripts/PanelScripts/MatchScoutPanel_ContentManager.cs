@@ -95,7 +95,7 @@ namespace Assets.Scripts{
                 {
                     autonomousToggle.isOn = false;
                 }
-                else if (t.TimeSince(matchStartTime).ToString() == "1:40")
+                else if (t.TimeSince(matchStartTime).ToString() == "2:15")
                 {
                     BackButton();
                 }
