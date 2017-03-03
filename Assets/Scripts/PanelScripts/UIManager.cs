@@ -8,6 +8,8 @@ namespace Assets.Scripts
 {
     public class UIManager : MonoBehaviour
     {
+        private CameraClearFlags storedClearFlags;
+        private int storedCullingMask;
         public bool bHasTeamPitScoutsToSend, bHasTeamMatchesToSend, bHasImagesToSend, bHasScoreScoutsToSend, bIsInDebugMode, bIsSendingData;
         public GameObject mainPanel, matchScoutPanel, pointEventButtonPanel, pitScoutPanel, analyticsPanel, loginPanel, teamPanel, openPanel, 
             scoreScoutPanel, prevMatchDataPanel, comingMatchDataPanel;
@@ -27,6 +29,12 @@ namespace Assets.Scripts
         // Use this for initialization
         void Start()
         {
+            //save clear flags
+            storedClearFlags = Camera.main.clearFlags;
+
+            //save the culling mask
+            storedCullingMask = Camera.main.cullingMask;
+
             sMainURL = "http://scouting.westaaustin.org";
             sGetEventURL = sMainURL + "/Events/";
             sGetTeamURL = sMainURL + "/Teams/";
@@ -39,6 +47,7 @@ namespace Assets.Scripts
             currentEvent = new FRCEvent();
             eventStatusText = GameObject.Find("EventStatusText").GetComponent<Text>();
             iNumInTeamPitScouts = 0;
+            StopRender();
         }
 
         // Update is called once per frame
@@ -47,6 +56,7 @@ namespace Assets.Scripts
             if(sCurrentPanel == "mainPanel" && sPrevDownloadStatus != sEventDownloadStatus)
             {
                 eventStatusText.text = sEventDownloadStatus;
+                //RenderOnce();
             }
             if(sPrevPanel != null)
             {
@@ -105,13 +115,14 @@ namespace Assets.Scripts
         }
         public IEnumerator DownloadEvent ()
         {
+            
             Debug.Log("Downloading Event from " + sGetEventURL + sEventCode + ".json");
             sEventDownloadStatus = "Downloading event " + sEventCode;
             WWW download = new WWW(sGetEventURL + sEventCode + ".json");
             yield return download;
             Debug.Log(download.text);
             currentEvent = JsonUtility.FromJson<FRCEvent>(download.text);
-            if(currentEvent == null || currentEvent.sEventCode == "")
+            if (currentEvent == null || currentEvent.sEventCode == "")
             {
                 sEventDownloadStatus = "Failed to download " + sEventCode;
             }
@@ -119,6 +130,7 @@ namespace Assets.Scripts
             {
                 sEventDownloadStatus = "Successfully loaded " + sEventCode;
             }
+            RenderOnce();
             foreach (ScheduleItem s in currentEvent.scheduleItemList)
             {
                 if(s.sPersonResponsible == sUserName)
@@ -191,6 +203,7 @@ namespace Assets.Scripts
 
         public IEnumerator ChangePanel(string panel)
         {
+            StartRender();
             GameObject tempPanel = null;
             RectTransform rectTransform = null;
             if (panel == "matchScoutPanel")
@@ -330,6 +343,7 @@ namespace Assets.Scripts
                 eventStatusText = null;
                 sPrevDownloadStatus = "";
             }
+            StopRender();
             yield break;
         }
 
@@ -441,6 +455,31 @@ namespace Assets.Scripts
             }
             sGetEventURL = sMainURL + "/Events/";
             sGetTeamURL = sMainURL + "/Teams/";
+        }
+        void StartRender()
+        {
+            Debug.Log("Rendering Started!");
+            //first change the clear flags to what is stored
+            Camera.main.clearFlags = storedClearFlags;
+
+            //now change the culling mask to what is stored
+            Camera.main.cullingMask = storedCullingMask;
+        }
+        void StopRender()
+        {
+            Debug.Log("Rendering Stopped!");
+            //first change the clear flags to nothing
+            Camera.main.clearFlags = CameraClearFlags.Nothing;
+
+            //now change the culling mask to nothing
+            Camera.main.cullingMask = 0;
+        }
+        void RenderOnce()
+        {
+            Debug.Log("Rendering Once!");
+            StartRender();
+            Camera.main.Render();
+            StopRender();
         }
     }
 }
