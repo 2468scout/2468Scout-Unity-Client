@@ -14,25 +14,28 @@ namespace Assets.Scripts
         Match currentlyScoutingMatch;
         bool bColor, bMatchStarted;
         UIManager manager;
-        Button backButton, menuButton, matchStartButton, increase1Button, increase5Button, increase40Button, increase50Button, increase60Button;
+        Button backButton, matchStartButton, increase1Button, increase5Button, increase40Button, increase50Button, increase60Button, nextMatchButton, prevMatchButton;
         Text timeRemainingText, backButtonText;
         ScoreScout currentScoreScout;
         string sMatchStatus;
         // Use this for initialization
         void Start()
         {
+            manager = GetComponentInParent<UIManager>();
+            currentScoreScout = new ScoreScout(manager.scheduleItemList[manager.iNumInSchedule]);
             bMatchStarted = false;
             Button[] buttonArray = GetComponentsInChildren<Button>();
             backButtonText = GetComponentsInChildren<Text>()[0];
             timeRemainingText = GetComponentsInChildren<Text>()[2];
             backButton = buttonArray[0];
-            menuButton = buttonArray[1];
+            prevMatchButton = buttonArray[1];
             matchStartButton = buttonArray[2];
-            increase1Button = buttonArray[3];
-            increase5Button = buttonArray[4];
-            increase40Button = buttonArray[5];
-            increase50Button = buttonArray[6];
-            increase60Button = buttonArray[7];
+            nextMatchButton = buttonArray[3];
+            increase1Button = buttonArray[4];
+            increase5Button = buttonArray[5];
+            increase40Button = buttonArray[6];
+            increase50Button = buttonArray[7];
+            increase60Button = buttonArray[8];
             increase1Button.onClick.AddListener(() => { this.NewTimeEvent(1); });
             increase5Button.onClick.AddListener(() => { this.NewTimeEvent(5); });
             increase40Button.onClick.AddListener(() => { this.NewTimeEvent(40); });
@@ -41,7 +44,10 @@ namespace Assets.Scripts
 
             matchStartButton.onClick.AddListener(() => { this.StartMatch(); });
             backButton.onClick.AddListener(() => { this.BackButton(); });
-            this.manager = GetComponentInParent<UIManager>();
+
+            nextMatchButton.onClick.AddListener(() => { this.NextMatch(); });
+            prevMatchButton.onClick.AddListener(() => { this.PrevMatch(); });
+            /*
             if (currentScoreScout.bColor)
             {
                 currentScoreScout = currentlyScoutingMatch.blueScoreScout;
@@ -50,6 +56,7 @@ namespace Assets.Scripts
             {
                 currentScoreScout = currentlyScoutingMatch.redScoreScout;
             }
+            */
             sMatchStatus = "Match Unstarted";
         }
         // Update is called once per frame
@@ -164,6 +171,24 @@ namespace Assets.Scripts
             file.Write(Encoding.ASCII.GetBytes(JsonUtility.ToJson(currentScoreScout)), 0, Encoding.ASCII.GetByteCount(JsonUtility.ToJson(currentScoreScout)));
             file.Dispose();
             manager.bHasTeamMatchesToSend = true;
+        }
+
+        void NextMatch()
+        {
+            if (manager.iNumInSchedule < manager.scheduleItemList.Capacity -1 )
+            {
+                manager.iNumInSchedule++;
+                StartCoroutine(manager.ChangePanel("matchScoutPanel"));
+            }
+        }
+
+        void PrevMatch()
+        {
+            if(manager.iNumInSchedule > 0)
+            {
+                manager.iNumInSchedule--;
+                StartCoroutine(manager.ChangePanel("matchScoutPanel"));
+            }
         }
     }
 }

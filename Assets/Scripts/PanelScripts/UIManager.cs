@@ -25,10 +25,12 @@ namespace Assets.Scripts
         public List<TeamPitScout> teamPitScoutsToScout = new List<TeamPitScout>();
         public List<ScoreScout> scoreScoutsToScout = new List<ScoreScout>();
         public int iNumInSchedule, iNumInTeamPitScouts;
+        public Button uploadDataButton;
         Text eventStatusText;
         // Use this for initialization
         void Start()
         {
+            Application.targetFrameRate = 15;
             //save clear flags
             storedClearFlags = Camera.main.clearFlags;
 
@@ -60,7 +62,6 @@ namespace Assets.Scripts
             }
             if(sPrevPanel != null)
             {
-
                 Input.backButtonLeavesApp = false;
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
@@ -85,7 +86,7 @@ namespace Assets.Scripts
 
             if(!bIsSendingData && (bHasImagesToSend || bHasScoreScoutsToSend || bHasTeamMatchesToSend || bHasTeamPitScoutsToSend))
             {
-                Debug.Log("Sending Data");
+                //Debug.Log("Sending Data");
                 StartCoroutine(SendData());
             }
             /*
@@ -219,6 +220,7 @@ namespace Assets.Scripts
                 {
                     sPrevPanel = sCurrentPanel;
                     sCurrentPanel = panel;
+                    DestroyImmediate(openPanel);
                     switch (scheduleItemList[iNumInSchedule].sItemType)
                     {
                         case "matchScout":
@@ -230,7 +232,6 @@ namespace Assets.Scripts
                             Debug.Log("Instantiated a new scoreScout panel!");
                             break;
                     }
-                    Destroy(openPanel);
                     openPanel = tempPanel;
                     rectTransform = openPanel.GetComponent<RectTransform>();
                     openPanel.transform.SetParent(gameObject.transform);
@@ -245,7 +246,7 @@ namespace Assets.Scripts
                 sPrevPanel = sCurrentPanel;
                 sCurrentPanel = panel;
                 Debug.Log(sPrevPanel + "," + sCurrentPanel);
-                Destroy(openPanel);
+                DestroyImmediate(openPanel);
                 tempPanel = Instantiate(pitScoutPanel);
                 rectTransform = tempPanel.GetComponent<RectTransform>();
                 openPanel = tempPanel;
@@ -291,6 +292,8 @@ namespace Assets.Scripts
                 openPanel.GetComponentsInChildren<Button>()[2].onClick.AddListener(() => { StartCoroutine(ChangePanel("analyticsPanel")); });
                 openPanel.GetComponentsInChildren<Button>()[3].onClick.AddListener(() => { StartCoroutine(ChangePanel("loginPanel")); });
                 eventStatusText = GameObject.Find("EventStatusText").GetComponent<Text>();
+                uploadDataButton = GetComponentsInChildren< Button >()[4];
+                uploadDataButton.onClick.AddListener(() => { StartCoroutine(SendData()); });
             }
             else if (panel == "loginPanel")
             {

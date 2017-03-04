@@ -22,5 +22,11 @@ namespace Assets.Scripts
             increase50TimeList = new List<int>();
             increase60TimeList = new List<int>();
         }
+        public ScoreScout(ScheduleItem scheduleItem)
+        {
+            this.bColor = scheduleItem.bColor;
+            this.iMatchNumber = scheduleItem.iMatchNumber;
+            this.sEventCode = scheduleItem.sEventCode;
+        }
     }
 }

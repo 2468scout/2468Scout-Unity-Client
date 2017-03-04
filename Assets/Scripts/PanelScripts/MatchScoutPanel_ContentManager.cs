@@ -14,7 +14,7 @@ namespace Assets.Scripts{
         float aspectRatio;
         Time matchStartTime;
         public TeamMatch currentlyScoutingTeamMatch;
-        Button backButton, matchStartButton, menuButton, fieldImageButton, stopEventButton, leftCountIncreaseButton, leftCountDecreaseButton, rightCountIncreaseButton, rightCountDecreaseButton;
+        Button backButton, matchStartButton, prevMatchButton, nextMatchButton, fieldImageButton, stopEventButton, leftCountIncreaseButton, leftCountDecreaseButton, rightCountIncreaseButton, rightCountDecreaseButton;
         UIManager manager;
         Text timeRemainingText, stopEventButtonText, teamNumberText, colorStationNumberText, matchNumberText;
         Toggle autonomousToggle;
@@ -41,19 +41,22 @@ namespace Assets.Scripts{
             Debug.Log("FieldPanel width:" + GameObject.Find("FieldPanel").GetComponent<RectTransform>().rect.width + ", FieldPanel height: " + GameObject.Find("FieldPanel").GetComponent<RectTransform>().rect.height + ", calculated height:"  + ((GameObject.Find("FieldPanel").GetComponent<RectTransform>().rect.width / 2048) * 784));
             Button[] buttonArray = GetComponentsInChildren<Button>();
             backButton = buttonArray[0];
-            menuButton = buttonArray[1];
+            prevMatchButton = buttonArray[1];
             matchStartButton = buttonArray[2];
-            fieldImageButton = buttonArray[3];
-            stopEventButton = buttonArray[4];
-            leftCountIncreaseButton = buttonArray[5];
-            leftCountDecreaseButton = buttonArray[6];
-            rightCountIncreaseButton = buttonArray[7];
-            rightCountDecreaseButton = buttonArray[8];
+            nextMatchButton = buttonArray[3];
+            fieldImageButton = buttonArray[4];
+            stopEventButton = buttonArray[5];
+            leftCountIncreaseButton = buttonArray[6];
+            leftCountDecreaseButton = buttonArray[7];
+            rightCountIncreaseButton = buttonArray[8];
+            rightCountDecreaseButton = buttonArray[9];
             matchStartButton.onClick.AddListener(() => { this.StartMatch(); });
             fieldImageButton.onClick.AddListener(() => { this.CreatePointEvent(UnityEngine.Input.mousePosition); });
 
             Text[] textArray = GetComponentsInChildren<Text>();
             timeRemainingText = textArray[2];
+            nextMatchButton.onClick.AddListener(() => { NextMatch(); });
+            prevMatchButton.onClick.AddListener(() => { PrevMatch(); });
             stopEventButtonText = textArray[7];
 
             stopEventButton.gameObject.SetActive(false);
@@ -237,6 +240,24 @@ namespace Assets.Scripts{
                 manager.BackPanel();
             }
             */
+
+        }
+        void NextMatch()
+        {
+            if (manager.iNumInSchedule < manager.scheduleItemList.Capacity - 1)
+            {
+                manager.iNumInSchedule++;
+                StartCoroutine(manager.ChangePanel("matchScoutPanel"));
+            }
+        }
+
+        void PrevMatch()
+        {
+            if (manager.iNumInSchedule > 0)
+            {
+                manager.iNumInSchedule--;
+                StartCoroutine(manager.ChangePanel("matchScoutPanel"));
+            }
         }
     }
 }
