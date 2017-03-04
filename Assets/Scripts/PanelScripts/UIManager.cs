@@ -356,100 +356,104 @@ namespace Assets.Scripts
 
         public IEnumerator SendData()
         {
-            bIsSendingData = true;
-            listTeamPitScoutFilePaths = new List<string>(Directory.GetFiles(Application.persistentDataPath, "pit_team*.json"));
-            listTeamMatchFilePaths = new List<string>(Directory.GetFiles(Application.persistentDataPath, "team*.json"));
-            listScoreScoutFilePaths = new List<string>(Directory.GetFiles(Application.persistentDataPath, "score_match*.json"));
-            if (bHasTeamPitScoutsToSend)
+            if (!bIsSendingData)
             {
-                foreach (string s in listTeamPitScoutFilePaths)
+                bIsSendingData = true;
+                Debug.Log("Sending data!");
+                listTeamPitScoutFilePaths = new List<string>(Directory.GetFiles(Application.persistentDataPath, "pit_team*.json"));
+                listTeamMatchFilePaths = new List<string>(Directory.GetFiles(Application.persistentDataPath, "team*.json"));
+                listScoreScoutFilePaths = new List<string>(Directory.GetFiles(Application.persistentDataPath, "score_match*.json"));
+                if (bHasTeamPitScoutsToSend)
                 {
-                    WWW upload = new WWW(sMainURL + "/postPit", File.ReadAllBytes(s));
-                    Debug.Log("Uploading " + s + "to " + sMainURL + "/postPit");
-                    yield return upload;
-                    if (!string.IsNullOrEmpty(upload.error))
+                    foreach (string s in listTeamPitScoutFilePaths)
                     {
-                        Debug.Log("Error uploading: " + upload.error);
+                        WWW upload = new WWW(sMainURL + "/postPit", File.ReadAllBytes(s));
+                        Debug.Log("Uploading " + s + "to " + sMainURL + "/postPit");
+                        yield return upload;
+                        if (!string.IsNullOrEmpty(upload.error))
+                        {
+                            Debug.Log("Error uploading: " + upload.error);
+                        }
+                        else if (upload.text == "Error")
+                        {
+                            Debug.Log("Unknown Upload Error");
+                        }
+                        else if (upload.text == "Success")
+                        {
+                            Debug.Log("Success!");
+                        }
+                        WWW testHasData = new WWW(sMainURL + "/getFileExistence?FILEPATH=" + "TeamMatches/" + s.Substring(s.IndexOf("/t")));
+                        Debug.Log("Looking for server data: " + "TeamMatches/" + s.Substring(s.IndexOf("/t")));
+                        yield return testHasData;
+                        Debug.Log("Server Has Data: " + testHasData.text);
                     }
-                    else if (upload.text == "Error")
-                    {
-                        Debug.Log("Unknown Upload Error");
-                    }
-                    else if (upload.text == "Success")
-                    {
-                        Debug.Log("Success!");
-                    }
-                    WWW testHasData = new WWW(sMainURL + "/getFileExistence?FILEPATH=" + "TeamMatches/"+s.Substring(s.IndexOf("/t")));
-                    Debug.Log("Looking for server data: " + "TeamMatches/" + s.Substring(s.IndexOf("/t")));
-                    yield return testHasData;
-                    Debug.Log("Server Has Data: " + testHasData.text);
                 }
-            }
-            if (bHasImagesToSend)
-            {
-                foreach (string s in listImageFilePaths)
+                if (bHasImagesToSend)
                 {
+                    foreach (string s in listImageFilePaths)
+                    {
 
+                    }
                 }
-            }
-            if (bHasTeamMatchesToSend)
-            {
-                Debug.Log("Attempting to upload TeamMatches at: " + listTeamMatchFilePaths[0]);
-                bool bFailedToUpload = false;
-                foreach (string s in listTeamMatchFilePaths)
+                if (bHasTeamMatchesToSend)
                 {
-                    WWW upload = new WWW(sMainURL + "/postTeamMatch", File.ReadAllBytes(s));
-                    Debug.Log("Uploading " + s + "to " + sMainURL + "/postTeamMatch");
-                    yield return upload;
-                    if (!string.IsNullOrEmpty(upload.error))
+                    Debug.Log("Attempting to upload TeamMatches at: " + listTeamMatchFilePaths[0]);
+                    bool bFailedToUpload = false;
+                    foreach (string s in listTeamMatchFilePaths)
                     {
-                        Debug.Log("Error uploading: " + upload.error);
+                        WWW upload = new WWW(sMainURL + "/postTeamMatch", File.ReadAllBytes(s));
+                        Debug.Log("Uploading " + s + "to " + sMainURL + "/postTeamMatch");
+                        yield return upload;
+                        if (!string.IsNullOrEmpty(upload.error))
+                        {
+                            Debug.Log("Error uploading: " + upload.error);
+                        }
+                        else if (upload.text == "Error")
+                        {
+                            Debug.Log("Unknown Upload Error");
+                        }
+                        else if (upload.text == "Success")
+                        {
+                            Debug.Log("Success!");
+                        }
+                        WWW testHasData = new WWW(sMainURL + "/getFileExistence?FILEPATH=" + "TeamMatches" + s.Substring(s.IndexOf("/t")));
+                        Debug.Log("Looking for server data: " + "TeamMatches" + s.Substring(s.IndexOf("/t")));
+                        yield return testHasData;
+                        Debug.Log("Server Has Data: " + testHasData.text);
+                        bFailedToUpload = !(testHasData.text == "true");
                     }
-                    else if (upload.text == "Error")
-                    {
-                        Debug.Log("Unknown Upload Error");
-                    }
-                    else if (upload.text == "Success")
-                    {
-                        Debug.Log("Success!");
-                    }
-                    WWW testHasData = new WWW(sMainURL + "/getFileExistence?FILEPATH=" +"TeamMatches" + s.Substring(s.IndexOf("/t")));
-                    Debug.Log("Looking for server data: " + "TeamMatches" + s.Substring(s.IndexOf("/t")));
-                    yield return testHasData;
-                    Debug.Log("Server Has Data: " + testHasData.text);
-                    bFailedToUpload = !(testHasData.text == "true");
+                    bHasTeamMatchesToSend = bFailedToUpload;
                 }
-                bHasTeamMatchesToSend = bFailedToUpload;
-            }
-            if (bHasScoreScoutsToSend)
-            {
-                bool bFailedToUpload = false;
-                foreach (string s in listTeamMatchFilePaths)
+                if (bHasScoreScoutsToSend)
                 {
-                    WWW upload = new WWW(sMainURL + "/postMatchScores", File.ReadAllBytes(s));
-                    Debug.Log("Uploading " + s + "to " + sMainURL + "/postMatchScores");
-                    yield return upload;
-                    if (!string.IsNullOrEmpty(upload.error))
+                    bool bFailedToUpload = false;
+                    foreach (string s in listTeamMatchFilePaths)
                     {
-                        Debug.Log("Error uploading: " + upload.error);
-                    }
-                    else if (upload.text == "Error")
-                    {
-                        Debug.Log("Unknown Upload Error");
-                    }
-                    else if (upload.text == "Success")
-                    {
-                        Debug.Log("Success!");
-                    }
+                        WWW upload = new WWW(sMainURL + "/postMatchScores", File.ReadAllBytes(s));
+                        Debug.Log("Uploading " + s + "to " + sMainURL + "/postMatchScores");
+                        yield return upload;
+                        if (!string.IsNullOrEmpty(upload.error))
+                        {
+                            Debug.Log("Error uploading: " + upload.error);
+                        }
+                        else if (upload.text == "Error")
+                        {
+                            Debug.Log("Unknown Upload Error");
+                        }
+                        else if (upload.text == "Success")
+                        {
+                            Debug.Log("Success!");
+                        }
 
-                    WWW testHasData = new WWW(sMainURL + "/getFileExistence?FILEPATH=" + s);
-                    yield return testHasData;
-                    Debug.Log("Server Has Data: " + testHasData.text);
-                    bFailedToUpload = (testHasData.text == "false");
+                        WWW testHasData = new WWW(sMainURL + "/getFileExistence?FILEPATH=" + s);
+                        yield return testHasData;
+                        Debug.Log("Server Has Data: " + testHasData.text);
+                        bFailedToUpload = (testHasData.text == "false");
+                    }
+                    bHasScoreScoutsToSend = bFailedToUpload;
                 }
-                bHasScoreScoutsToSend = bFailedToUpload;
+                bIsSendingData = false;
             }
-            bIsSendingData = false;
         }
 
         public void SwitchDebug(bool b)

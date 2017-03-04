@@ -15,7 +15,7 @@ namespace Assets.Scripts
         bool bColor, bMatchStarted;
         UIManager manager;
         Button backButton, matchStartButton, increase1Button, increase5Button, increase40Button, increase50Button, increase60Button, nextMatchButton, prevMatchButton;
-        Text timeRemainingText, backButtonText;
+        Text timeRemainingText, backButtonText, matchNumberText, scoutingColorText;
         ScoreScout currentScoreScout;
         string sMatchStatus;
         // Use this for initialization
@@ -58,6 +58,7 @@ namespace Assets.Scripts
             }
             */
             sMatchStatus = "Match Unstarted";
+
         }
         // Update is called once per frame
         void Update()
